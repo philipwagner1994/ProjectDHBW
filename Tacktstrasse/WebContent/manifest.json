@@ -1,0 +1,125 @@
+{
+"_version": "1.1.0",
+	"sap.app" : {
+		"_version" : "1.1.0",
+		"id" : "sap.checkmarx.selfservice",
+		"type" : "application",
+		"title" : "Tacktstrasse",
+		"description" : "desc.",
+		"applicationVersion" : {
+	  		"version" : "1.0.0"
+		}
+  	},
+  	"sap.ui" : {
+		"_version" : "1.1.0",
+		"technology" : "UI5",
+		"deviceTypes" : {
+	  		"desktop" : true,
+	  		"tablet" : false,
+	  		"phone" : false
+		},
+		"supportedThemes" : [
+	  		"sap_bluecrystal"
+		]
+  	},
+	"sap.ui5": {
+		"_version" : "1.1.0",
+		"rootView" : "sap.checkmarx.selfservice.tacktstrasse.App",
+		"dependencies" : {
+	  		"minUI5Version" : "1.30",
+	  		"libs" : {
+				"sap.m" : {}
+	  		}
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "sap.checkmarx.selfservice.tacktstrasse",
+				"controlId": "app",
+				"controlAggregation": "pages"		
+			},
+			"routes": [{
+				"pattern": "",
+				"name": "uebersicht",
+				"target": "uebersicht"
+			}, {
+				"pattern": "fehler",
+				"name": "fehler",
+				"target": "fehler"
+			},{
+				"pattern": "drilling",
+				"name": "drilling",
+				"target": "drilling"
+			},{
+				"pattern": "milling",
+				"name": "milling",
+				"target": "milling"
+			},{
+				"pattern": "produktion",
+				"name": "produktion",
+				"target": "produktion"
+			},{
+				"pattern": "durchlauf",
+				"name": "durchlauf",
+				"target": "durchlauf"
+			},{
+				"pattern": "details",
+				"name": "details",
+				"target": "details"
+			}],
+			"targets": {
+				"uebersicht": {
+					"viewName": "uebersicht",
+					"viewLevel" : 1
+				},
+				
+				"fehler": {
+					"viewName": "fehler",
+					"viewPath": "sap.checkmarx.selfservice.tacktstrasse.darstellungen",
+					"viewLevel" : 2
+				},
+				"drilling": {
+					"viewName": "drilling",
+					"viewPath": "sap.checkmarx.selfservice.tacktstrasse.darstellungen",
+					"viewLevel" : 2
+				},
+				"milling": {
+					"viewName": "milling",
+					"viewPath": "sap.checkmarx.selfservice.tacktstrasse.darstellungen",
+					"viewLevel" : 2
+				},
+				"produktion": {
+					"viewName": "produktion",
+					"viewPath": "sap.checkmarx.selfservice.tacktstrasse.darstellungen",
+					"viewLevel" : 2
+				},
+				"durchlauf": {
+					"viewName": "durchlauf",
+					"viewPath": "sap.checkmarx.selfservice.tacktstrasse.darstellungen",
+					"viewLevel" : 2
+				},
+				"details": {
+					"viewName": "details",
+					"viewPath": "sap.checkmarx.selfservice.tacktstrasse.darstellungen",
+					"viewLevel" : 2
+				}
+
+			}
+		},
+		"resources": {
+			"js": [{
+                "uri": "Component.js" 
+            }],
+	  		"css": [
+				{
+				  "uri": "css/tile.css" 
+				},
+				{
+				  "uri": "css/methodes.css"
+				}
+	  		]
+	  		
+		}
+	}
+}

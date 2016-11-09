@@ -1,0 +1,22 @@
+{
+  "lineData": {
+      "data": [65, 59, 80, 81, 56, 55, 40]
+  },
+  "gaugeData": {
+  	"data": [91.4]
+  },
+  "filter":[
+  {
+  	"Key": 1,
+  	"Name": "Tag" 
+  }, 
+  {
+  	"Key": 2,
+  	"Name": "Woche"
+  },
+  {
+  	"Key": 3,
+  	"Name": "Jahr"
+  }	
+  ]
+}

@@ -1,0 +1,38 @@
+<core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+		controllerName="sap.checkmarx.selfservice.tacktstrasse.darstellungen.details" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page
+		title="Informationen"
+		showHeader="true"
+		enableScrolling="false"
+		showNavButton="true"
+		navButtonPress="onNavBack">
+		<Table
+                    headerText="Aktuelle Informationen über die Produktion"
+                    items="{/ProductCollection}">
+                    <columns>
+                        <Column>
+                            <header>
+                                <Label text="Name" />
+                            </header>
+                        </Column>
+                        <Column>
+                            <header>
+                                <Label text="number" />
+                            </header>
+                        </Column>
+                        <Column>
+                            <header>
+                                <Label text="Zustand" />
+                            </header>
+                        </Column>
+                    </columns>
+                    <ColumnListItem type="Active">
+                        <cells>
+                            <ObjectIdentifier title="{title}" />
+                            <ObjectIdentifier title="{number}" />
+                            <ObjectIdentifier title="{info}" />
+                        </cells>
+                    </ColumnListItem>
+                </Table>
+	</Page>
+</core:View>

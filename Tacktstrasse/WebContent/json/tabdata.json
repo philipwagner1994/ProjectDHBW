@@ -1,0 +1,36 @@
+{
+	"ProductCollection" : [
+		{
+			"title" : "Informationen",
+			"number" : "",
+			"numberUnit" : "",
+			"info" : "",
+			"infoState" : ""
+		
+		},
+		{
+			"title" : "Hitzeanzeige",
+			"number" : "90",
+			"numberUnit" : "grad",
+			"info" : "Zu Heiß",
+			"infoState" : "Error"
+		
+		},
+		{
+			"title" : "Produktionsstraße",
+			"number" : "",
+			"numberUnit" : "",
+			"info" : "Bohrprozess",
+			"infoState" : "Warning"
+		
+		},
+		{
+			"title" : "Tagesdurchlauf",
+			"number" : "1367",
+			"numberUnit" : "st",
+			"info" : "",
+			"infoState" : ""
+		
+		}
+	]
+}

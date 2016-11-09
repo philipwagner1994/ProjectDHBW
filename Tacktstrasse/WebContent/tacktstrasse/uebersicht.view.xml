@@ -1,0 +1,112 @@
+<core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:l="sap.ui.layout"
+		controllerName="sap.checkmarx.selfservice.tacktstrasse.uebersicht" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page
+		title="Taktstrasse"
+		showHeader="true"
+		enableScrolling="false"
+		showNavButton="false"
+		>
+		 <customHeader>
+		 <Bar class="header" >
+		 	<contentMiddle>
+				<Text text = "Taktstrasse" class="headertitle"></Text>
+			</contentMiddle>
+		 </Bar>
+		 
+    </customHeader>
+		<TileContainer
+			id="container"
+			tiles="{/TileCollection}">
+			 <!--<StandardTile
+				icon="sap-icon://{icon}"
+				type="{type}"
+				number="{number}"
+				numberUnit="{numberUnit}"
+				title="{title}"
+				info="{info}"
+				infoState="{infoState}"
+				press="handleEditPress" /> -->
+		
+			 <CustomTile press="handleEditPress" borderVisible="true" class="tileborder tilebackground tilesize" >
+			 	<content>
+			 		<l:Grid vSpacing="0" hSpacing="1"  defaultSpan="L6" class="sapUiSmallMarginTop">
+						<l:content>
+							<core:Icon
+									src="sap-icon://{icon}"
+									class="iconsize"
+									color="#0414A6"
+									size="50px" >
+										 
+							</core:Icon>
+							<Text text="{number} {numberUnit}" id="Value1" class="sapUiTinyMargin tilevalue">
+							</Text>
+							<Text text="" class="sapUiTinyMargin">							
+						    </Text>
+							<Text text="{number2} {numberUnit2}" class="sapUiTinyMargin tilevalue">
+							 </Text>
+							 <Text text="" class="sapUiTinyMargin">
+							<layoutData>
+								<l:GridData span="L12" />
+							</layoutData>
+							 </Text>							 
+							<Text text="{title}" class="sapUiTinyMargin tiletitle">
+							<layoutData>
+								<l:GridData span="L12" />
+							</layoutData>							
+						    </Text>
+							<Text text="{OrderNum}" class="sapUiTinyMargin tilevalue">
+							<layoutData>
+								<l:GridData span="L12" />
+							</layoutData>							
+						    </Text>
+							
+							<!--  <Text text="{OrderNum}" class="sapUiTinyMargin">							
+						    </Text>
+						    <Text text="" class="sapUiTinyMargin">
+						    <layoutData>
+								<l:GridData span="L3" />
+							</layoutData>							
+						    </Text>
+							<Text text="{info}" class="sapUiTinyMargin tileinfo">							
+						    </Text>-->
+							<!--<Text text="" class="sapUiTinyMargin" />-->
+					
+			 			</l:content>
+					</l:Grid>
+			 		
+			 		
+			 		
+			 		<!--<VBox>
+			  			<l:VerticalLayout>
+			      			<l:HorizontalLayout>
+			      				<l:VerticalLayout>
+			      					<core:Icon
+									src="sap-icon://syringe"
+									class="size1"
+									color="#031E48" >
+										 
+									</core:Icon>
+			 						<Text text="{number}" class="sapUiTinyMargin" />
+			  					</l:VerticalLayout>
+			      			</l:HorizontalLayout>
+			     			<l:HorizontalLayout>
+			  					<Text text="{title}" class="sapUiTinyMargin"/>
+			    			</l:HorizontalLayout>
+			    			<l:HorizontalLayout>
+			  					<Text text="{number}"/>
+			    			</l:HorizontalLayout>
+			  			</l:VerticalLayout>
+			  		</VBox> -->
+			  	</content>
+			</CustomTile>
+		</TileContainer>
+		<!--  <footer>
+			<Toolbar>
+				<ToolbarSpacer/>
+					<Button text="Edit" press="handleEditPress" />
+					<Button text="Busy state" press="handleBusyPress" />
+				<ToolbarSpacer/>
+			</Toolbar>
+		</footer>-->
+	</Page>
+</core:View>

@@ -1,0 +1,27 @@
+<core:View  xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:acc="sap.checkmarx.selfservice.control"
+		controllerName="sap.checkmarx.selfservice.tacktstrasse.darstellungen.drilling" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page
+		title="Drilling"
+		showHeader="true"
+		enableScrolling="false"
+		showNavButton="true"
+		navButtonPress="onNavBack">
+		<!--  <nabi:D3Circle radius="40"/>-->
+		
+		<IconTabBar
+		id="idIconTabBarNoIcons"
+		expanded="{device>/isNoPhone}"
+		class="sapUiResponsiveContentPadding">
+		<items>
+			<IconTabFilter
+				text="Hitzeanzeige">
+				<acc:LineChartHitze width="400" height="200" responsive="true" chartType="Line" data="{/lineData}"/>
+			</IconTabFilter>
+			<IconTabFilter
+				text="Geschwindigkeitsanzeige">
+				<acc:LineChartSpeed width="400" height="200" responsive="true" chartType="Line" data="{/lineData}"/>
+			</IconTabFilter>
+		</items>
+	</IconTabBar>
+	</Page>
+</core:View>
