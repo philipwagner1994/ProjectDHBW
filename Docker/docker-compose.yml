@@ -1,0 +1,7 @@
+version: '2'
+
+services:
+    postgresql: 
+        build: ./Dockerpostgres
+        ports:
+            - "5432:5432"
