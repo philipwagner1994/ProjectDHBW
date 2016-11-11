@@ -8,16 +8,16 @@ sap.ui.define([
 	], function(jQuery, Controller, JSONModel, History ) {
 	"use strict";
  
-	var PageController = Controller.extend("sap.checkmarx.selfservice.tacktstrasse.darstellungen.fehler", {
+	var PageController = Controller.extend("sap.checkmarx.selfservice.taktstrasse.darstellungen.details", {
 		
 		onInit : function (evt) {
 			 var oModel = new sap.ui.model.json.JSONModel();
 	           // Load JSON in model
-	              oModel.loadData("json/chartdata.json");
+	              oModel.loadData("json/tabdata.json");
 			this.getView().setModel(oModel);
 		},
 		onNavBack: function () {
-			sap.ui.core.UIComponent.getRouterFor(this).navTo("uebersicht");
+			sap.ui.core.UIComponent.getRouterFor(this).navTo("overview");
 		}
  
 		

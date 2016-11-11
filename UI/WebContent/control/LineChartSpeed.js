@@ -42,13 +42,16 @@ sap.ui.define([
              		    bindto: '#' + CHART_CANVAS_NAME_PREFIX + this.getId(),
              		    data: {
              		          json: chartData,
-             		          type: 'spline'
+             		          type: 'spline',
+	             		      colors: {
+	           		              data: '#0414A6'
+	           		          },
              		        },
              		        
              		        axis: {
              		          y: {
              		            label: {
-             		              text: 'Geschwindigkeit',
+             		              text: 'Speed',
              		              position: 'outer-middle'
              		            },
              		            tick: {
@@ -57,7 +60,7 @@ sap.ui.define([
              		          },
              		          x: {
              			            label: {
-             			              text: 'Auftrag',
+             			              text: 'Order Number',
              			              position: 'outer-middle'
              			            },
              		          }

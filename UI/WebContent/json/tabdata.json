@@ -1,7 +1,7 @@
 {
 	"ProductCollection" : [
 		{
-			"title" : "Informationen",
+			"title" : "Errors",
 			"number" : "",
 			"numberUnit" : "",
 			"info" : "",
@@ -9,23 +9,23 @@
 		
 		},
 		{
-			"title" : "Hitzeanzeige",
+			"title" : "System-Crash",
 			"number" : "90",
 			"numberUnit" : "grad",
-			"info" : "Zu Heiß",
+			"info" : "Too Hot",
 			"infoState" : "Error"
 		
 		},
 		{
-			"title" : "Produktionsstraße",
+			"title" : "Prodaction-alarm",
 			"number" : "",
 			"numberUnit" : "",
-			"info" : "Bohrprozess",
+			"info" : "DrilL",
 			"infoState" : "Warning"
 		
 		},
 		{
-			"title" : "Tagesdurchlauf",
+			"title" : "Dayreport",
 			"number" : "1367",
 			"numberUnit" : "st",
 			"info" : "",

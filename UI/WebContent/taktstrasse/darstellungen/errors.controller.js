@@ -4,10 +4,11 @@ sap.ui.define([
 		'sap/ui/model/json/JSONModel',
 		"sap/ui/core/routing/History"
 
+
 	], function(jQuery, Controller, JSONModel, History ) {
 	"use strict";
  
-	var PageController = Controller.extend("sap.checkmarx.selfservice.tacktstrasse.darstellungen.milling", {
+	var PageController = Controller.extend("sap.checkmarx.selfservice.taktstrasse.darstellungen.errors", {
 		
 		onInit : function (evt) {
 			 var oModel = new sap.ui.model.json.JSONModel();
@@ -15,14 +16,12 @@ sap.ui.define([
 	              oModel.loadData("json/chartdata.json");
 			this.getView().setModel(oModel);
 		},
-		onBeforeRendering: function() {
-			
-			
-		},
 		onNavBack: function () {
-			sap.ui.core.UIComponent.getRouterFor(this).navTo("uebersicht");
+			sap.ui.core.UIComponent.getRouterFor(this).navTo("overview");
 		}
-
+ 
+		
+ 
 	});
  
 	return PageController;

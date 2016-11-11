@@ -1,0 +1,21 @@
+<core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:acc="sap.checkmarx.selfservice.control"
+		controllerName="sap.checkmarx.selfservice.taktstrasse.darstellungen.runtime" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page
+		title="Runtime"
+		showHeader="true"
+		enableScrolling="false"
+		showNavButton="true"
+		navButtonPress="onNavBack" >
+			<customHeader>
+				<Bar class="header" >
+					<contentLeft>
+						<Button icon="sap-icon://nav-back" press="onNavBack" class="sapMBarChild sapBtn sapBtnBase navBack"/>  						
+					</contentLeft>
+					<contentMiddle>
+						<Text text = "Runtime" class="headertitle"></Text>
+					</contentMiddle>
+				</Bar>	 
+	    	</customHeader>
+			<acc:LineChartRuntime width="400" height="200" responsive="true" chartType="Line" data="{/lineData}"/>
+	</Page>
+</core:View>

@@ -3,9 +3,9 @@ sap.ui.define([
 ], function(Control) {
   'use strict';
 
-  var CHART_CANVAS_NAME_PREFIX = 'LineChartHitze';
+  var CHART_CANVAS_NAME_PREFIX = 'LineChartHeat';
 
-  return Control.extend('sap.checkmarx.selfservice.control.LineChartHitze', {
+  return Control.extend('sap.checkmarx.selfservice.control.LineChartHeat', {
     metadata: {
       properties: {
         data: {
@@ -42,13 +42,16 @@ sap.ui.define([
 		    bindto: '#' + CHART_CANVAS_NAME_PREFIX + this.getId(),
 		    data: {
 		          json: chartData,
-		          type: 'spline'
+		          type: 'spline',
+		          colors: {
+		              data: '#0414A6'
+		          },
 		        },
 		        
 		        axis: {
 		          y: {
 		            label: {
-		              text: 'Hitze',
+		              text: 'Heat',
 		              position: 'outer-middle'
 		            },
 		            tick: {
@@ -57,7 +60,7 @@ sap.ui.define([
 		          },
 		          x: {
 			            label: {
-			              text: 'Auftrag',
+			              text: 'Order Number',
 			              position: 'outer-middle'
 			            },
 		          }
@@ -76,7 +79,7 @@ sap.ui.define([
       //Create the control
       oRm.write('<div');
       oRm.writeControlData(oControl);
-      oRm.addClass("LineChartHitze");
+      oRm.addClass("LineChartHeat");
       oRm.addClass("sapUiResponsiveMargin");
       oRm.writeClasses();
       oRm.write('>');

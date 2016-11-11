@@ -1,19 +1,18 @@
 <core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:l="sap.ui.layout"
-		controllerName="sap.checkmarx.selfservice.tacktstrasse.uebersicht" xmlns:html="http://www.w3.org/1999/xhtml">
+		controllerName="sap.checkmarx.selfservice.taktstrasse.overview" xmlns:html="http://www.w3.org/1999/xhtml">
 	<Page
 		title="Taktstrasse"
 		showHeader="true"
 		enableScrolling="false"
 		showNavButton="false"
 		>
-		 <customHeader>
-		 <Bar class="header" >
-		 	<contentMiddle>
-				<Text text = "Taktstrasse" class="headertitle"></Text>
-			</contentMiddle>
-		 </Bar>
-		 
-    </customHeader>
+			<customHeader>
+				<Bar class="header" >
+					<contentMiddle>
+						<Text text = "Taktstrasse" class="headertitle"></Text>
+					</contentMiddle>
+				</Bar>	 
+	    	</customHeader>
 		<TileContainer
 			id="container"
 			tiles="{/TileCollection}">

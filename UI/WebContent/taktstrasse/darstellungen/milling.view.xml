@@ -1,22 +1,32 @@
 <core:View  xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:acc="sap.checkmarx.selfservice.control" xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified" 
-		controllerName="sap.checkmarx.selfservice.tacktstrasse.darstellungen.milling" xmlns:html="http://www.w3.org/1999/xhtml">
+		controllerName="sap.checkmarx.selfservice.taktstrasse.darstellungen.milling" xmlns:html="http://www.w3.org/1999/xhtml">
 	<Page
 		title="Milling"
 		showHeader="true"
 		enableScrolling="false"
 		showNavButton="true"
-		navButtonPress="onNavBack">		
+		navButtonPress="onNavBack">
+			<customHeader>
+				<Bar class="header" >
+					<contentLeft>
+						<Button icon="sap-icon://nav-back" press="onNavBack" class="sapMBarChild sapBtn sapBtnBase navBack"/>  						
+					</contentLeft>
+					<contentMiddle>
+						<Text text = "Milling" class="headertitle"></Text>
+					</contentMiddle>
+				</Bar>	 
+	    	</customHeader>		
 		<IconTabBar
 		id="idIconTabBarNoIcons"
 		expanded="{device>/isNoPhone}"
-		class="sapUiResponsiveContentPadding">
+		class="selector sapUiResponsiveContentPadding">
 		<items>
 			<IconTabFilter
-				text="Hitzeanzeige">
-				<acc:LineChartHitze width="400" height="200" responsive="true" chartType="Line" data="{/lineData}"/>
+				text="Heat indicator" >
+				<acc:LineChartHeat width="400" height="200" responsive="true" chartType="Line" data="{/lineData}"/>
 			</IconTabFilter>
 			<IconTabFilter
-				text="Geschwindigkeitsanzeige">
+				text="Speed indicator" class="selector">
 				<l:VerticalLayout width="100%" >
 					<acc:LineChartSpeed width="400" height="200" responsive="true" chartType="Line" data="{/lineData}"/>
 					<l:FixFlex class="fixFlexHorizontal" vertical="true" >

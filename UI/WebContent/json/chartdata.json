@@ -3,20 +3,20 @@
       "data": [65, 59, 80, 81, 56, 55, 40]
   },
   "gaugeData": {
-  	"data": [91.4]
+  	"data": [112]
   },
   "filter":[
   {
   	"Key": 1,
-  	"Name": "Tag" 
+  	"Name": "Day" 
   }, 
   {
   	"Key": 2,
-  	"Name": "Woche"
+  	"Name": "Week"
   },
   {
   	"Key": 3,
-  	"Name": "Jahr"
+  	"Name": "Year"
   }	
   ]
 }

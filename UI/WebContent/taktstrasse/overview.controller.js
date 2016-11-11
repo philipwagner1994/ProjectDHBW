@@ -9,7 +9,7 @@ sap.ui.define([
 	], function(jQuery, Controller, JSONModel, UIComponent, Router ) {
 	"use strict";
 
-	var PageController = Controller.extend("sap.checkmarx.selfservice.tacktstrasse.uebersicht", {
+	var PageController = Controller.extend("sap.checkmarx.selfservice.taktstrasse.overview", {
 		
 		onInit : function (evt) {
 			var oModel = new sap.ui.model.json.JSONModel();
@@ -48,12 +48,12 @@ sap.ui.define([
 		    case 2:
 		    	oModel.oData.flags[0].livedown = true;
 				oModel.refresh(true);
-		    	sap.ui.core.UIComponent.getRouterFor(this).navTo("produktion");
+		    	sap.ui.core.UIComponent.getRouterFor(this).navTo("production");
 		        break;
 		    case 3:
 		    	oModel.oData.flags[0].livedown = true;
 				oModel.refresh(true);
-		    	sap.ui.core.UIComponent.getRouterFor(this).navTo("fehler");
+		    	sap.ui.core.UIComponent.getRouterFor(this).navTo("errors");
 		        break;
 		    case 4:
 		    	oModel.oData.flags[0].livedown = true;
@@ -63,7 +63,7 @@ sap.ui.define([
 		    case 5:
 		    	oModel.oData.flags[0].livedown = true;
 				oModel.refresh(true);
-		    	sap.ui.core.UIComponent.getRouterFor(this).navTo("durchlauf");
+		    	sap.ui.core.UIComponent.getRouterFor(this).navTo("runtime");
 		        break;
 		    default:
 		        alert("Noch kein Link gepflegt");

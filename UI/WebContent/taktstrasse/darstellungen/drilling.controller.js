@@ -7,7 +7,7 @@ sap.ui.define([
 	], function(jQuery, Controller, JSONModel, History ) {
 	"use strict";
  
-	var PageController = Controller.extend("sap.checkmarx.selfservice.tacktstrasse.darstellungen.durchlauf", {
+	var PageController = Controller.extend("sap.checkmarx.selfservice.taktstrasse.darstellungen.drilling", {
 		
 		onInit : function (evt) {
 			 var oModel = new sap.ui.model.json.JSONModel();
@@ -20,7 +20,7 @@ sap.ui.define([
 			
 		},
 		onNavBack: function () {
-			sap.ui.core.UIComponent.getRouterFor(this).navTo("uebersicht");
+			sap.ui.core.UIComponent.getRouterFor(this).navTo("overview");
 		}
 
 	});

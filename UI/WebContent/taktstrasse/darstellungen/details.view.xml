@@ -1,28 +1,38 @@
 <core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
-		controllerName="sap.checkmarx.selfservice.tacktstrasse.darstellungen.details" xmlns:html="http://www.w3.org/1999/xhtml">
+		controllerName="sap.checkmarx.selfservice.taktstrasse.darstellungen.details" xmlns:html="http://www.w3.org/1999/xhtml">
 	<Page
-		title="Informationen"
+		title="Details"
 		showHeader="true"
 		enableScrolling="false"
 		showNavButton="true"
 		navButtonPress="onNavBack">
+			<customHeader>
+				<Bar class="header" >
+					<contentLeft>
+						<Button icon="sap-icon://nav-back" press="onNavBack" class="sapMBarChild sapBtn sapBtnBase navBack"/>  						
+					</contentLeft>
+					<contentMiddle>
+						<Text text = "Details" class="headertitle"></Text>
+					</contentMiddle>
+				</Bar>	 
+	    	</customHeader>
 		<Table
-                    headerText="Aktuelle Informationen über die Produktion"
+                    headerText="Current Details"
                     items="{/ProductCollection}">
                     <columns>
                         <Column>
                             <header>
-                                <Label text="Name" />
+                                <Label text="Info1" />
                             </header>
                         </Column>
                         <Column>
                             <header>
-                                <Label text="number" />
+                                <Label text="Info2" />
                             </header>
                         </Column>
                         <Column>
                             <header>
-                                <Label text="Zustand" />
+                                <Label text="Info3" />
                             </header>
                         </Column>
                     </columns>
