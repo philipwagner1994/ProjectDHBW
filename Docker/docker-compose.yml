@@ -10,9 +10,20 @@ services:
         build: ./Dockerjava
         links:
             - kafka
+            - activemq
     postgresql: 
         build: ./Dockerpostgres
         ports:
             - "5432:5432"
+    activemq:
+        build: ./Dockeractivemq
+        ports: 
+            - "8161:8161"
+            - "61616:61616"
+    spark:
+        build: ./Dockerspark
+        ports: 
+            - "8080:8080"
+            - "7077:7077"
 	
 	
