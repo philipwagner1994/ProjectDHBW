@@ -12,6 +12,7 @@ import org.I0Itec.zkclient.ZkClient;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import Data_collector.data_collector.DataCollector.*;
+import Data_collector.data_collector.Database.postgresql;
 import Data_collector.data_collector.LiveData.*;
 import Data_collector.data_collector.StateMachine.StateMachine_Kafka;
 import kafka.admin.AdminUtils;
@@ -32,7 +33,7 @@ public class App
 		Properties props = new Properties();
 		props.put("metadata.broker.list", "192.168.99.100:1000");
 		props.put("serializer.class", "kafka.serializer.StringEncoder");
-		props.put("partitioner.class", "Kafka_Consumer.Consumer_1.SimplePartitioner");
+		props.put("partitioner.class", "Data_collector.data_collector.main.SimplePartitioner");
 		props.put("request.required.acks", "1");
 		 
 		config2 = new ProducerConfig(props);
@@ -45,9 +46,16 @@ public class App
 		}
 		Producer<String, String> producer = new Producer<String, String>(config2);
 		
+		//For Database connection
+        postgresql sql = new postgresql();
+        
     	//start server for UI communication
-    	LiveServer server = new LiveServer();
+    	LiveServer server = new LiveServer(sql);
         server.start();
+        
+
+        HistoryServer server2 = new HistoryServer(sql);
+        server2.start();
     	SpectralAnalysis spectral = new SpectralAnalysis();
     	
     	 //Kafka Consumer
@@ -81,7 +89,7 @@ public class App
             activemq [1]= text.substring(text.indexOf("<materialNumber>")+16,text.indexOf("</materialNumber>"));
             activemq [2]= text.substring(text.indexOf("<orderNumber>")+13,text.indexOf("</orderNumber>"));
             activemq [3]= text.substring(text.indexOf("<timeStamp>")+11,text.indexOf("</timeStamp>"));;
-    		StateMachine_Kafka test = new StateMachine_Kafka(server, spectral);
+    		StateMachine_Kafka test = new StateMachine_Kafka(server, spectral, producer);
     		test.setActivemq(activemq);
     		KafkaConsumer.setStateMachines(test);
    		}catch(Exception e){};

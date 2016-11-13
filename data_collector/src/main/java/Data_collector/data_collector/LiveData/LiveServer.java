@@ -14,56 +14,22 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.simple.JSONArray;
 
+import Data_collector.data_collector.Database.postgresql;
+
 public class LiveServer extends Thread{
 	private 	JSONArray json = new JSONArray();
 	private JSONObject jo = new JSONObject();
 	private String sdata, output;
+	private postgresql sql;
 	
 	private static final Vector<String>server  = new Vector<String>();
 	
-	public LiveServer(){
-
+	public LiveServer(postgresql sql){
+		this.sql = sql;
 	}
 	
     public static void main(String[] argv) throws Exception {
-    	/*JSONArray json = new JSONArray();
-		JSONObject jo = new JSONObject();
-		jo.put("sensor", "L3");
-		jo.put("value1", "30");
-		jo.put("value2", "50");
-		jo.put("OrderNum", "XC35");
-		json.add(jo);
-		String text = json.toString();
-        ServerSocket s = new ServerSocket(1234);
-        System.out.println("Server started");
-        int test=0;
-        while (true) {
-        	test++;
-            Socket t = s.accept();// wait for client to connect
-            System.out.println("server connected");
-            BufferedReader in = new BufferedReader(new InputStreamReader(t.getInputStream()));
-            String serverResponse = in.readLine();
-            System.out.println("Server-Antwort: " + serverResponse);
-            
-            PrintWriter out = new PrintWriter(t.getOutputStream(), true);
-            //out.println("grr grr roger hier Server");
-            //out.println(json);
-            String data = "ich bin super \n";
 
-            StringBuilder builder = new StringBuilder();
-
-            builder.append("HTTP/1.1 200 OK\r\n");
-            builder.append("Access-Control-Allow-Origin: *\n");
-            builder.append("Content-Type: text/html; charset=utf-8\r\n");
-            builder.append("Content-Length:" + text.length() + "\r\n\r\n");
-            builder.append(text);
-            out.write(builder.toString());
-            out.flush();
-            in.close();
-            out.close();
-            t.close();
-            System.out.println("Runde:" + test);
-        }*/
 
     }
     
@@ -151,7 +117,7 @@ public class LiveServer extends Thread{
         	json.add(jo);
         	sdata = json.toString();
         	server.add(sdata);
-        	
+        	sql.insertMessages(sdata);
         	json.clear();
         }
         

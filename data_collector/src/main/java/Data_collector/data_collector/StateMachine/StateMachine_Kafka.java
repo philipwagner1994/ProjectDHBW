@@ -22,8 +22,8 @@ public class StateMachine_Kafka {
 	private StateMachine<State, Trigger> producePart;
 	private String[] activemq;
 	private  Vector<KafkaMessage> messages = new Vector<>();
-	private LiveServer server = new LiveServer();
-	private SpectralAnalysis spectral = new SpectralAnalysis();
+	private LiveServer server; 
+	private SpectralAnalysis spectral;// = new SpectralAnalysis();
 	private String[] spectralData;
 	private 	JSONArray json = new JSONArray();
 	private Producer<String, String> producer;
@@ -322,7 +322,7 @@ return "nothing";
     			
     		default:	
     			if(producePart.canFire(Trigger.L3true) ){
-    				if(message.getItemName().equals("MILLNG_SPEED")|| message.getItemName().equals("MILLNG")||message.getItemName().equals("MILLNG_HEAT")){
+    				if(message.getItemName().equals("MILLING_SPEED")|| message.getItemName().equals("MILLING")||message.getItemName().equals("MILLING_HEAT")){
     	    			messages.add(message);
     	    			
     	    			String[] data = new String[6];

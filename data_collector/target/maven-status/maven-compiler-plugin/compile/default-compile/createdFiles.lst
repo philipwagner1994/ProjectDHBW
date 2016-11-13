@@ -1,0 +1,9 @@
+Data_collector\data_collector\DataCollector\KafkaConsumer$1.class
+Data_collector\data_collector\DataCollector\KafkaMessage.class
+Data_collector\data_collector\StateMachine\StateMachine_Kafka$State.class
+Data_collector\data_collector\DataCollector\KafkaConsumer.class
+Data_collector\data_collector\DataCollector\SpectralAnalysis.class
+Data_collector\data_collector\main\App.class
+Data_collector\data_collector\StateMachine\StateMachine_Kafka$Trigger.class
+Data_collector\data_collector\LiveData\LiveServer.class
+Data_collector\data_collector\StateMachine\StateMachine_Kafka.class
