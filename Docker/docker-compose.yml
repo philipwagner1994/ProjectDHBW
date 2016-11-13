@@ -1,7 +1,18 @@
 version: '2'
 
 services:
+    kafka:
+        build: ./Dockerkafka
+        ports:
+            - "2181:2181"
+            - "9092:9092"
+    taktstrasse:
+        build: ./Dockerjava
+        links:
+            - kafka
     postgresql: 
         build: ./Dockerpostgres
         ports:
             - "5432:5432"
+	
+	
