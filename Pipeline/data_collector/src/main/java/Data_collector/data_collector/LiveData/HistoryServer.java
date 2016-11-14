@@ -21,12 +21,15 @@ public class HistoryServer extends Thread{
 	private JSONObject jo = new JSONObject();
 	private String sdata, output;
 	private postgresql sql;
+	private boolean newDataDrilling = false;
+	private boolean newDataMilling = false;
 	
 	private static final Vector<String>server  = new Vector<String>();
 	private static final Vector<JSONObject>serverMS  = new Vector<JSONObject >();
 	private static final Vector<JSONObject >serverMH  = new Vector<JSONObject >();
 	private static final Vector<JSONObject >serverDS  = new Vector<JSONObject >();
 	private static final Vector<JSONObject >serverDH  = new Vector<JSONObject >();
+	
 	public HistoryServer(postgresql sql){
 		this.sql = sql;
 	}
@@ -116,11 +119,11 @@ public class HistoryServer extends Thread{
         			AnswerJSON.put("temp",hilfJson.get("Value3"));
         			if(helpInt1<serverDS.size()){
         				if(helpSpeed1){
-        					AnswerJSON.put("speed", serverMS.get(helpInt1).get("Value3"));
+        					AnswerJSON.put("speed", serverDS.get(helpInt1).get("Value3"));
         					helpSpeed1 =false;
         					
         				}else{
-        					AnswerJSON.put("speed", serverMS.get(helpInt1).get("Value3"));
+        					AnswerJSON.put("speed", serverDS.get(helpInt1).get("Value3"));
         					helpSpeed1 =true;
         					helpInt1++;
         				}
@@ -171,9 +174,42 @@ public class HistoryServer extends Thread{
         		return answerMilling;
         		//return sql.readMessages(hilf);
         	case "live_drilling":
-        		return sql.readMessages(hilf);
+        		if(newDataDrilling == false){
+        			return "null";
+        		}else{
+        			JSONObject AnswerJSON = new JSONObject();
+        			JSONObject hilfJson = serverDH.get(serverDH.size()-1);
+        			AnswerJSON.put("orderno",hilfJson.get("OrderNum"));
+        			AnswerJSON.put("customerno",hilfJson.get("CustomerNum"));
+        			AnswerJSON.put("materialno",hilfJson.get("Value1"));
+        			AnswerJSON.put("temp",hilfJson.get("Value3"));
+    				AnswerJSON.put("speed", serverDS.get(serverDS.size()-1).get("Value3"));
+        			json.add(AnswerJSON);
+        		}
+        		newDataDrilling = false;
+        		String answerLiveD = json.toString();
+        		json.clear();
+        		return answerLiveD;
+        		
+        		
+        		
         	case "live_milling":
-        		return sql.readMessages(hilf);
+        		if(newDataMilling == false){
+        			return "null";
+        		}else{
+        			JSONObject AnswerJSON = new JSONObject();
+        			JSONObject hilfJson = serverMH.get(serverMH.size()-1);
+        			AnswerJSON.put("orderno",hilfJson.get("OrderNum"));
+        			AnswerJSON.put("customerno",hilfJson.get("CustomerNum"));
+        			AnswerJSON.put("materialno",hilfJson.get("Value1"));
+        			AnswerJSON.put("temp",hilfJson.get("Value3"));
+    				AnswerJSON.put("speed", serverMS.get(serverMS.size()-1).get("Value3"));
+        			json.add(AnswerJSON);
+        		}
+        		String answerLiveM = json.toString();
+        		json.clear();
+        		newDataMilling = false;
+        		return answerLiveM;
         		default:
         			return "Nothing found";
         	}
@@ -195,6 +231,7 @@ public class HistoryServer extends Thread{
             	//sdata = json.toString();
             	serverMH.add(jo);
             	json.clear();
+            	newDataMilling = true;
         		break;
         		
         	case "MILLING_SPEED":
@@ -208,6 +245,7 @@ public class HistoryServer extends Thread{
             	//sdata = json.toString();
             	serverMS.add(jo);
             	json.clear();
+            	newDataMilling = true;
         		break;
         	case "DRILLING_HEAT":
             	jo.put("OrderNum", data[0]);
@@ -219,6 +257,7 @@ public class HistoryServer extends Thread{
             	json.add(jo);
             	//sdata = json.toString();
             	serverDH.add(jo);
+            	newDataDrilling = true;
             	json.clear();
         		break;
         	case "DRILLING_SPEED":
@@ -231,6 +270,7 @@ public class HistoryServer extends Thread{
             	json.add(jo);
             	//sdata = json.toString();
             	serverDS.add(jo);
+            	newDataDrilling = true;
             	json.clear();
         		break;
         	}

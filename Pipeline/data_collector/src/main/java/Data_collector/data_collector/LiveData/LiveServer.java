@@ -118,6 +118,9 @@ public class LiveServer extends Thread{
         }*/
         
         public void setData(String[] data) throws Exception{        
+        	if(server.size() >0){
+        		server.removeElement(0);
+        	}
         	System.out.println("ADD DATA");
         	jo.put("OrderNum", data[0]);
         	jo.put("CustomerNum", data[1]);
