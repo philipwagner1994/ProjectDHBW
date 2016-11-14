@@ -5,7 +5,7 @@ MAINTAINER Philip Wagner
 RUN apt-get update
 RUN apt-get install -y openjdk-8-jre
 
-# add entrypoint script
+# add entrypoint
 COPY entrypoint.sh /opt/entrypoint.sh
 RUN chmod u+x /opt/entrypoint.sh
 
