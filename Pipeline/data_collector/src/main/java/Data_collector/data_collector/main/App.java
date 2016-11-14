@@ -89,7 +89,7 @@ public class App
             activemq [1]= text.substring(text.indexOf("<materialNumber>")+16,text.indexOf("</materialNumber>"));
             activemq [2]= text.substring(text.indexOf("<orderNumber>")+13,text.indexOf("</orderNumber>"));
             activemq [3]= text.substring(text.indexOf("<timeStamp>")+11,text.indexOf("</timeStamp>"));;
-    		StateMachine_Kafka test = new StateMachine_Kafka(server, spectral, producer);
+    		StateMachine_Kafka test = new StateMachine_Kafka(server, spectral, producer, server2);
     		test.setActivemq(activemq);
     		KafkaConsumer.setStateMachines(test);
    		}catch(Exception e){};

@@ -36,7 +36,7 @@ public class LiveServer extends Thread{
     public void run(){
     	System.out.println("Server");
     	try{
-            ServerSocket s = new ServerSocket(12345);
+            ServerSocket s = new ServerSocket(9899);
             System.out.println("Server started");
             int test=0;
             while (true) {
@@ -45,12 +45,18 @@ public class LiveServer extends Thread{
                 System.out.println("server connected");
                 BufferedReader in = new BufferedReader(new InputStreamReader(t.getInputStream()));
                 String serverResponse = in.readLine();
+                //System.out.println(in.readLine());
                 System.out.println("Server-Antwort: " + serverResponse);
                 
                 PrintWriter out = new PrintWriter(t.getOutputStream(), true);
                 //out.println("grr grr roger hier Server");
                 
-                output = getData();
+                String hilf = null;;
+                while(hilf == null){
+                	hilf = getData();
+                }
+                
+                output = hilf;
                 
                 StringBuilder builder = new StringBuilder();
 
@@ -68,13 +74,13 @@ public class LiveServer extends Thread{
             }
     	}
     	catch(Exception e){
-    		
+    		System.out.println(e);
     	}
     }
     
-    public void sendData()throws Exception{
+   /* public void sendData()throws Exception{
 
-        ServerSocket s = new ServerSocket(1234);
+        ServerSocket s = new ServerSocket(123456);
         System.out.println("Server started");
         int test=0;
         while (true) {
@@ -88,7 +94,12 @@ public class LiveServer extends Thread{
             PrintWriter out = new PrintWriter(t.getOutputStream(), true);
             //out.println("grr grr roger hier Server");
             
-            output = getData();
+            String hilf = null;;
+            while(hilf == null){
+            	hilf = getData();
+            }
+            
+            output = hilf;
             
             StringBuilder builder = new StringBuilder();
 
@@ -104,7 +115,7 @@ public class LiveServer extends Thread{
             t.close();
             System.out.println("Runde:" + test);
         }
-        }
+        }*/
         
         public void setData(String[] data) throws Exception{        
         	System.out.println("ADD DATA");
@@ -123,8 +134,8 @@ public class LiveServer extends Thread{
         
         public String getData(){
         	
-        	while(server.size() == 0){
-
+        	if(server.size() == 0){
+        		return null;
         	}
         	String nextdata = server.get(0);
         	server.remove(0);

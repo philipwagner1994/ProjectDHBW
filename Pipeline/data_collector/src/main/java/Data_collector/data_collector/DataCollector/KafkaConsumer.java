@@ -62,7 +62,7 @@ public class KafkaConsumer {
 		topicName = "prodData";	
 		props.put("bootstrap.servers", server);
 		props.put("zookeeper.connect", server);
-		props.put("group.id", "bla1");
+		props.put("group.id", "bla123");
 		props.put("client.id", this.getClass().getSimpleName());
 		props.put("key.deserializer", StringDeserializer.class.getName());
 		props.put("value.deserializer", StringDeserializer.class.getName());

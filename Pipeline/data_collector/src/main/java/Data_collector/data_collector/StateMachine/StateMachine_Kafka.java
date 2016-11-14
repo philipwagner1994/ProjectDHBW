@@ -12,6 +12,7 @@ import com.github.oxo42.stateless4j.delegates.Action;
 
 import Data_collector.data_collector.DataCollector.KafkaMessage;
 import Data_collector.data_collector.DataCollector.SpectralAnalysis;
+import Data_collector.data_collector.LiveData.HistoryServer;
 import Data_collector.data_collector.LiveData.LiveServer;
 //zu Thread machen
 import kafka.javaapi.producer.Producer;
@@ -23,6 +24,7 @@ public class StateMachine_Kafka {
 	private String[] activemq;
 	private  Vector<KafkaMessage> messages = new Vector<>();
 	private LiveServer server; 
+	private HistoryServer history;
 	private SpectralAnalysis spectral;// = new SpectralAnalysis();
 	private String[] spectralData;
 	private 	JSONArray json = new JSONArray();
@@ -33,18 +35,20 @@ public class StateMachine_Kafka {
 		this.producePart = producePartMachine();
 		this.server = server;
 		this.spectral = spectral;
+		
 		System.out.println("added Server");
 		}catch(Exception e){
 			
 		}
 	}
 	
-	public StateMachine_Kafka(LiveServer server, SpectralAnalysis spectral, Producer<String,String>producer){
+	public StateMachine_Kafka(LiveServer server, SpectralAnalysis spectral, Producer<String,String>producer,HistoryServer history){
 		try{
 		this.producePart = producePartMachine();
 		this.server = server;
 		this.spectral = spectral;
 		this.producer = producer;
+		this.history = history;
 		System.out.println("added Server");
 		}catch(Exception e){
 			
@@ -168,7 +172,7 @@ public class StateMachine_Kafka {
     			data[3] = message.getItemName();
     			data[4] = message.getStatus();
     			data[5] = message.getValue();
-    			server.setData(data);
+    			server.setData(data);history.setPseudoData(data);
     			return"L1true";
     			}
     			return "nothing";
@@ -186,7 +190,7 @@ public class StateMachine_Kafka {
     			data[4] = message.getStatus();
     			data[5] = message.getValue();
     			System.out.println("TEST2");
-    			server.setData(data);
+    			server.setData(data);history.setPseudoData(data);
     			return"L1false";
 		}
 		return "nothing";
@@ -202,7 +206,7 @@ public class StateMachine_Kafka {
     			data[3] = message.getItemName();
     			data[4] = message.getStatus();
     			data[5] = message.getValue();
-    			server.setData(data);
+    			server.setData(data);history.setPseudoData(data);
     			return"L2true";
 	}
 	return "nothing";
@@ -218,7 +222,7 @@ public class StateMachine_Kafka {
     			data[3] = message.getItemName();
     			data[4] = message.getStatus();
     			data[5] = message.getValue();
-    			server.setData(data);
+    			server.setData(data);history.setPseudoData(data);
     			return"L2false";
 }
 return "nothing";
@@ -234,7 +238,7 @@ return "nothing";
     			data[3] = message.getItemName();
     			data[4] = message.getStatus();
     			data[5] = message.getValue();
-    			server.setData(data);
+    			server.setData(data);history.setPseudoData(data);
     			return"L3true";
 			}
 			return "nothing";
@@ -250,7 +254,7 @@ return "nothing";
     			data[3] = message.getItemName();
     			data[4] = message.getStatus();
     			data[5] = message.getValue();
-    			server.setData(data);
+    			server.setData(data);history.setPseudoData(data);
     			return"L3false";
 			}
 			return "nothing";
@@ -266,7 +270,7 @@ return "nothing";
     			data[3] = message.getItemName();
     			data[4] = message.getStatus();
     			data[5] = message.getValue();
-    			server.setData(data);
+    			server.setData(data);history.setPseudoData(data);
     			return"L4true";
 			}
 			return "nothing";
@@ -282,7 +286,7 @@ return "nothing";
     			data[3] = message.getItemName();
     			data[4] = message.getStatus();
     			data[5] = message.getValue();
-    			server.setData(data);
+    			server.setData(data);history.setPseudoData(data);
     			return"L4false";
 			}
 			return "nothing";
@@ -297,7 +301,7 @@ return "nothing";
         			data[3] = message.getItemName();
         			data[4] = message.getStatus();
         			data[5] = message.getValue();
-        			server.setData(data);
+        			server.setData(data);history.setPseudoData(data);
         			producePart.fire(Trigger.L5true);
 
         			return"done";
@@ -315,7 +319,7 @@ return "nothing";
     			data[3] = message.getItemName();
     			data[4] = message.getStatus();
     			data[5] = message.getValue();
-    			server.setData(data);
+    			server.setData(data);history.setPseudoData(data);
     			return"L5false";
     			}
     			return "nothing";
@@ -332,7 +336,7 @@ return "nothing";
     	    			data[3] = message.getItemName();
     	    			data[4] = message.getStatus();
     	    			data[5] = message.getValue();
-    	    			server.setData(data);
+    	    			server.setData(data);history.setPseudoData(data);
     					return "milling";
     				}
     			}else if(producePart.canFire(Trigger.L4true)){
@@ -346,7 +350,7 @@ return "nothing";
       	    			data[3] = message.getItemName();
       	    			data[4] = message.getStatus();
       	    			data[5] = message.getValue();
-      	    			server.setData(data);
+      	    			server.setData(data);history.setPseudoData(data);
       					return "drilling";
         			}
     			}
