@@ -1,7 +1,11 @@
 {
-  "lineData": {
-      "data": [65, 59, 80, 81, 56, 55, 40]
+  "lineData": 
+  {
+      "runtime": [65,45,56],
+      "orderno": ["12456","12436","1sssss"]
+      
   },
+  
   "gaugeData": {
   	"data": [112]
   },

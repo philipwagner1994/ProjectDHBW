@@ -41,7 +41,8 @@ sap.ui.define([
       this._newCustomChart = c3.generate({
 		    bindto: '#' + CHART_CANVAS_NAME_PREFIX + this.getId(),
 		    data: {
-		          json: chartData,
+		    	x: 'orderno',
+		    	json: chartData.temp,
 		          type: 'spline',
 		          colors: {
 		              data: '#0414A6'
@@ -59,10 +60,16 @@ sap.ui.define([
 		            }
 		          },
 		          x: {
-			            label: {
-			              text: 'Order Number',
-			              position: 'outer-middle'
-			            },
+		        	  type: 'category',
+		        	  label: {
+ 			              text: 'Order Number',
+ 			              position: 'outer-middle'
+ 			            },
+		              tick: {
+		                  rotate: 75,
+		                  multiline: false
+		              },
+		              height: 130
 		          }
 			           
 		        }
@@ -93,6 +100,13 @@ sap.ui.define([
       this._newCustomChart.unload({
         ids: chartIDs
       });
-    }
+    },
+    load: function(){
+   	 var chartData = this.getData();
+   	 this._newCustomChart.load({
+   		 x: 'orderno',
+	          json: chartData,
+   	 })
+   }
   });
 });

@@ -3,9 +3,9 @@ sap.ui.define([
              ], function(Control) {
                'use strict';
 
-               var CHART_CANVAS_NAME_PREFIX = 'GaugeChartSpeed';
+               var CHART_CANVAS_NAME_PREFIX = 'GaugeChartHeat';
 
-               return Control.extend('sap.checkmarx.selfservice.control.GaugeChartSpeed', {
+               return Control.extend('sap.checkmarx.selfservice.control.GaugeChartHeat', {
                  metadata: {
                    properties: {
                      data: {
@@ -32,7 +32,7 @@ sap.ui.define([
 
                  onAfterRendering: function() {
                    var chartData = this.getData();
-                   var Data = chartData.speed[speed.length];
+                   var Data = chartData.temp[temp.length];
                    // required due to lifecycle calls > init of undefined vars
                    if (chartData === undefined) {
                      return;
@@ -56,13 +56,13 @@ sap.ui.define([
                 		        },
                 		    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
                 		    max: 100, // 100 is default
-                		    units: 'm/s',
+                		    units: 'grad',
                 		    width: 39 // for adjusting arc thickness
                 		    },
                 		    color: {
                 		        pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
                 		        threshold: {
-                		            unit: 'm/s', // percentage is default
+                		            unit: 'grad', // percentage is default
 //                		            max: 200, // 100 is default
                 		            values: [30, 60, 90, 100]
                 		        }
@@ -83,7 +83,7 @@ sap.ui.define([
                    //Create the control
                    oRm.write('<div');
                    oRm.writeControlData(oControl);
-                   oRm.addClass("GaugeChartSpeed");
+                   oRm.addClass("GaugeChartHeat");
                    oRm.addClass("sapUiResponsiveMargin");
                    oRm.writeClasses();
                    oRm.write('>');

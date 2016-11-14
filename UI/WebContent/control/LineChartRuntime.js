@@ -32,7 +32,7 @@ sap.ui.define([
 
     onAfterRendering: function() {
       var chartData = this.getData();
-
+    
       // required due to lifecycle calls > init of undefined vars
       if (chartData === undefined) {
         return;
@@ -41,6 +41,7 @@ sap.ui.define([
       this._newCustomChart = c3.generate({
 		    bindto: '#' + CHART_CANVAS_NAME_PREFIX + this.getId(),
 		    data: {
+		    	x: 'orderno',
 		          json: chartData,
 		          type: 'spline'
 		        },
@@ -48,7 +49,7 @@ sap.ui.define([
 		        axis: {
 		          y: {
 		            label: {
-		              text: 'Hitze',
+		              text: 'Time',
 		              position: 'outer-middle'
 		            },
 		            tick: {
@@ -56,10 +57,16 @@ sap.ui.define([
 		            }
 		          },
 		          x: {
-			            label: {
-			              text: 'Auftrag',
-			              position: 'outer-middle'
-			            },
+		        	  type: 'category',
+		        	  label: {
+ 			              text: 'Order Number',
+ 			              position: 'outer-middle'
+ 			            },
+		              tick: {
+		                  rotate: 75,
+		                  multiline: false
+		              },
+		              height: 130
 		          }
 			           
 		        }
@@ -90,6 +97,13 @@ sap.ui.define([
       this._newCustomChart.unload({
         ids: chartIDs
       });
+    },
+    load: function(){
+    	 var chartData = this.getData();
+    	 this._newCustomChart.load({
+    		 x: 'orderno',
+	          json: chartData,
+    	 })
     }
   });
 });

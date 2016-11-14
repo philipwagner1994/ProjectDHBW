@@ -41,6 +41,7 @@ sap.ui.define([
       this._newCustomChart = c3.generate({
 		    bindto: '#' + CHART_CANVAS_NAME_PREFIX + this.getId(),
 		    data: {
+		    	x: 'timestamp',
 		          json: chartData,
 		          type: 'bar'
 		        },
@@ -51,7 +52,28 @@ sap.ui.define([
 		            }
 		            // or
 		            //width: 100 // this makes bar width 100px
-		        }
+		        },
+		        axis: {
+			          y: {
+			            label: {
+			              text: 'Number of Errors',
+			              position: 'outer-middle'
+			            },
+			            tick: {
+		              format: d3.format("�,") // ADD
+			            }
+			          },
+			          x: {
+			        	  type: 'category',
+			              tick: {
+			                  rotate: 75,
+			                  multiline: false
+			              },
+			              height: 130
+			          }
+				           
+			        }
+		        
       });
     },
 
@@ -79,6 +101,13 @@ sap.ui.define([
       this._newCustomChart.unload({
         ids: chartIDs
       });
-    }
+    },
+    load: function(){
+   	 var chartData = this.getData();
+   	 this._newCustomChart.load({
+   		 x: 'orderno',
+	          json: chartData,
+   	 })
+   }
   });
 });

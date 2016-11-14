@@ -12,6 +12,11 @@ sap.ui.define([
 	var PageController = Controller.extend("sap.checkmarx.selfservice.taktstrasse.overview", {
 		
 		onInit : function (evt) {
+			var oConfigModel = new sap.ui.model.json.JSONModel();
+			oConfigModel.loadData("json/userconfig.json");
+			sap.ui.getCore().setModel(oConfigModel, "ConfigModel");
+			
+			
 			var oModel = new sap.ui.model.json.JSONModel();
 	        oModel.loadData("json/data.json");
 			this.getView().setModel(oModel);

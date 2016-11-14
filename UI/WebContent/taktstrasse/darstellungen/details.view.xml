@@ -1,4 +1,4 @@
-<core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+<core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:l="sap.ui.layout"
 		controllerName="sap.checkmarx.selfservice.taktstrasse.darstellungen.details" xmlns:html="http://www.w3.org/1999/xhtml">
 	<Page
 		title="Details"
@@ -16,31 +16,87 @@
 					</contentMiddle>
 				</Bar>	 
 	    	</customHeader>
+	    	
+	    	<l:HorizontalLayout>
+	    		<Input
+				id="Rows"
+				width="427px"
+				type="Text"
+				placeholder="Selected Items"
+				submit="onRowPress"/>
+	    		<SearchField
+				id="CustomerNumSearch"
+				width="427px"
+				placeholder="CustomerNum"
+				search="onCustomerNumSearch"/>
+				<SearchField
+				id="MaterialNumSearch"
+				width="427px"
+				placeholder="MaterialNum"
+				search="onMaterialNumSearch"/>
+	    	</l:HorizontalLayout>
+	    	
 		<Table
                     headerText="Current Details"
-                    items="{/ProductCollection}">
+                    items="{/Details}">
                     <columns>
                         <Column>
                             <header>
-                                <Label text="Info1" />
+                                <Label text="Order Number" />
                             </header>
                         </Column>
                         <Column>
                             <header>
-                                <Label text="Info2" />
+                                <Label text="Customer Number" />
                             </header>
                         </Column>
                         <Column>
                             <header>
-                                <Label text="Info3" />
+                                <Label text="Material Number" />
+                            </header>
+                        </Column>
+                        <Column>
+                            <header>
+                                <Label text="Timestamp" />
+                            </header>
+                        </Column>
+                        <Column>
+                            <header>
+                                <Label text="Overall Status" />
+                            </header>
+                        </Column>
+                        <Column>
+                            <header>
+                                <Label text="Milling Temperature" />
+                            </header>
+                        </Column>
+                        <Column>
+                            <header>
+                                <Label text="Milling Speed" />
+                            </header>
+                        </Column>
+                        <Column>
+                            <header>
+                                <Label text="Drilling Temperature" />
+                            </header>
+                        </Column>
+                        <Column>
+                            <header>
+                                <Label text="Drilling Speed" />
                             </header>
                         </Column>
                     </columns>
                     <ColumnListItem type="Active">
                         <cells>
-                            <ObjectIdentifier title="{title}" />
-                            <ObjectIdentifier title="{number}" />
-                            <ObjectIdentifier title="{info}" />
+                            <ObjectIdentifier title="{orderno}" />
+                            <ObjectIdentifier title="{customerno}" />
+                            <ObjectIdentifier title="{materialno}" />
+                            <ObjectIdentifier title="{timestamp}" />
+                            <ObjectIdentifier title="{overallstatus}" />
+                            <ObjectIdentifier title="{millingtemp}" />
+                            <ObjectIdentifier title="{millingspeed}" />
+                            <ObjectIdentifier title="{drillingtemp}" />
+                            <ObjectIdentifier title="{drillingspeed}" />
                         </cells>
                     </ColumnListItem>
                 </Table>

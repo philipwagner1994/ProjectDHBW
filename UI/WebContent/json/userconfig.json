@@ -1,0 +1,9 @@
+{
+  "config":
+  	{
+  		"rows": 10,
+  		"Customer": "",
+  		"MaterialNum": ""
+  	},
+  	"livedown" : false
+}

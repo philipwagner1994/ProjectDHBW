@@ -13,11 +13,125 @@ sap.ui.define([
 		onInit : function (evt) {
 			 var oModel = new sap.ui.model.json.JSONModel();
 	           // Load JSON in model
-	              oModel.loadData("json/chartdata.json");
+	              //oModel.loadData("json/chartdata.json");
 			this.getView().setModel(oModel);
+			
+			this.getRouter().attachRoutePatternMatched(this.onRouteMatched, this);
+			
+		},
+		onRouteMatched: function() {
+			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();
+			this.getView().byId("Rows").setValue(oConfigModel.config.rows);
+			this.getView().byId("CustomerNumSearch").setValue(oConfigModel.config.CustomerNum);
+			this.getView().byId("MaterialNumSearch").setValue(oConfigModel.config.MaterialNum);			
+			oConfigModel.livedown = false;
+
+			$.ajax({
+			    async : false,
+			    type : "GET",
+			    url : "http://localhost:1234/Server/java",
+			    dataType : 'text',
+			    data : {
+				'function' : "history_error",
+				history: oConfigModel.config.rows,
+				materialno: oConfigModel.config.MaterialNum,
+				customerno: oConfigModel.config.CustomerNum
+			    },
+			    success : function(response) {			
+			    	var oModel = this.getView().getModel();
+			    	var oController = this;
+			    	var jsonResponse = JSON.parse(response);
+			    	oModel.setProperty("/lineData", jsonResponse);
+			    	oModel.refresh(true);
+			    	oController.getDataUpdate();
+			    	
+			    },
+			    error : function(message) {
+				console.error("Error");
+			    }	
+			});
+		},
+		getDataUpdate: function() {
+			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();
+			if(oConfigModel.livedown==false){
+			$.ajax({
+			    async : true,
+			    type : "GET",
+			    url : "http://localhost:1234/Server/java",
+			    dataType : 'text',
+			    data : {
+				'function' : "live_error",
+				materialno: oConfigModel.config.MaterialNum,
+				customerno: oConfigModel.config.CustomerNum
+			    },
+			    success : function(response) {
+			    	var oModel = this.getView().getModel();
+			    	var oController = this;
+			    	
+			    	var jsonResponse = JSON.parse(response);
+			    	oModel.getProperty("/lineData/Errors").push(jsonResponse[0].Errors);
+			    	oModel.getProperty("/lineData/Errors").shift();
+			    	oModel.getProperty("/lineData/timestamp").push(jsonResponse[0].timestamp);
+			    	oModel.getProperty("/lineData/timestamp").shift();
+			    	//oModel.getProperty("/lineData/customerno").push(jsonResponse[0].customerno);
+			    	//oModel.getProperty("/lineData/customerno").shift();
+			    	//oModel.getProperty("/lineData/materialno").push(jsonResponse[0].materialno);
+			    	//oModel.getProperty("/lineData/materialno").shift();
+			    	
+			    	oModel.refresh(true);
+			    	this.getView().byId("BarChart").load();
+			    	oController.getDataUpdate();
+			    	
+			    },
+			    error : function(message) {
+				console.error("Error");
+			    }	
+			});
+			}
+		},
+		getRouter : function () {
+			return sap.ui.core.UIComponent.getRouterFor(this);
 		},
 		onNavBack: function () {
+			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();
+			oConfigModel.livedown = true;
 			sap.ui.core.UIComponent.getRouterFor(this).navTo("overview");
+		},
+		onRowPress: function () {
+			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();
+			var value = this.getView().byId("Rows").getValue();
+			var oController = this;
+			
+			oConfigModel.livedown = true;
+			if(value != undefined){
+				oConfigModel.config.rows = value;
+			}
+			else oConfigModel.config.rows = "";
+			oController.onRouteMatched();
+		},
+		onCustomerNumSearch: function () {
+			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();
+			var value = this.getView().byId("CustomerNumSearch").getValue();
+			var oController = this;
+			
+			oConfigModel.livedown = true;
+			if(value != undefined){
+				oConfigModel.config.CustomerNum = value;
+			}
+			else oConfigModel.config.CustomerNum = "";
+			oController.onRouteMatched();
+		},
+		onMaterialNumSearch: function () {
+			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();
+			var value = this.getView().byId("MaterialNumSearch").getValue();
+			var oController = this;
+			
+			oConfigModel.livedown = true;
+			if(value != undefined){
+				oConfigModel.config.MaterialNum = value;
+			}
+			else oConfigModel.config.MaterialNum = "";
+			oController.onRouteMatched();
 		}
  
 		

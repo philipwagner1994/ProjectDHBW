@@ -1,4 +1,4 @@
-<core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:acc="sap.checkmarx.selfservice.control"
+<core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:acc="sap.checkmarx.selfservice.control" xmlns:l="sap.ui.layout"
 		controllerName="sap.checkmarx.selfservice.taktstrasse.darstellungen.errors" xmlns:html="http://www.w3.org/1999/xhtml">
 	<Page
 		title="Errors"
@@ -16,6 +16,26 @@
 					</contentMiddle>
 				</Bar>	 
 	    	</customHeader>
-			<acc:BarChartErrors width="400" height="200" responsive="true" chartType="Line" data="{/lineData}"/>
+	    	
+	    	<l:HorizontalLayout>
+	    		<Input
+				id="Rows"
+				width="427px"
+				type="Text"
+				placeholder="Selected Items"
+				submit="onRowPress"/>
+	    		<SearchField
+				id="CustomerNumSearch"
+				width="427px"
+				placeholder="CustomerNum"
+				search="onCustomerNumSearch"/>
+				<SearchField
+				id="MaterialNumSearch"
+				width="427px"
+				placeholder="MaterialNum"
+				search="onMaterialNumSearch"/>
+	    	</l:HorizontalLayout>
+	    	
+			<acc:BarChartErrors id="BarChart" width="400" height="200" responsive="true" chartType="Line" data="{/lineData}"/>
 	</Page>
 </core:View>

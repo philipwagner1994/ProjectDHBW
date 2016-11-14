@@ -1,4 +1,4 @@
-<core:View  xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:acc="sap.checkmarx.selfservice.control"
+<core:View  xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:acc="sap.checkmarx.selfservice.control" xmlns:l="sap.ui.layout"
 		controllerName="sap.checkmarx.selfservice.taktstrasse.darstellungen.drilling" xmlns:html="http://www.w3.org/1999/xhtml">
 	<Page
 		title="Drilling"
@@ -15,7 +15,25 @@
 						<Text text = "Drilling" class="headertitle"></Text>
 					</contentMiddle>
 				</Bar>	 
-	    	</customHeader>		
+	    	</customHeader>
+	    	<l:HorizontalLayout>
+	    		<Input
+				id="Rows"
+				width="427px"
+				type="Text"
+				placeholder="Selected Items"
+				submit="onRowPress"/>
+	    		<SearchField
+				id="CustomerNumSearch"
+				width="427px"
+				placeholder="CustomerNum"
+				search="onCustomerNumSearch"/>
+				<SearchField
+				id="MaterialNumSearch"
+				width="427px"
+				placeholder="MaterialNum"
+				search="onMaterialNumSearch"/>
+	    	</l:HorizontalLayout>		
 		<IconTabBar
 		id="idIconTabBarNoIcons"
 		expanded="{device>/isNoPhone}"

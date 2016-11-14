@@ -14,10 +14,41 @@ sap.ui.define([
 	           // Load JSON in model
 	              oModel.loadData("json/chartdata.json");
 			this.getView().setModel(oModel);
+			
+			this.getRouter().attachRoutePatternMatched(this.onRouteMatched, this);
 		},
-		onBeforeRendering: function() {
-			
-			
+		onRouteMatched: function() {
+			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();
+			this.getView().byId("Rows").setValue(oConfigModel.config.rows);
+			this.getView().byId("CustomerNumSearch").setValue(oConfigModel.config.CustomerNum);
+			this.getView().byId("MaterialNumSearch").setValue(oConfigModel.config.MaterialNum);
+		},
+		getRouter : function () {
+			return sap.ui.core.UIComponent.getRouterFor(this);
+		},
+		onRowPress: function () {
+			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();
+			var value = this.getView().byId("Rows").getValue();
+			if(value != undefined){
+				oConfigModel.config.rows = value;
+			}
+			else oConfigModel.config.rows = "";
+		},
+		onCustomerNumSearch: function () {
+			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();
+			var value = this.getView().byId("CustomerNumSearch").getValue();
+			if(value != undefined){
+				oConfigModel.config.CustomerNum = value;
+			}
+			else oConfigModel.config.CustomerNum = "";
+		},
+		onMaterialNumSearch: function () {
+			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();
+			var value = this.getView().byId("MaterialNumSearch").getValue();
+			if(value != undefined){
+				oConfigModel.config.MaterialNum = value;
+			}
+			else oConfigModel.config.MaterialNum = "";
 		},
 		onNavBack: function () {
 			sap.ui.core.UIComponent.getRouterFor(this).navTo("overview");

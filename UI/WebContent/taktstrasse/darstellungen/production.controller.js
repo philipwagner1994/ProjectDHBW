@@ -31,7 +31,6 @@ sap.ui.define([
 
 				var onPress = function(){
 					openAlert(id)
-					alert("check"+ id);
 					icon.detachPress(onPress);
 					
 				};
@@ -44,10 +43,11 @@ sap.ui.define([
 													"Unit "+oModel.oData.TileCollection[id].numberUnit);
 				}
 
-			addIcons({left: "200px", top: "60px"}, 1);
-			addIcons({left: "330px", top: "45px"}, 2);
-			addIcons({left: "390px", top: "60px"}, 3);
-			
+			addIcons({left: "400px", top: "510px"}, 1);
+			addIcons({left: "400px", top: "340px"}, 2);
+			addIcons({left: "545px", top: "340px"}, 3);
+			addIcons({left: "870px", top: "340px"}, 4);
+			addIcons({left: "1170px", top: "378px"}, 5);
 			
 		},     
 
