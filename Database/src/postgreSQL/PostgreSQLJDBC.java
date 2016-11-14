@@ -154,11 +154,11 @@ public class PostgreSQLJDBC {
          System.out.println("Opened database successfully");
          stmt = c.createStatement();
          if(insertarray.length == 13){
-        	 String sql = "INSERT INTO Data (ordernumber, timestamp, overallstatus, endtime, starttime, customernumber, materialnumber, em1, em2, a1, a2, b1, b2) "
+        	 sqlinsert = "INSERT INTO Data (ordernumber, timestamp, overallstatus, endtime, starttime, customernumber, materialnumber, em1, em2, a1, a2, b1, b2) "
                      + "VALUES ("+insertarray[0]+", "+ insertarray[1]+", "+insertarray[2]+", "+ insertarray[3]+", "+insertarray[4]+", "+ insertarray[5]+", "+insertarray[6]+", "+ insertarray[7]+", "+insertarray[8]+", "+ insertarray[9]+", "+insertarray[10]+", "+ insertarray[11]+", "+insertarray[12]+");";
          }
          else if(insertarray.length == 5){
-        	 String sql = "INSERT INTO Properties (ordernumber, timestamp, status, itemName, value) "
+        	 sqlinsert = "INSERT INTO Properties (ordernumber, timestamp, status, itemName, value) "
                      + "VALUES ("+insertarray[0]+", "+insertarray[1]+", "+insertarray[2]+", "+insertarray[3]+", "+insertarray[4]+");";
          }
 
@@ -194,7 +194,7 @@ public class PostgreSQLJDBC {
 	    				   		" materialnumber,"+
 	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
 	    				   		" itemName,"+
-	    				   		" AVG(value)"+
+	    				   		" AVG(value) AS value"+
 	    				   	" FROM"+
 	    				   		" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber)"+
 	    				   	" WHERE"+
@@ -216,9 +216,9 @@ public class PostgreSQLJDBC {
 	    				   		" materialnumber,"+
 	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
 	    				   		" itemName,"+
-	    				   		" AVG(value)"+
+	    				   		" AVG(value) AS value"+
 	    				   	" FROM"+
-	    				   		" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber"+
+	    				   		" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber)"+
 	    				   	" WHERE"+
 	    				   		" (itemName = 'MILLING_SPEED' OR itemName = 'MILLING_HEAT') AND"+
 	    				   		" (customernumber = "+customernumber+")"+
@@ -239,9 +239,9 @@ public class PostgreSQLJDBC {
 			   					" materialnumber,"+
 			   					" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
 			   					" itemName,"+
-			   					" AVG(value)"+
+			   					" AVG(value) AS value"+
 			   				" FROM"+
-			   					" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber"+
+			   					" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber)"+
 			   				" WHERE"+
 			   					" (itemName = 'MILLING_SPEED' OR itemName = 'MILLING_HEAT') AND"+
 			   					" (materialnumber = "+materialnumber+")"+
@@ -262,9 +262,9 @@ public class PostgreSQLJDBC {
 			   					" materialnumber,"+
 			   					" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
 			   					" itemName,"+
-			   					" AVG(value)"+
+			   					" AVG(value) AS value"+
 			   				" FROM"+
-			   					" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber"+
+			   					" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber)"+
 			   				" WHERE"+
 			   					" (itemName = 'MILLING_SPEED' OR itemNAme = 'MILLING_HEAT') AND"+
 			   					" ((materialnumber = "+materialnumber+") AND (customernumber = "+customernumber+"))"+
@@ -312,7 +312,7 @@ public class PostgreSQLJDBC {
 	    				   		" materialnumber,"+
 	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
 	    				   		" itemName,"+
-	    				   		" AVG(value)"+
+	    				   		" AVG(value) AS value"+
 	    				   	" FROM"+
 	    				   		" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber)"+
 	    				   	" WHERE"+
@@ -334,9 +334,9 @@ public class PostgreSQLJDBC {
 	    				   		" materialnumber,"+
 	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
 	    				   		" itemName,"+
-	    				   		" AVG(value)"+
+	    				   		" AVG(value) AS value"+
 	    				   	" FROM"+
-	    				   		" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber"+
+	    				   		" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber)"+
 	    				   	" WHERE"+
 	    				   		" (itemName = 'DRILLING_SPEED' OR itemName = 'DRILLING_HEAT') AND"+
 	    				   		" (customernumber = "+customernumber+")"+
@@ -357,9 +357,9 @@ public class PostgreSQLJDBC {
 			   					" materialnumber,"+
 			   					" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
 			   					" itemName,"+
-			   					" AVG(value)"+
+			   					" AVG(value) AS value"+
 			   				" FROM"+
-			   					" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber"+
+			   					" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber)"+
 			   				" WHERE"+
 			   					" (itemName = 'DRILLING_SPEED' OR itemName = 'DRILLING_HEAT') AND"+
 			   					" (materialnumber = "+materialnumber+")"+
@@ -380,9 +380,9 @@ public class PostgreSQLJDBC {
 			   					" materialnumber,"+
 			   					" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
 			   					" itemName,"+
-			   					" AVG(value)"+
+			   					" AVG(value) AS value"+
 			   				" FROM"+
-			   					" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber"+
+			   					" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber)"+
 			   				" WHERE"+
 			   					" (itemName = 'DRILLING_SPEED' OR itemNAme = 'DRILLING_HEAT') AND"+
 			   					" ((materialnumber = "+materialnumber+") AND (customernumber = "+customernumber+"))"+
@@ -588,7 +588,7 @@ public class PostgreSQLJDBC {
 	    				   		" b1,"+
 	    				   		" b2,"+
 	    				   		" itemName,"+
-	    				   		" AVG(value)"+
+	    				   		" AVG(value) AS value"+
 	    				   	" FROM"+
 	    				   		" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber)"+
 	    				   	" WHERE"+
@@ -623,9 +623,9 @@ public class PostgreSQLJDBC {
 		   				   		" b1,"+
 		   				   		" b2,"+
 		   				   		" itemName,"+
-		   				   		" value"+
+		   				   		" AVG(value) AS value"+
 	    				   	" FROM"+
-	    				   		" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber"+
+	    				   		" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber)"+
 	    				   	" WHERE"+
 	    				   		" (itemName = 'MILLING_SPEED' OR itemName = 'MILLING_HEAT' OR itemName = 'DRILLING_SPEED' OR itemName = 'DRILLING_HEAT' ) AND"+
 	    				   		" (customernumber = "+customernumber+")"+
@@ -659,9 +659,9 @@ public class PostgreSQLJDBC {
 		   				   		" b1,"+
 		   				   		" b2,"+
 		   				   		" itemName,"+
-		   				   		" value"+
+		   				   		" AVG(value) AS value"+
 			   				" FROM"+
-			   					" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber"+
+			   					" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber)"+
 			   				" WHERE"+
 			   					" (itemName = 'MILLING_SPEED' OR itemName = 'MILLING_HEAT' OR itemName = 'DRILLING_SPEED' OR itemName = 'DRILLING_HEAT' ) AND"+
 			   					" (materialnumber = "+materialnumber+")"+
@@ -695,9 +695,9 @@ public class PostgreSQLJDBC {
 		   				   		" b1,"+
 		   				   		" b2,"+
 		   				   		" itemName,"+
-		   				   		" value"+
+		   				   		" AVG(value) AS value"+
 			   				" FROM"+
-			   					" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber"+
+			   					" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber)"+
 			   				" WHERE"+
 			   					" (itemName = 'MILLING_SPEED' OR itemName = 'MILLING_HEAT' OR itemName = 'DRILLING_SPEED' OR itemName = 'DRILLING_HEAT' ) AND"+
 			   					" ((materialnumber = "+materialnumber+") AND (customernumber = "+customernumber+"))"+
