@@ -20,20 +20,71 @@ sap.ui.define([
 			var oModel = new sap.ui.model.json.JSONModel();
 	        oModel.loadData("json/data.json");
 			this.getView().setModel(oModel);
+			
+			this.getRouter().attachRoutePatternMatched(this.onRouteMatched, this);
 		},
-		onAfterRendering: function() {
-			var oController = this;
-			//console.log(this.getView().byID("Milling"))
-			//oController.ajax();
-		},
-		onExit: function() {
-			var oModel = this.getView().getModel();
-			oModel.oData.flags[0].livedown = true;
-			oModel.refresh(true);
-		},
+		onRouteMatched: function() {
+			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();	
+			oConfigModel.livedown = false;
 
+			/*$.ajax({
+			    async : true,
+			    type : "GET",
+			    url : "http://localhost:1234/Server/java",
+			    dataType : 'text',
+			    data : {
+				command : "getWSData",
+			    },
+			    success : function(response) {
+			    	var oModel = this.getView().getModel();
+					var oController = this;
+			    	var jsonResponse = JSON.parse(response);
+			    	var OrderNum;
+			    	console.log(jsonResponse);
+			    	switch(jsonResponse[0].Item)
+					{
+						   case "MILLING_HEAT":
+						       oModel.oData.TileCollection[0].number = jsonResponse[0].Value3;
+						       OrderNum =  "OrderNum: " + jsonResponse[0].OrderNum;
+						       oModel.oData.TileCollection[0].OrderNum = OrderNum;
+						       break;
+						   case "MILLING_SPEED":
+						       oModel.oData.TileCollection[1].number2 = jsonResponse[0].Value3;
+						       OrderNum =  "OrderNum: " + jsonResponse[0].OrderNum;
+						       oModel.oData.TileCollection[1].OrderNum = OrderNum
+						       break;
+						   case "DRILLING_HEAT":
+						       oModel.oData.TileCollection[0].number = jsonResponse[0].Value3
+						       OrderNum =  "OrderNum: " + jsonResponse[0].OrderNum;
+						       oModel.oData.TileCollection[0].OrderNum = OrderNum
+						       break;
+						   case "DRILLING_SPEED":
+						       oModel.oData.TileCollection[1].number2 = jsonResponse[0].Value3 
+						       OrderNum =  "OrderNum: " + jsonResponse[0].OrderNum;
+						       oModel.oData.TileCollection[1].OrderNum = OrderNum
+						       break;
+						   default:
+						       console.log("Fehler");
+					}
+			    	oModel.refresh(true);
+			    	console.log(oModel.oData);
+
+			    	oController.ajax();
+
+			    },
+			    error : function(message) {
+				console.error("Error when trying to receive nodenameinformation.\nError: " + message);
+			    }	
+			});*/
+		},
+		getRouter : function () {
+			return sap.ui.core.UIComponent.getRouterFor(this);
+		},
  
 		handleEditPress : function (evt) {
+			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();	
+			oConfigModel.livedown = true;
+			
 			var oModel = this.getView().getModel();
 			var selectedId = evt.getParameter("id");
 			var sub= selectedId.substring(selectedId.length-1, selectedId.length);
@@ -71,15 +122,15 @@ sap.ui.define([
 		    	sap.ui.core.UIComponent.getRouterFor(this).navTo("runtime");
 		        break;
 		    default:
-		        alert("Noch kein Link gepflegt");
+		        alert("Systemerror please call your Systemadminestator");
 		}
 			
 		},
 		ajax : function () {
-			var oModel = this.getView().getModel();
-			var oController = this;
+			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();	
+			if(oConfigModel.livedown = false){
 
-			$.ajax({
+			/*$.ajax({
 			    async : true,
 			    type : "GET",
 			    url : "http://localhost:1234/Server/java",
@@ -88,7 +139,8 @@ sap.ui.define([
 				command : "getWSData",
 			    },
 			    success : function(response) {
-			    	
+			    	var oModel = this.getView().getModel();
+					var oController = this;
 			    	var jsonResponse = JSON.parse(response);
 			    	var OrderNum;
 			    	console.log(jsonResponse);
@@ -119,14 +171,15 @@ sap.ui.define([
 					}
 			    	oModel.refresh(true);
 			    	console.log(oModel.oData);
-			    	if(oModel.oData.flags[0].livedown == false){
+
 			    	oController.ajax();
-			    	}
+
 			    },
 			    error : function(message) {
 				console.error("Error when trying to receive nodenameinformation.\nError: " + message);
 			    }	
-			});
+			});*/
+			}
 		}		
 	});
  

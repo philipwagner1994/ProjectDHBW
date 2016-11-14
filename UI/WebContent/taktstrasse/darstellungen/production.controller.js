@@ -26,15 +26,19 @@ sap.ui.define([
 					new sap.ui.commons.Image({src: "img/Empty.JPG"}), {left: "510px", top: "400px"});
 
 			var addIcons = function(oPosition, id){
-				var icon = new sap.ui.commons.Image();
-				icon.setSrc("sap-icon://lightbulb");
+				var icon = new sap.ui.commons.Button();
+				//icon.setSrc("sap-icon://lightbulb");
+				//icon.setHelpId(id);
+				icon.setIcon("sap-icon://lightbulb");
 
 				var onPress = function(){
+					icon.addStyleClass("lightbulb_aktiv");
 					openAlert(id)
 					icon.detachPress(onPress);
 					
 				};
 				icon.attachPress(onPress);
+				//icon.addStyleClass("lightbulb_passiv");
 				pic.addContent(icon, oPosition);
 				console.log(icon);
 			};
@@ -43,28 +47,61 @@ sap.ui.define([
 													"Unit "+oModel.oData.TileCollection[id].numberUnit);
 				}
 
-			addIcons({left: "400px", top: "510px"}, 1);
-			addIcons({left: "400px", top: "340px"}, 2);
-			addIcons({left: "545px", top: "340px"}, 3);
-			addIcons({left: "870px", top: "340px"}, 4);
-			addIcons({left: "1170px", top: "378px"}, 5);
+			addIcons({left: "400px", top: "510px"}, 0);
+			addIcons({left: "400px", top: "340px"}, 1);
+			addIcons({left: "545px", top: "340px"}, 2);
+			addIcons({left: "870px", top: "340px"}, 3);
+			addIcons({left: "1170px", top: "378px"}, 4);
 			
-		},     
-
-		onBeforeRendering: function() {
-			
+			this.getRouter().attachRoutePatternMatched(this.onRouteMatched, this);
 			
 		},
-		onAfterRendering: function() {
-
+		onRouteMatched: function() {
+			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();		
+			oConfigModel.livedown = false;
+			if(oConfigModel.livedown==false){
+			/*$.ajax({
+			    async : false,
+			    type : "GET",
+			    url : "http://localhost:1234/Server/java",
+			    dataType : 'text',
+			    data : {
+				'function' : "history_error",
+				history: oConfigModel.config.rows,
+				materialno: oConfigModel.config.MaterialNum,
+				customerno: oConfigModel.config.CustomerNum
+			    },
+			    success : function(response) {*/
+			    
+			    	var icon = this.getView().byId("__button5");
+			    	var oView = this.getView();
+			    	var pic = oView.byId("pic");
+			    	var elements = pic.getContent();
+			    	elements[4].addStyleClass("lightbulb_aktiv");
+			    	console.log("Test");
+			    	
+			    	/*var oModel = this.getView().getModel();
+			    	var oController = this;
+			    	var jsonResponse = JSON.parse(response);
+			    	oModel.setProperty("/lineData", jsonResponse);
+			    	oModel.refresh(true);
+			    	oController.getDataUpdate();
+			    	
+			    },
+			    error : function(message) {
+				console.error("Error");
+			    }	
+			});*/
+			}
 		},
-		
+		getRouter : function () {
+			return sap.ui.core.UIComponent.getRouterFor(this);
+		},
 		onNavBack: function () {
+			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();
+			oConfigModel.livedown = true;
 			sap.ui.core.UIComponent.getRouterFor(this).navTo("overview");
 		},
-		checkCircle: function () {
-			console.log("Super");
-		}
 
 	});
  

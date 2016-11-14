@@ -10,3 +10,14 @@
 	font-size: 22px;
 }
 
+.lightbulb_aktiv
+{
+	
+	background-color: green!important;
+}
+
+.lightbulb_passiv
+{
+	
+	background-color: white!important;
+}
