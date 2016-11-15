@@ -27,7 +27,7 @@ sap.ui.define([
 			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();	
 			oConfigModel.livedown = false;
 
-			/*$.ajax({
+			$.ajax({
 			    async : true,
 			    type : "GET",
 			    url : "http://localhost:1234/Server/java",
@@ -75,7 +75,7 @@ sap.ui.define([
 			    error : function(message) {
 				console.error("Error when trying to receive nodenameinformation.\nError: " + message);
 			    }	
-			});*/
+			});
 		},
 		getRouter : function () {
 			return sap.ui.core.UIComponent.getRouterFor(this);
@@ -130,7 +130,7 @@ sap.ui.define([
 			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();	
 			if(oConfigModel.livedown = false){
 
-			/*$.ajax({
+			$.ajax({
 			    async : true,
 			    type : "GET",
 			    url : "http://localhost:1234/Server/java",
@@ -178,7 +178,7 @@ sap.ui.define([
 			    error : function(message) {
 				console.error("Error when trying to receive nodenameinformation.\nError: " + message);
 			    }	
-			});*/
+			});
 			}
 		}		
 	});

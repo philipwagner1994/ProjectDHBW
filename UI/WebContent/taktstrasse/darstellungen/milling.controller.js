@@ -36,12 +36,12 @@ sap.ui.define([
 				customerno: oConfigModel.config.CustomerNum
 			    },
 			    success : function(response) {
-			    	if(response != "null"){*/
-			    	//var oModel = this.getView().getModel();
+			    	*/
+			    	var oModel = this.getView().getModel();
 			    	//oModel.loadData("json/chart.json");
-			    	
-			    	/*console.log(oModel.oData);
-			    	oModel.getProperty("/lineData/customerno").push("123");
+			    	var temp new Array();
+			    	temp.push("Test");
+			    	/*oModel.getProperty("/lineData/customerno").push("123");
 			    	 for(var i=0;i< oModel.oData.Data.length;i++){
 			    		 oModel.getProperty("/lineData/customerno").push("123");
 			    		 oModel.oData.orderno.push(oModel.oData.Data[i].orderno);
@@ -77,7 +77,9 @@ sap.ui.define([
 				customerno: oConfigModel.config.CustomerNum
 			    },
 			    success : function(response) {
-			    	var oModel = this.getView().getModel();
+			    	if(response != "null"){
+			    		var that = this;
+			    	var oModel = that.getView().getModel();
 			    	var oController = this;
 			    	
 			    	var jsonResponse = JSON.parse(response);
@@ -90,18 +92,18 @@ sap.ui.define([
 			    	oModel.getProperty("/tempData/orderno").shift();
 			    	oModel.getProperty("/speedData/orderno").push(jsonResponse[0].orderno);
 			    	oModel.getProperty("/speedData/orderno").shift();
-			    	oModel.getProperty("/gaugeDatatemp/temp").push(jsonResponse[0].temp);
-			    	oModel.getProperty("/gaugeDatatemp/temp").shift();
-			    	oModel.getProperty("/gaugeDataspeed/speed").push(jsonResponse[0].temp);
-			    	oModel.getProperty("/gaugeDataspeed/speed").shift();
+			    	//oModel.getProperty("/gaugeDatatemp/temp").set(jsonResponse[0].temp);
+			    	//oModel.getProperty("/gaugeDatatemp/temp").shift();
+			    	//oModel.getProperty("/gaugeDataspeed/speed").push(jsonResponse[0].speed);
+			    	//oModel.getProperty("/gaugeDataspeed/speed").shift();
 			    	
 			    	oModel.refresh(true);
-			    	this.getView().byId("LineChartHeat").load();
-			    	this.getView().byId("LineChartSpeed").load();
-			    	this.getView().byId("GaugeChartHeat").load();
-			    	this.getView().byId("GaugeChartSpeed").load();
+			    	that.getView().byId("LineChartHeat").load();
+			    	that.getView().byId("LineChartSpeed").load();
+			    	that.getView().byId("GaugeChartHeat").load();
+			    	that.getView().byId("GaugeChartSpeed").load();
 			    	oController.getDataUpdate();
-			    	
+			    	}
 			    },
 			    error : function(message) {
 				console.error("Error");
