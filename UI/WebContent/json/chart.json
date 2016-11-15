@@ -1,0 +1,42 @@
+{
+  "Data": 
+  [	
+  {
+      "customerno": "123",
+      "orderno": "123",
+      "materialno": "123",
+      "speed": "12",
+      "temp": "10"
+  },
+  {
+      "customerno": "123",
+      "orderno": "123",
+      "materialno": "123",
+      "speed": "12",
+      "temp": "10"
+  }       
+  ],
+  "tempData": 
+  {
+      
+      "orderno": ["123","124"],
+      "temp": [12,34]
+      
+  },
+  
+  "gaugeDatatemp": {
+      "temp": 12
+  },
+  "speedData": 
+  {
+      
+      "orderno": ["123","124"],
+      "speed": [12,34]
+      
+  },
+  
+  "gaugeDataspeed": {
+      "temp": 12
+  }
+  
+}

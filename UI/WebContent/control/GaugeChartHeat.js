@@ -32,7 +32,7 @@ sap.ui.define([
 
                  onAfterRendering: function() {
                    var chartData = this.getData();
-                   var Data = chartData.temp[temp.length];
+
                    // required due to lifecycle calls > init of undefined vars
                    if (chartData === undefined) {
                      return;
@@ -41,7 +41,7 @@ sap.ui.define([
                    this._newCustomChart = c3.generate({
                 	   bindto: '#' + CHART_CANVAS_NAME_PREFIX + this.getId(),
                 	   data: {
-                		  json: Data,
+                		  json: chartData,
                 		  type: 'gauge'
                 		        //onclick: function (d, i) { console.log("onclick", d, i); },
                 		        //onmouseover: function (d, i) { console.log("onmouseover", d, i); },
@@ -55,16 +55,16 @@ sap.ui.define([
                 		            show: true // to turn off the min/max labels.
                 		        },
                 		    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-                		    max: 100, // 100 is default
+                		    max: 300, // 100 is default
                 		    units: 'grad',
                 		    width: 39 // for adjusting arc thickness
                 		    },
                 		    color: {
-                		        pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
+                		        pattern: ['#60B044', '#F6C600', '#F97600','#FF0000'], // the three color levels for the percentage values.
                 		        threshold: {
                 		            unit: 'grad', // percentage is default
 //                		            max: 200, // 100 is default
-                		            values: [30, 60, 90, 100]
+                		            values: [100, 150, 200, 300]
                 		        }
                 		    },
                 		    size: {

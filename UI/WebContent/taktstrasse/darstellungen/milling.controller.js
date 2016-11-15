@@ -12,7 +12,7 @@ sap.ui.define([
 		onInit : function (evt) {
 			 var oModel = new sap.ui.model.json.JSONModel();
 	           // Load JSON in model
-	              //oModel.loadData("json/chartdata.json");
+	              oModel.loadData("json/chart.json");
 			this.getView().setModel(oModel);
 			
 			this.getRouter().attachRoutePatternMatched(this.onRouteMatched, this);
@@ -24,7 +24,7 @@ sap.ui.define([
 			this.getView().byId("MaterialNumSearch").setValue(oConfigModel.config.MaterialNum);
 			oConfigModel.livedown = false;
 
-			$.ajax({
+			/*$.ajax({
 			    async : false,
 			    type : "GET",
 			    url : "http://localhost:1234/Server/java",
@@ -35,19 +35,33 @@ sap.ui.define([
 				materialno: oConfigModel.config.MaterialNum,
 				customerno: oConfigModel.config.CustomerNum
 			    },
-			    success : function(response) {			
-			    	var oModel = this.getView().getModel();
-			    	var oController = this;
-			    	var jsonResponse = JSON.parse(response);
-			    	oModel.setProperty("/Data", jsonResponse);
-			    	oModel.refresh(true);
-			    	oController.getDataUpdate();
+			    success : function(response) {
+			    	if(response != "null"){*/
+			    	//var oModel = this.getView().getModel();
+			    	//oModel.loadData("json/chart.json");
 			    	
-			    },
+			    	/*console.log(oModel.oData);
+			    	oModel.getProperty("/lineData/customerno").push("123");
+			    	 for(var i=0;i< oModel.oData.Data.length;i++){
+			    		 oModel.getProperty("/lineData/customerno").push("123");
+			    		 oModel.oData.orderno.push(oModel.oData.Data[i].orderno);
+			    		 oModel.oData.materialno.push(oModel.oData.Data[i].materialno);
+			    		 oModel.oData.speed.push(oModel.oData.Data[i].speed);
+			    		 oModel.oData.temp.push(oModel.oData.Data[i].temp);
+			    	     }*/
+			    	//var oController = this;
+			    	//var jsonResponse = JSON.parse(response);
+			    	//oModel.setProperty("/Data", jsonResponse);
+			    	//oModel.refresh(true);
+			    	//console.log(oModel);
+			    	//}
+			    	//oController.getDataUpdate();
+			    	
+			   /* },
 			    error : function(message) {
 				console.error("Error");
 			    }	
-			});
+			});*/
 		},
 		getDataUpdate: function() {
 			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();
@@ -67,13 +81,19 @@ sap.ui.define([
 			    	var oController = this;
 			    	
 			    	var jsonResponse = JSON.parse(response);
-			    	oModel.getProperty("/Data/speed").push(jsonResponse[0].speed);
-			    	oModel.getProperty("/Data/speed").shift();
-			    	oModel.getProperty("/Data/temp").push(jsonResponse[0].temp);
-			    	oModel.getProperty("/Data/temp").shift();
-			    	oModel.getProperty("/Data/orderno").push(jsonResponse[0].orderno);
-			    	oModel.getProperty("/Data/orderno").shift();
-			    	
+			    	console.log(jsonResponse);
+			    	oModel.getProperty("/speedData/speed").push(jsonResponse[0].speed);
+			    	oModel.getProperty("/speedData/speed").shift();
+			    	oModel.getProperty("/tempData/temp").push(jsonResponse[0].temp);
+			    	oModel.getProperty("/tempData/temp").shift();
+			    	oModel.getProperty("/tempData/orderno").push(jsonResponse[0].orderno);
+			    	oModel.getProperty("/tempData/orderno").shift();
+			    	oModel.getProperty("/speedData/orderno").push(jsonResponse[0].orderno);
+			    	oModel.getProperty("/speedData/orderno").shift();
+			    	oModel.getProperty("/gaugeDatatemp/temp").push(jsonResponse[0].temp);
+			    	oModel.getProperty("/gaugeDatatemp/temp").shift();
+			    	oModel.getProperty("/gaugeDataspeed/speed").push(jsonResponse[0].temp);
+			    	oModel.getProperty("/gaugeDataspeed/speed").shift();
 			    	
 			    	oModel.refresh(true);
 			    	this.getView().byId("LineChartHeat").load();

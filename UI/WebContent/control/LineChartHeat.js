@@ -32,7 +32,13 @@ sap.ui.define([
 
     onAfterRendering: function() {
       var chartData = this.getData();
-
+      /*var temp = new Array();
+      var orderno = new Array();
+      for(var i=0;i<2;i++){
+    	temp.push(chartData[i].temp);
+    	orderno.push(chartData[i].temp);
+      }
+      console.log(chartData);*/
       // required due to lifecycle calls > init of undefined vars
       if (chartData === undefined) {
         return;
@@ -42,7 +48,7 @@ sap.ui.define([
 		    bindto: '#' + CHART_CANVAS_NAME_PREFIX + this.getId(),
 		    data: {
 		    	x: 'orderno',
-		    	json: chartData.temp,
+		    	json: chartData,
 		          type: 'spline',
 		          colors: {
 		              data: '#0414A6'

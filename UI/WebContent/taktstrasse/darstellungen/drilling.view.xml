@@ -37,15 +37,63 @@
 		<IconTabBar
 		id="idIconTabBarNoIcons"
 		expanded="{device>/isNoPhone}"
-		class="sapUiResponsiveContentPadding">
+		class="selector sapUiResponsiveContentPadding">
 		<items>
 			<IconTabFilter
-				text="Heat indicator">
-				<acc:LineChartHeat width="400" height="200" responsive="true" chartType="Line" data="{/lineData}"/>
+				text="Heat indicator" >
+				<l:VerticalLayout width="100%" >
+				<acc:LineChartHeat id="LineChartHeat" width="400" height="200" responsive="true" chartType="Line" data="{/tempData}"/>
+				<l:FixFlex class="fixFlexHorizontal" vertical="true" >
+						<l:fixContent width="50%">
+							<!--  <l:HorizontalLayout>
+								<l:content>
+									<VBox>
+										<Select
+											forceSelection="false"
+											selectedKey="{/filter/0/Key}"
+											items="{
+											path: '/filter',
+											sorter: { path: 'Name' }
+											}">
+											<core:Item key="{Key}" text="{Name}" />
+										</Select>
+									</VBox>
+ 								</l:content>
+ 							</l:HorizontalLayout>-->	
+ 						</l:fixContent>
+						<l:fixContent width="50%">
+							<acc:GaugeChartHeat id="GaugeChartHeat" width="400" height="200" responsive="true" chartType="Line" data="{/gaugeDatatemp}"/>
+						</l:fixContent>
+					</l:FixFlex>
+				</l:VerticalLayout>	
 			</IconTabFilter>
 			<IconTabFilter
-				text="Speed indicator">
-				<acc:LineChartSpeed width="400" height="200" responsive="true" chartType="Line" data="{/lineData}"/>
+				text="Speed indicator" class="selector">
+				<l:VerticalLayout width="100%" >
+					<acc:LineChartSpeed id="LineChartSpeed" width="400" height="200" responsive="true" chartType="Line" data="{/speedData}"/>
+					<l:FixFlex class="fixFlexHorizontal" vertical="true" >
+						<l:fixContent width="50%">
+							<!--  <l:HorizontalLayout>
+								<l:content>
+									<VBox>
+										<Select
+											forceSelection="false"
+											selectedKey="{/filter/0/Key}"
+											items="{
+											path: '/filter',
+											sorter: { path: 'Name' }
+											}">
+											<core:Item key="{Key}" text="{Name}" />
+										</Select>
+									</VBox>
+ 								</l:content>
+ 							</l:HorizontalLayout>-->	
+ 						</l:fixContent>
+						<l:fixContent width="50%">
+							<acc:GaugeChartSpeed id="GaugeChartSpeed" width="400" height="200" responsive="true" chartType="Line" data="{/gaugeDataspeed}"/>
+						</l:fixContent>
+					</l:FixFlex>
+				</l:VerticalLayout>	
 			</IconTabFilter>
 		</items>
 	</IconTabBar>

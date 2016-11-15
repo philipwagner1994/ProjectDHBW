@@ -12,7 +12,7 @@ sap.ui.define([
 		onInit : function (evt) {
 			 var oModel = new sap.ui.model.json.JSONModel();
 	           // Load JSON in model
-	              oModel.loadData("json/chartdata.json");
+	              oModel.loadData("json/chart.json");
 			this.getView().setModel(oModel);
 			
 			this.getRouter().attachRoutePatternMatched(this.onRouteMatched, this);
@@ -22,6 +22,85 @@ sap.ui.define([
 			this.getView().byId("Rows").setValue(oConfigModel.config.rows);
 			this.getView().byId("CustomerNumSearch").setValue(oConfigModel.config.CustomerNum);
 			this.getView().byId("MaterialNumSearch").setValue(oConfigModel.config.MaterialNum);
+			
+			/*$.ajax({
+		    async : false,
+		    type : "GET",
+		    url : "http://localhost:1234/Server/java",
+		    dataType : 'text',
+		    data : {
+			'function' : "history_drilling",
+			history: oConfigModel.config.rows,
+			materialno: oConfigModel.config.MaterialNum,
+			customerno: oConfigModel.config.CustomerNum
+		    },
+		    success : function(response) {
+		    	if(response != "null"){*/
+		    	//var oModel = this.getView().getModel();
+		    	//oModel.loadData("json/chart.json");
+		    	
+		    	/*console.log(oModel.oData);
+		    	oModel.getProperty("/lineData/customerno").push("123");
+		    	 for(var i=0;i< oModel.oData.Data.length;i++){
+		    		 oModel.getProperty("/lineData/customerno").push("123");
+		    		 oModel.oData.orderno.push(oModel.oData.Data[i].orderno);
+		    		 oModel.oData.materialno.push(oModel.oData.Data[i].materialno);
+		    		 oModel.oData.speed.push(oModel.oData.Data[i].speed);
+		    		 oModel.oData.temp.push(oModel.oData.Data[i].temp);
+		    	     }*/
+		    	//var oController = this;
+		    	//var jsonResponse = JSON.parse(response);
+		    	//oModel.setProperty("/Data", jsonResponse);
+		    	//oModel.refresh(true);
+		    	//console.log(oModel);
+		    	//}
+		    	//oController.getDataUpdate();
+		    	
+		   /* },
+		    error : function(message) {
+			console.error("Error");
+		    }	
+		});*/
+		},
+		getDataUpdate: function() {
+			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();
+			if(oConfigModel.livedown==false){
+			$.ajax({
+			    async : true,
+			    type : "GET",
+			    url : "http://localhost:1234/Server/java",
+			    dataType : 'text',
+			    data : {
+				'function' : "live_drilling",
+				materialno: oConfigModel.config.MaterialNum,
+				customerno: oConfigModel.config.CustomerNum
+			    },
+			    success : function(response) {
+			    	var oModel = this.getView().getModel();
+			    	var oController = this;
+			    	
+			    	var jsonResponse = JSON.parse(response);
+			    	oModel.getProperty("/lineData/speed").push(jsonResponse[0].speed);
+			    	oModel.getProperty("/lineData/speed").shift();
+			    	oModel.getProperty("/lineData/temp").push(jsonResponse[0].temp);
+			    	oModel.getProperty("/lineData/temp").shift();
+			    	oModel.getProperty("/lineData/orderno").push(jsonResponse[0].orderno);
+			    	oModel.getProperty("/lineData/orderno").shift();
+			    	
+			    	
+			    	oModel.refresh(true);
+			    	this.getView().byId("LineChartHeat").load();
+			    	this.getView().byId("LineChartSpeed").load();
+			    	this.getView().byId("GaugeChartHeat").load();
+			    	this.getView().byId("GaugeChartSpeed").load();
+			    	oController.getDataUpdate();
+			    	
+			    },
+			    error : function(message) {
+				console.error("Error");
+			    }	
+			});
+			}
 		},
 		getRouter : function () {
 			return sap.ui.core.UIComponent.getRouterFor(this);

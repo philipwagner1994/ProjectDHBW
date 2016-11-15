@@ -42,7 +42,7 @@ sap.ui.define([
              		    bindto: '#' + CHART_CANVAS_NAME_PREFIX + this.getId(),
              		    data: {
              		    	x: 'orderno',
-             		    	json: chartData.speed,
+             		    	json: chartData,
              		          type: 'spline',
 	             		      colors: {
 	           		              data: '#0414A6'

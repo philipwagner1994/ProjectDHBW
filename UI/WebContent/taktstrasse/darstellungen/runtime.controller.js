@@ -36,9 +36,9 @@ sap.ui.define([
 				customerno: oConfigModel.config.CustomerNum
 			    },
 			    success : function(response) {*/			
-			    	var oModel = this.getView().getModel();
-			    	var oController = this;
-			    	console.log(oModel);
+			    	//var oModel = this.getView().getModel();
+			    	//var oController = this;
+			    	//console.log(oModel);
 			    	//var jsonResponse = JSON.parse(response);
 			    	//oModel.setProperty("/lineData", jsonResponse);
 			    	//oModel.refresh(true);
