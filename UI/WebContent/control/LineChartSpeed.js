@@ -51,10 +51,6 @@ sap.ui.define([
              		        
              		        axis: {
              		          y: {
-             		            label: {
-             		              text: 'Speed',
-             		              position: 'outer-middle'
-             		            },
              		            tick: {
              	              format: d3.format("°,") // ADD
              		            }

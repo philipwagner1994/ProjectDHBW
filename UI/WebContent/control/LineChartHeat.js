@@ -67,10 +67,6 @@ sap.ui.define([
 		          },
 		          x: {
 		        	  type: 'category',
-		        	  label: {
- 			              text: 'Order Number',
- 			              position: 'outer-middle'
- 			            },
 		              tick: {
 		                  rotate: 75,
 		                  multiline: false
