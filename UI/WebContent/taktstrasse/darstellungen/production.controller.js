@@ -43,8 +43,9 @@ sap.ui.define([
 				console.log(icon);
 			};
 			function openAlert(id) {
-					sap.ui.commons.MessageBox.alert("Number "+oModel.oData.TileCollection[id].number+"\n"+
-													"Unit "+oModel.oData.TileCollection[id].numberUnit);
+					sap.ui.commons.MessageBox.alert("Order Number : cc59e94ff-a512-4ef8-8471-fdcf32d57228 \n"+
+													"Heat: 112.90 grad \n"+
+													"Speed: 15000 m/s \n");
 				}
 
 			addIcons({left: "400px", top: "510px"}, 0);

@@ -4,22 +4,22 @@
 		{
 			"icon" : "status-error",
 			"title" : "Milling",
-			"number" : "90",
+			"number" : "",
 			"numberUnit" : "grad",
-			"number2" : "30",
+			"number2" : "",
 			"numberUnit2" : "m/s",
-			"OrderNum" : "1234",
+			"OrderNum" : "",
 			"info" : "",
 			"infoState" : ""
 		
 		},{
 			"icon" : "drill-down",
 			"title" : "Drilling",
-			"number" : "90",
+			"number" : "",
 			"numberUnit" : "grad",
-			"number2" : "30",
+			"number2" : "",
 			"numberUnit2" : "m/s",
-			"OrderNum" : "1234",
+			"OrderNum" : "",
 			"info" : "",
 			"infoState" : ""
 		
@@ -28,8 +28,8 @@
 		{
 			"icon" : "factory",
 			"title" : "Production",
-			"number" : "1367",
-			"numberUnit" : "st"
+			"number" : "",
+			"numberUnit" : ""
 		
 		},
 		{

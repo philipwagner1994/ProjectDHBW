@@ -14,7 +14,7 @@ sap.ui.define([
 		onInit : function (evt) {
 			 var oModel = new sap.ui.model.json.JSONModel();
 	           // Load JSON in model
-	              //oModel.loadData("json/tabdata.json");
+	              oModel.loadData("json/detail.json");
 			this.getView().setModel(oModel);
 			
 			this.getRouter().attachRoutePatternMatched(this.onRouteMatched, this);
@@ -28,7 +28,7 @@ sap.ui.define([
 			this.getView().byId("MaterialNumSearch").setValue(oConfigModel.config.MaterialNum);
 			oConfigModel.livedown = false;
 
-			$.ajax({
+			/*$.ajax({
 			    async : false,
 			    type : "GET",
 			    url : "http://localhost:1234/Server/java",
@@ -51,7 +51,7 @@ sap.ui.define([
 			    error : function(message) {
 				console.error("Error");
 			    }	
-			});
+			});*/
 		},
 		getDataUpdate: function() {
 			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();

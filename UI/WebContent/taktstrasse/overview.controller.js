@@ -26,6 +26,7 @@ sap.ui.define([
 		onRouteMatched: function() {
 			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();	
 			oConfigModel.livedown = false;
+			var that = this;
 
 			$.ajax({
 			    async : true,
@@ -36,8 +37,8 @@ sap.ui.define([
 				command : "getWSData",
 			    },
 			    success : function(response) {
-			    	var oModel = this.getView().getModel();
-					var oController = this;
+			    	var oModel = that.getView().getModel();
+					
 			    	var jsonResponse = JSON.parse(response);
 			    	var OrderNum;
 			    	console.log(jsonResponse);
@@ -67,9 +68,8 @@ sap.ui.define([
 						       console.log("Fehler");
 					}
 			    	oModel.refresh(true);
-			    	console.log(oModel.oData);
 
-			    	oController.ajax();
+			    	that.ajax();
 
 			    },
 			    error : function(message) {
@@ -92,8 +92,6 @@ sap.ui.define([
 			
 			switch(page) {
 		    case 0:
-		    	oModel.oData.flags[0].livedown = true;
-				oModel.refresh(true);
 		    	sap.ui.core.UIComponent.getRouterFor(this).navTo("milling");
 		        break;
 		    case 1:
@@ -128,7 +126,7 @@ sap.ui.define([
 		},
 		ajax : function () {
 			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();	
-			if(oConfigModel.livedown = false){
+			if(oConfigModel.livedown == false){
 
 			$.ajax({
 			    async : true,
@@ -152,14 +150,14 @@ sap.ui.define([
 						       oModel.oData.TileCollection[0].OrderNum = OrderNum;
 						       break;
 						   case "MILLING_SPEED":
-						       oModel.oData.TileCollection[1].number2 = jsonResponse[0].Value3;
-						       OrderNum =  "OrderNum: " + jsonResponse[0].OrderNum;
-						       oModel.oData.TileCollection[1].OrderNum = OrderNum
-						       break;
-						   case "DRILLING_HEAT":
-						       oModel.oData.TileCollection[0].number = jsonResponse[0].Value3
+						       oModel.oData.TileCollection[0].number2 = jsonResponse[0].Value3;
 						       OrderNum =  "OrderNum: " + jsonResponse[0].OrderNum;
 						       oModel.oData.TileCollection[0].OrderNum = OrderNum
+						       break;
+						   case "DRILLING_HEAT":
+						       oModel.oData.TileCollection[1].number = jsonResponse[0].Value3
+						       OrderNum =  "OrderNum: " + jsonResponse[0].OrderNum;
+						       oModel.oData.TileCollection[1].OrderNum = OrderNum
 						       break;
 						   case "DRILLING_SPEED":
 						       oModel.oData.TileCollection[1].number2 = jsonResponse[0].Value3 
