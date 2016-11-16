@@ -11,15 +11,41 @@ public class PostgreSQLJDBC {
 
    public static void main( String args[] )
      {
-       Connection c = null;
+       
+	   /*String [] array= {"8141c1e8-d161-401f-ae2a-2c27201848ed", "1479291883", "FALSE", "14781905092390", "1478190498239", "4711", "7134", "65.0363364871295", "89.1031266124599", "9.022445317143458", "3.789427033200252", "586.7867895824678", "337.6497967279204"};
+	   boolean create = insert(array);
+	   System.out.println(create);*/
+	   /*String [] array= {"8141c1e8-d161-401f-ae2a-2c27201848ed", "1479291850", "TRUE", "MILLING_HEAT", "160"};
+	   boolean create = insert(array);
+	   System.out.println(create);*/
+	   /*String [] array= {"8141c1e8-d161-401f-ae2a-2c35601848ab", "1479291950", "FALSE", "14781905092390", "1478190498239", "4712", "7135", "65.0363364871295", "89.1031266124599", "9.022445317143458", "3.789427033200252", "586.7867895824678", "337.6497967279204"};
+	   boolean create = insert(array);
+	   System.out.println(create);*/
+	   /*String [] array= {"8141c1e8-d161-401f-ae2a-2c35601848ab", "1479291960", "TRUE", "MILLING_HEAT", "184.713"};
+	   boolean create = insert(array);
+	   System.out.println(create);*/
+	   String [][] array = select(1, "millinghistory", -1, -1);
+	   System.out.println(array[0][4]);
+	   Connection c = null;
        Statement stmt = null;
        try {
          Class.forName("org.postgresql.Driver");
          c = DriverManager
             .getConnection("jdbc:postgresql://192.168.99.100:5432/pgdb", "pguser", "pguser");
+         c.setAutoCommit(false);
          System.out.println("Opened database successfully");
-
          stmt = c.createStatement();
+         /*String sqlproperties = "CREATE TABLE Properties " +
+                 "(id				SERIAL PRIMARY KEY 	NOT NULL," +
+                 " ordernumber		TEXT					NOT NULL," +
+                 " timestamp      	DOUBLE PRECISION    	NOT NULL, " +
+                 " status		  	BOOLEAN     			NOT NULL, " +
+                 " itemName        	TEXT					NOT NULL, " +
+                 " value			DECIMAL				NOT NULL)";
+         stmt.executeUpdate(sqlproperties);
+         stmt.close();
+         c.commit();
+         c.close();*/
          //Create Operation
         /* String sql = "CREATE TABLE tablename " +
                       "(ID INT PRIMARY KEY     NOT NULL," +
@@ -34,37 +60,74 @@ public class PostgreSQLJDBC {
          
          // Insert Operation
          /*String sql = "INSERT INTO tablename (ID,NAME,AGE,ADDRESS,SALARY) "
-                 + "VALUES (5, 'Paul', 32, 'California', 2000.0012 );";
+                 + "VALUES (11, 'Paul', 32, 'California', 2000.0012 );";
          stmt.executeUpdate(sql);
          stmt.close();
          c.commit();
          c.close();
          System.out.println("Records created successfully");*/
          
-         String zahl="2";
+         
+         
          //Select Operation
-         String sql2 = "SELECT "+
+         /*String sql2 = "SELECT "+
         		 		"*"+
         		 	"FROM "+
-        		 		"tablename WHERE id='"+zahl+"';";
+        		 		"data;";
          ResultSet rs = stmt.executeQuery(sql2);
          while (rs.next()){
         	 //System.out.println(rs.getString("time"));
-        	 int id = rs.getInt("id");
-             String  name = rs.getString("name");
-             int age  = rs.getInt("age");
-             String  address = rs.getString("address");
-             float salary = rs.getFloat("salary");
-             System.out.println( "ID = " + id );
-             System.out.println( "NAME = " + name );
-             System.out.println( "AGE = " + age );
-             System.out.println( "ADDRESS = " + address );
-             System.out.println( "SALARY = " + salary );
+			 String ordernumber = rs.getString("ordernumber");
+			 String customernumber = rs.getString("customernumber");
+			 String materialnumber = rs.getString("materialnumber");
+			 String timestamp = rs.getString("timestamp");
+			 String overallstatus = rs.getString("overallstatus");
+			 String em1 = rs.getString("em1");
+			 String em2 = rs.getString("em2");
+			 String a1 = rs.getString("a1");
+			 String a2 = rs.getString("a2");
+			 String b1 = rs.getString("b1");
+			 String b2 = rs.getString("b2");
+			 String starttime = rs.getString("starttime");
+			 String endtime = rs.getString("endtime");
+             System.out.println( "ordernumber = " + ordernumber );
+             System.out.println( "customernumber = " + customernumber );
+             System.out.println( "materialnumber = " + materialnumber );
+             System.out.println( "timestamp = " + timestamp );
+             System.out.println( "overallstatus = " + overallstatus );
+             System.out.println( "em1 = " + em1 );
+             System.out.println( "em2 = " + em2 );
+             System.out.println( "a1 = " + a1 );
+             System.out.println( "a2 = " + a2 );
+             System.out.println( "b1 = " + b1 );
+             System.out.println( "b2 = " + b2 );
+             System.out.println( "starttime = " + starttime );
+             System.out.println( "endtime = " + endtime );
              System.out.println();
          }
          rs.close();
-         stmt.close();
-         c.close();
+         stmt.close();*/
+         //c.close();
+         
+         /*String sql2 = "SELECT "+
+ 		 		"*"+
+ 		 	"FROM "+
+ 		 		"Properties WHERE itemName = 'MILLING_SPEED';";
+         ResultSet rs = stmt.executeQuery(sql2);
+         while (rs.next()){
+        	 String id = rs.getString("id");
+        	 String ordernumber = rs.getString("ordernumber");
+        	 String timestamp = rs.getString("timestamp");
+        	 String status = rs.getString("status");
+        	 String itemName = rs.getString("itemName");
+        	 String value = rs.getString("value");
+        	 System.out.println( "id = " + id );
+        	 System.out.println( "ordernumber = " + ordernumber );
+        	 System.out.println( "timestamp = " + timestamp );
+        	 System.out.println( "status = " + status );
+        	 System.out.println( "itemName = " + itemName );
+        	 System.out.println( "value = " + value );
+         }*/
          
          //Update Operation
          /*String sql = "UPDATE tablename set SALARY = 25000.00 where ID=1;";
@@ -74,12 +137,12 @@ public class PostgreSQLJDBC {
          c.close();*/
          
          //Delete Operation
-         /*String sql = "DELETE from tablename where ID=2;";
+         /*String sql = "DROP TABLE Properties;";
          stmt.executeUpdate(sql);
          c.commit();
          stmt.close();
          c.close();
-         System.out.println("Operation done successfully")*/
+         System.out.println("Operation done successfully");*/
          
        } catch ( Exception e ) {
     	 if ( e.getMessage().contains( "ERROR: relation" ) && e.getMessage().contains( "already exists" )){
@@ -99,6 +162,7 @@ public class PostgreSQLJDBC {
          Class.forName("org.postgresql.Driver");
          c = DriverManager
             .getConnection("jdbc:postgresql://192.168.99.100:5432/pgdb", "pguser", "pguser");
+         c.setAutoCommit(false);
          System.out.println("Opened database successfully");
 
          stmt = c.createStatement();
@@ -110,8 +174,8 @@ public class PostgreSQLJDBC {
                       " overallstatus  	BOOLEAN				NOT NULL," +
                       " endtime        	DOUBLE PRECISION	NOT NULL," +
                       " starttime       DOUBLE PRECISION	NOT NULL," +
-                      " customernumber	INTIGER				NOT NULL," +
-                      " materialnumber	INTIGER				NOT NULL," +
+                      " customernumber	INT					NOT NULL," +
+                      " materialnumber	INT					NOT NULL," +
                       " em1				DECIMAL				NOT NULL," +
                       " em2				DECIMAL				NOT NULL," +
                       " a1				DECIMAL				NOT NULL," +
@@ -151,15 +215,16 @@ public class PostgreSQLJDBC {
          String sqlinsert="";
          c = DriverManager
             .getConnection("jdbc:postgresql://192.168.99.100:5432/pgdb", "pguser", "pguser");
+         c.setAutoCommit(false);
          System.out.println("Opened database successfully");
          stmt = c.createStatement();
          if(insertarray.length == 13){
         	 sqlinsert = "INSERT INTO Data (ordernumber, timestamp, overallstatus, endtime, starttime, customernumber, materialnumber, em1, em2, a1, a2, b1, b2) "
-                     + "VALUES ("+insertarray[0]+", "+ insertarray[1]+", "+insertarray[2]+", "+ insertarray[3]+", "+insertarray[4]+", "+ insertarray[5]+", "+insertarray[6]+", "+ insertarray[7]+", "+insertarray[8]+", "+ insertarray[9]+", "+insertarray[10]+", "+ insertarray[11]+", "+insertarray[12]+");";
+                     + "VALUES ('"+insertarray[0]+"', "+ insertarray[1]+", "+insertarray[2]+", "+ insertarray[3]+", "+insertarray[4]+", "+ insertarray[5]+", "+insertarray[6]+", "+ insertarray[7]+", "+insertarray[8]+", "+ insertarray[9]+", "+insertarray[10]+", "+ insertarray[11]+", "+insertarray[12]+");";
          }
          else if(insertarray.length == 5){
         	 sqlinsert = "INSERT INTO Properties (ordernumber, timestamp, status, itemName, value) "
-                     + "VALUES ("+insertarray[0]+", "+insertarray[1]+", "+insertarray[2]+", "+insertarray[3]+", "+insertarray[4]+");";
+                     + "VALUES ('"+insertarray[0]+"', "+insertarray[1]+", "+insertarray[2]+", '"+insertarray[3]+"', "+insertarray[4]+");";
          }
 
          stmt.executeUpdate(sqlinsert);
@@ -189,10 +254,10 @@ public class PostgreSQLJDBC {
     		   String sqlselect="";
     		   if (materialnumber == -1 && customernumber == -1){
 	    		   sqlselect= "SELECT"+
-	    				   		" ordernumber,"+
+	    				   		" data.ordernumber AS ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
+	    				   		" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
 	    				   		" itemName,"+
 	    				   		" AVG(value) AS value"+
 	    				   	" FROM"+
@@ -200,21 +265,21 @@ public class PostgreSQLJDBC {
 	    				   	" WHERE"+
 	    				   		"(itemName = 'MILLING_SPEED' OR itemName = 'MILLING_HEAT')"+
 	    				   	" GROUP BY"+
-	    				   		" ordernumber,"+
+	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
+	    				   		" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
 	    				   		" itemName"+
 			   				" ORDER BY"+
-				   				" ordernumber,"+
-			   					" timestamp;";
+				   				" timestamp DESC,"+
+			   					" data.ordernumber;";
     		   }
     		   else if (materialnumber == -1 && customernumber != -1){
 	    		   sqlselect= "SELECT"+
-	    				   		" ordernumber,"+
+	    				   		" data.ordernumber AS ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
+	    				   		" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
 	    				   		" itemName,"+
 	    				   		" AVG(value) AS value"+
 	    				   	" FROM"+
@@ -223,21 +288,21 @@ public class PostgreSQLJDBC {
 	    				   		" (itemName = 'MILLING_SPEED' OR itemName = 'MILLING_HEAT') AND"+
 	    				   		" (customernumber = "+customernumber+")"+
 		    				" GROUP BY"+
-	    				   		" ordernumber,"+
+	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
+	    				   		" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
 	    				   		" itemName"+
 			   				" ORDER BY"+
-				   				" ordernumber,"+
-			   					" timestamp;";
+				   				" timestamp DESC,"+
+			   					" data.ordernumber;";
     		   }
     		   else if (materialnumber != -1 && customernumber == -1){
 	    		   sqlselect= "SELECT"+
-	    				   		" ordernumber,"+
+	    				   		" data.ordernumber AS ordernumber,"+
 	    				   		" customernumber,"+
 			   					" materialnumber,"+
-			   					" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
+			   					" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
 			   					" itemName,"+
 			   					" AVG(value) AS value"+
 			   				" FROM"+
@@ -246,21 +311,21 @@ public class PostgreSQLJDBC {
 			   					" (itemName = 'MILLING_SPEED' OR itemName = 'MILLING_HEAT') AND"+
 			   					" (materialnumber = "+materialnumber+")"+
 			   				" GROUP BY"+
-	    				   		" ordernumber,"+
+	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
+	    				   		" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
 	    				   		" itemName"+
 			   				" ORDER BY"+
-				   				" ordernumber,"+
-			   					" timestamp;";
+				   				" timestamp DESC,"+
+			   					" data.ordernumber;";
     		   }
     		   else if (materialnumber != -1 && customernumber != -1){
 	    		   sqlselect= "SELECT"+
-			   					" ordernumber,"+
+			   					" data.ordernumber AS ordernumber,"+
 			   					" customernumber,"+
 			   					" materialnumber,"+
-			   					" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
+			   					" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
 			   					" itemName,"+
 			   					" AVG(value) AS value"+
 			   				" FROM"+
@@ -269,14 +334,14 @@ public class PostgreSQLJDBC {
 			   					" (itemName = 'MILLING_SPEED' OR itemNAme = 'MILLING_HEAT') AND"+
 			   					" ((materialnumber = "+materialnumber+") AND (customernumber = "+customernumber+"))"+
 			   				" GROUP BY"+
-	    				   		" ordernumber,"+
+	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
+	    				   		" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
 	    				   		" itemName"+
 			   				" ORDER BY"+
-				   				" ordernumber,"+
-			   					" timestamp;";
+				   				" timestamp DESC,"+
+			   					" data.ordernumber;";
     		   }
     		   ResultSet rs = stmt.executeQuery( sqlselect );
     		   int i=1;
@@ -286,10 +351,11 @@ public class PostgreSQLJDBC {
     			   resultarray[j][1] = rs.getString("customernumber");
     			   resultarray[j][2] = rs.getString("materialnumber");
     			   resultarray[j][3] = rs.getString("timestamp");
-    			   if(rs.getString("itemName") == "MILLING_SPEED"){
+    			   if(rs.getString("itemName").equals("MILLING_SPEED")){
+    				   System.out.println("test");
         			   resultarray[j][4] = rs.getString("value");
     			   }
-    			   else if(rs.getString("itemName") == "MILLING_HEAT"){
+    			   else if(rs.getString("itemName").equals("MILLING_HEAT")){
         			   resultarray[j][5] = rs.getString("value");
     			   }
     			   if (i%2 == 0) {
@@ -307,10 +373,10 @@ public class PostgreSQLJDBC {
     		   String sqlselect="";
     		   if (materialnumber == -1 && customernumber == -1){
 	    		   sqlselect= "SELECT"+
-	    				   		" ordernumber,"+
+	    				   		" data.ordernumber AS ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
+	    				   		" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
 	    				   		" itemName,"+
 	    				   		" AVG(value) AS value"+
 	    				   	" FROM"+
@@ -318,21 +384,21 @@ public class PostgreSQLJDBC {
 	    				   	" WHERE"+
 	    				   		"(itemName = 'DRILLING_SPEED' OR itemName = 'DRILLING_HEAT')"+
 		    				" GROUP BY"+
-	    				   		" ordernumber,"+
+	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
+	    				   		" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
 	    				   		" itemName"+
 			   				" ORDER BY"+
-				   				" ordernumber,"+
-			   					" timestamp;";
+				   				" timestamp DESC,"+
+			   					" data.ordernumber;";
     		   }
     		   else if (materialnumber == -1 && customernumber != -1){
 	    		   sqlselect= "SELECT"+
-	    				   		" ordernumber,"+
+	    				   		" data.ordernumber AS ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
+	    				   		" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
 	    				   		" itemName,"+
 	    				   		" AVG(value) AS value"+
 	    				   	" FROM"+
@@ -341,21 +407,21 @@ public class PostgreSQLJDBC {
 	    				   		" (itemName = 'DRILLING_SPEED' OR itemName = 'DRILLING_HEAT') AND"+
 	    				   		" (customernumber = "+customernumber+")"+
 		    				" GROUP BY"+
-	    				   		" ordernumber,"+
+	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
+	    				   		" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
 	    				   		" itemName"+
 			   				" ORDER BY"+
-				   				" ordernumber,"+
-			   					" timestamp;";
+			   					" timestamp DESC,"+
+			   					" data.ordernumber;";
     		   }
     		   else if (materialnumber != -1 && customernumber == -1){
 	    		   sqlselect= "SELECT"+
-	    				   		" ordernumber,"+
+	    				   		" data.ordernumber AS ordernumber,"+
 	    				   		" customernumber,"+
 			   					" materialnumber,"+
-			   					" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
+			   					" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
 			   					" itemName,"+
 			   					" AVG(value) AS value"+
 			   				" FROM"+
@@ -364,21 +430,21 @@ public class PostgreSQLJDBC {
 			   					" (itemName = 'DRILLING_SPEED' OR itemName = 'DRILLING_HEAT') AND"+
 			   					" (materialnumber = "+materialnumber+")"+
 		    				" GROUP BY"+
-	    				   		" ordernumber,"+
+	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
+	    				   		" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
 	    				   		" itemName"+
 			   				" ORDER BY"+
-				   				" ordernumber,"+
-			   					" timestamp;";
+				   				" timestamp DESC,"+
+			   					" data.ordernumber;";
     		   }
     		   else if (materialnumber != -1 && customernumber != -1){
 	    		   sqlselect= "SELECT"+
-			   					" ordernumber,"+
+			   					" data.ordernumber AS ordernumber,"+
 			   					" customernumber,"+
 			   					" materialnumber,"+
-			   					" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
+			   					" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
 			   					" itemName,"+
 			   					" AVG(value) AS value"+
 			   				" FROM"+
@@ -387,14 +453,14 @@ public class PostgreSQLJDBC {
 			   					" (itemName = 'DRILLING_SPEED' OR itemNAme = 'DRILLING_HEAT') AND"+
 			   					" ((materialnumber = "+materialnumber+") AND (customernumber = "+customernumber+"))"+
 		    				" GROUP BY"+
-	    				   		" ordernumber,"+
+	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
+	    				   		" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
 	    				   		" itemName"+
 			   				" ORDER BY"+
-				   				" ordernumber,"+
-			   					" timestamp;";
+				   				" timestamp DESC,"+
+			   					" data.ordernumber;";
     		   }
     		   ResultSet rs = stmt.executeQuery( sqlselect );
     		   int i=1;
@@ -404,10 +470,10 @@ public class PostgreSQLJDBC {
     			   resultarray[j][1] = rs.getString("customernumber");
     			   resultarray[j][2] = rs.getString("materialnumber");
     			   resultarray[j][3] = rs.getString("timestamp");
-    			   if(rs.getString("itemName") == "DRILLING_SPEED"){
+    			   if(rs.getString("itemName").equals("DRILLING_SPEED")){
         			   resultarray[j][4] = rs.getString("value");
     			   }
-    			   else if(rs.getString("itemName") == "DRILLING_HEAT"){
+    			   else if(rs.getString("itemName").equals("DRILLING_HEAT")){
         			   resultarray[j][5] = rs.getString("value");
     			   }
     			   if (i%2 == 0) {
@@ -434,7 +500,7 @@ public class PostgreSQLJDBC {
 	    				   	" GROUP BY"+
 	    				   		"to_char(to_timestamp(starttime),'HH24:MI YYYY-MM-DD' )"+
 			   				" ORDER BY"+
-			   					" timestamp;";
+			   					" timestamp DESC;";
     		   }
     		   else if (materialnumber == -1 && customernumber != -1){
 	    		   sqlselect= "SELECT"+
@@ -448,7 +514,7 @@ public class PostgreSQLJDBC {
 		    				" GROUP BY"+
 	    				   		"to_char(to_timestamp(starttime),'HH24:MI YYYY-MM-DD' )"+
 			   				" ORDER BY"+
-			   					" timestamp;";
+			   					" timestamp DESC;";
     		   }
     		   else if (materialnumber != -1 && customernumber == -1){
     			   sqlselect= "SELECT"+
@@ -462,7 +528,7 @@ public class PostgreSQLJDBC {
 				   			" GROUP BY"+
 				   				"to_char(to_timestamp(starttime),'HH24:MI YYYY-MM-DD' )"+
 				   			" ORDER BY"+
-		   						" timestamp;";
+		   						" timestamp DESC;";
     		   }
     		   else if (materialnumber != -1 && customernumber != -1){
     			   sqlselect= "SELECT"+
@@ -476,7 +542,7 @@ public class PostgreSQLJDBC {
 			   			" GROUP BY"+
 			   				"to_char(to_timestamp(1195374767),'HH24:MI YYYY-MM-DD' )"+
 			   			" ORDER BY"+
-	   						" timestamp;";
+	   						" timestamp DESC;";
     		   }
     		   ResultSet rs = stmt.executeQuery( sqlselect );
     		   int i=0;
@@ -504,8 +570,8 @@ public class PostgreSQLJDBC {
 	    				   	" FROM"+
 	    				   		" data"+
 			   				" ORDER BY"+
-			   					" ordernumber,"+
-			   					" timestamp;";
+				   				" timestamp DESC,"+
+			   					" data.ordernumber;";
     		   }
     		   else if (materialnumber == -1 && customernumber != -1){
 	    		   sqlselect= "SELECT"+
@@ -520,8 +586,8 @@ public class PostgreSQLJDBC {
 	    				   	" WHERE"+
 	    				   		" (customernumber = "+customernumber+")"+
 			   				" ORDER BY"+
-			   					" ordernumber,"+
-			   					" timestamp;";
+				   				" timestamp DESC,"+
+			   					" data.ordernumber;";
     		   }
     		   else if (materialnumber != -1 && customernumber == -1){
 	    		   sqlselect= "SELECT"+
@@ -536,8 +602,8 @@ public class PostgreSQLJDBC {
 			   				" WHERE"+
 			   					" (materialnumber = "+materialnumber+")"+
 			   				" ORDER BY"+
-			   					" ordernumber,"+
-			   					" timestamp;";
+				   				" timestamp DESC,"+
+			   					" data.ordernumber;";
     		   }
     		   else if (materialnumber != -1 && customernumber != -1){
 	    		   sqlselect= "SELECT"+
@@ -552,8 +618,8 @@ public class PostgreSQLJDBC {
 			   				" WHERE"+
 			   					" ((materialnumber = "+materialnumber+") AND (customernumber = "+customernumber+"))"+
 			   				" ORDER BY"+
-			   					" ordernumber,"+
-			   					" timestamp;";
+				   				" timestamp DESC,"+
+			   					" data.ordernumber;";
     		   }
     		   ResultSet rs = stmt.executeQuery( sqlselect );
     		   int i=0;
@@ -576,7 +642,7 @@ public class PostgreSQLJDBC {
     		   String sqlselect="";
     		   if (materialnumber == -1 && customernumber == -1){
 	    		   sqlselect= "SELECT"+
-	    				   		" ordernumber,"+
+	    				   		" data.ordernumber AS ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
 	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
@@ -594,10 +660,10 @@ public class PostgreSQLJDBC {
 	    				   	" WHERE"+
 	    				   		"(itemName = 'MILLING_SPEED' OR itemName = 'MILLING_HEAT' OR itemName = 'DRILLING_SPEED' OR itemName = 'DRILLING_HEAT' )"+
 		    				" GROUP BY"+
-	    				   		" ordernumber,"+
+	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
+	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' ),"+
 	    				   		" itemName,"+
 	    				   		" em1,"+
 	    				   		" em2,"+
@@ -606,12 +672,12 @@ public class PostgreSQLJDBC {
 	    				   		" b1,"+
 	    				   		" b2"+
 			   				" ORDER BY"+
-				   				" ordernumber,"+
-			   					" timestamp;";
+				   				" timestamp DESC,"+
+			   					" data.ordernumber;";
     		   }
     		   else if (materialnumber == -1 && customernumber != -1){
 	    		   sqlselect= "SELECT"+
-		   				   		" ordernumber,"+
+		   				   		" data.ordernumber AS ordernumber,"+
 		   				   		" customernumber,"+
 		   				   		" materialnumber,"+
 		   				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
@@ -629,11 +695,11 @@ public class PostgreSQLJDBC {
 	    				   	" WHERE"+
 	    				   		" (itemName = 'MILLING_SPEED' OR itemName = 'MILLING_HEAT' OR itemName = 'DRILLING_SPEED' OR itemName = 'DRILLING_HEAT' ) AND"+
 	    				   		" (customernumber = "+customernumber+")"+
-	    				   		" GROUP BY"+
-	    				   		" ordernumber,"+
+	    				   	" GROUP BY"+
+	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
+	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' ),"+
 	    				   		" itemName,"+
 	    				   		" em1,"+
 	    				   		" em2,"+
@@ -642,12 +708,12 @@ public class PostgreSQLJDBC {
 	    				   		" b1,"+
 	    				   		" b2"+
 			   				" ORDER BY"+
-				   				" ordernumber,"+
-			   					" timestamp;";
+				   				" timestamp DESC,"+
+			   					" data.ordernumber;";
     		   }
     		   else if (materialnumber != -1 && customernumber == -1){
 	    		   sqlselect= "SELECT"+
-		   				   		" ordernumber,"+
+		   				   		" data.ordernumber AS ordernumber,"+
 		   				   		" customernumber,"+
 		   				   		" materialnumber,"+
 		   				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
@@ -665,11 +731,11 @@ public class PostgreSQLJDBC {
 			   				" WHERE"+
 			   					" (itemName = 'MILLING_SPEED' OR itemName = 'MILLING_HEAT' OR itemName = 'DRILLING_SPEED' OR itemName = 'DRILLING_HEAT' ) AND"+
 			   					" (materialnumber = "+materialnumber+")"+
-			   					" GROUP BY"+
-	    				   		" ordernumber,"+
+			   				" GROUP BY"+
+	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
+	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' ),"+
 	    				   		" itemName,"+
 	    				   		" em1,"+
 	    				   		" em2,"+
@@ -678,12 +744,12 @@ public class PostgreSQLJDBC {
 	    				   		" b1,"+
 	    				   		" b2"+
 			   				" ORDER BY"+
-				   				" ordernumber,"+
-			   					" timestamp;";
+				   				" timestamp DESC,"+
+			   					" data.ordernumber;";
     		   }
     		   else if (materialnumber != -1 && customernumber != -1){
 	    		   sqlselect= "SELECT"+
-		   				   		" ordernumber,"+
+		   				   		" data.ordernumber AS ordernumber,"+
 		   				   		" customernumber,"+
 		   				   		" materialnumber,"+
 		   				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
@@ -701,11 +767,11 @@ public class PostgreSQLJDBC {
 			   				" WHERE"+
 			   					" (itemName = 'MILLING_SPEED' OR itemName = 'MILLING_HEAT' OR itemName = 'DRILLING_SPEED' OR itemName = 'DRILLING_HEAT' ) AND"+
 			   					" ((materialnumber = "+materialnumber+") AND (customernumber = "+customernumber+"))"+
-			   					" GROUP BY"+
-	    				   		" ordernumber,"+
+			   				" GROUP BY"+
+	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
+	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' ),"+
 	    				   		" itemName,"+
 	    				   		" em1,"+
 	    				   		" em2,"+
@@ -714,8 +780,8 @@ public class PostgreSQLJDBC {
 	    				   		" b1,"+
 	    				   		" b2"+
 			   				" ORDER BY"+
-				   				" ordernumber,"+
-			   					" timestamp;";
+				   				" timestamp DESC,"+
+			   					" data.ordernumber;";
     		   }
     		   ResultSet rs = stmt.executeQuery( sqlselect );
     		   int i=0;
@@ -732,16 +798,16 @@ public class PostgreSQLJDBC {
     			   resultarray[j][8] = rs.getString("a2");
     			   resultarray[j][9] = rs.getString("b1");
     			   resultarray[j][10] = rs.getString("b2");
-    			   if(rs.getString("itemName") == "DRILLING_SPEED"){
+    			   if(rs.getString("itemName").equals("DRILLING_SPEED")){
         			   resultarray[j][11] = rs.getString("value");
     			   }
-    			   else if(rs.getString("itemName") == "DRILLING_HEAT"){
+    			   else if(rs.getString("itemName").equals("DRILLING_HEAT")){
         			   resultarray[j][12] = rs.getString("value");
     			   }
-    			   else if(rs.getString("itemName") == "MILLING_SPEED"){
+    			   else if(rs.getString("itemName").equals("MILLING_SPEED")){
     				   resultarray[j][13] = rs.getString("value");
     			   }
-    			   else if(rs.getString("itemName") == "MILLING_HEAT"){
+    			   else if(rs.getString("itemName").equals("MILLING_HEAT")){
     				   resultarray[j][14] = rs.getString("value");
     			   }
     			   if (i%4 == 0) {
