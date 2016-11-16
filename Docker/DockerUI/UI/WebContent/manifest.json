@@ -1,0 +1,125 @@
+{
+"_version": "1.1.0",
+	"sap.app" : {
+		"_version" : "1.1.0",
+		"id" : "sap.checkmarx.selfservice",
+		"type" : "application",
+		"title" : "Tacktstrasse",
+		"description" : "desc.",
+		"applicationVersion" : {
+	  		"version" : "1.0.0"
+		}
+  	},
+  	"sap.ui" : {
+		"_version" : "1.1.0",
+		"technology" : "UI5",
+		"deviceTypes" : {
+	  		"desktop" : true,
+	  		"tablet" : false,
+	  		"phone" : false
+		},
+		"supportedThemes" : [
+	  		"sap_bluecrystal"
+		]
+  	},
+	"sap.ui5": {
+		"_version" : "1.1.0",
+		"rootView" : "sap.checkmarx.selfservice.taktstrasse.App",
+		"dependencies" : {
+	  		"minUI5Version" : "1.30",
+	  		"libs" : {
+				"sap.m" : {}
+	  		}
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "sap.checkmarx.selfservice.taktstrasse",
+				"controlId": "app",
+				"controlAggregation": "pages"		
+			},
+			"routes": [{
+				"pattern": "",
+				"name": "overview",
+				"target": "overview"
+			}, {
+				"pattern": "errors",
+				"name": "errors",
+				"target": "errors"
+			},{
+				"pattern": "drilling",
+				"name": "drilling",
+				"target": "drilling"
+			},{
+				"pattern": "milling",
+				"name": "milling",
+				"target": "milling"
+			},{
+				"pattern": "production",
+				"name": "production",
+				"target": "production"
+			},{
+				"pattern": "runtime",
+				"name": "runtime",
+				"target": "runtime"
+			},{
+				"pattern": "details",
+				"name": "details",
+				"target": "details"
+			}],
+			"targets": {
+				"overview": {
+					"viewName": "overview",
+					"viewLevel" : 1
+				},
+				
+				"errors": {
+					"viewName": "errors",
+					"viewPath": "sap.checkmarx.selfservice.taktstrasse.darstellungen",
+					"viewLevel" : 2
+				},
+				"drilling": {
+					"viewName": "drilling",
+					"viewPath": "sap.checkmarx.selfservice.taktstrasse.darstellungen",
+					"viewLevel" : 2
+				},
+				"milling": {
+					"viewName": "milling",
+					"viewPath": "sap.checkmarx.selfservice.taktstrasse.darstellungen",
+					"viewLevel" : 2
+				},
+				"production": {
+					"viewName": "production",
+					"viewPath": "sap.checkmarx.selfservice.taktstrasse.darstellungen",
+					"viewLevel" : 2
+				},
+				"runtime": {
+					"viewName": "runtime",
+					"viewPath": "sap.checkmarx.selfservice.taktstrasse.darstellungen",
+					"viewLevel" : 2
+				},
+				"details": {
+					"viewName": "details",
+					"viewPath": "sap.checkmarx.selfservice.taktstrasse.darstellungen",
+					"viewLevel" : 2
+				}
+
+			}
+		},
+		"resources": {
+			"js": [{
+                "uri": "Component.js" 
+            }],
+	  		"css": [
+				{
+				  "uri": "css/tile.css" 
+				},
+				{
+				  "uri": "css/methodes.css"
+				}
+	  		]
+	  		
+		}
+	}
+}

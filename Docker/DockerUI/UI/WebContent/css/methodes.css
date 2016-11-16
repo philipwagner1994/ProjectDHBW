@@ -1,0 +1,23 @@
+.navBack
+{
+	margin-top: 7px;
+	color: #7F7F7F;
+}
+
+.selector
+{
+	color: #7F7F7F;
+	font-size: 22px;
+}
+
+.lightbulb_aktiv
+{
+	
+	background-color: green!important;
+}
+
+.lightbulb_passiv
+{
+	
+	background-color: white!important;
+}

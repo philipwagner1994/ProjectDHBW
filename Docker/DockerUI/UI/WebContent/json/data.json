@@ -1,0 +1,53 @@
+{
+	"TileCollection" : [
+		
+		{
+			"icon" : "status-error",
+			"title" : "Milling",
+			"number" : "",
+			"numberUnit" : "grad",
+			"number2" : "",
+			"numberUnit2" : "m/s",
+			"OrderNum" : "",
+			"info" : "",
+			"infoState" : ""
+		
+		},{
+			"icon" : "drill-down",
+			"title" : "Drilling",
+			"number" : "",
+			"numberUnit" : "grad",
+			"number2" : "",
+			"numberUnit2" : "m/s",
+			"OrderNum" : "",
+			"info" : "",
+			"infoState" : ""
+		
+		},
+		
+		{
+			"icon" : "factory",
+			"title" : "Production",
+			"number" : "",
+			"numberUnit" : ""
+		
+		},
+		{
+			"icon" : "message-error",
+			"title" : "Errors"
+		
+		},
+		{
+			"icon" : "product",
+			"title" : "Details"
+		
+		},
+		{
+			"icon" : "performance",
+			"title" : "Runtime"
+		
+		}
+	],
+	"flags" : [{"livedown" : false}]
+	
+}

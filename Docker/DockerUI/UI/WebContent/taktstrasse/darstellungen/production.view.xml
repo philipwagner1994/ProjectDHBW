@@ -1,0 +1,21 @@
+<core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:a="sap.ui.commons.layout" xmlns:l="sap.ui.layout" xmlns:acc="sap.checkmarx.selfservice.control"
+		controllerName="sap.checkmarx.selfservice.taktstrasse.darstellungen.production" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page
+		title="Production"
+		showHeader="true"
+		enableScrolling="false"
+		showNavButton="true"
+		navButtonPress="onNavBack">
+			<customHeader>
+				<Bar class="header" >
+					<contentLeft>
+						<Button icon="sap-icon://nav-back" press="onNavBack" class="sapMBarChild sapBtn sapBtnBase navBack"/>  						
+					</contentLeft>
+					<contentMiddle>
+						<Text text = "Production" class="headertitle"></Text>
+					</contentMiddle>
+				</Bar>	 
+	    	</customHeader>
+			<a:AbsoluteLayout id="pic" width="100%" heigth="100%"/>  	
+	</Page>
+</core:View>

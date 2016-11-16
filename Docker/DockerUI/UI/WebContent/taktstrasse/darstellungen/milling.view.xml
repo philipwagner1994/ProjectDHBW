@@ -1,0 +1,101 @@
+<core:View  xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:acc="sap.checkmarx.selfservice.control" xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified" 
+		controllerName="sap.checkmarx.selfservice.taktstrasse.darstellungen.milling" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page
+		title="Milling"
+		showHeader="true"
+		enableScrolling="false"
+		showNavButton="true"
+		navButtonPress="onNavBack">
+			<customHeader>
+				<Bar class="header" >
+					<contentLeft>
+						<Button icon="sap-icon://nav-back" press="onNavBack" class="sapMBarChild sapBtn sapBtnBase navBack"/>  						
+					</contentLeft>
+					<contentMiddle>
+						<Text text = "Milling" class="headertitle"></Text>
+					</contentMiddle>
+				</Bar>	 
+	    	</customHeader>
+	    	<l:HorizontalLayout>
+	    		<Input
+				id="Rows"
+				width="427px"
+				type="Text"
+				placeholder="Selected Items"
+				submit="onRowPress"/>
+	    		<SearchField
+				id="CustomerNumSearch"
+				width="427px"
+				placeholder="CustomerNum"
+				search="onCustomerNumSearch"/>
+				<SearchField
+				id="MaterialNumSearch"
+				width="427px"
+				placeholder="MaterialNum"
+				search="onMaterialNumSearch"/>
+	    	</l:HorizontalLayout>		
+		<IconTabBar
+		id="idIconTabBarNoIcons"
+		expanded="{device>/isNoPhone}"
+		class="selector sapUiResponsiveContentPadding">
+		<items>
+			<IconTabFilter
+				text="Heat indicator" >
+				<l:VerticalLayout width="100%" >
+				<acc:LineChartHeat id="LineChartHeat" width="400" height="200" responsive="true" chartType="Line" data="{/tempData}"/>
+				<l:FixFlex class="fixFlexHorizontal" vertical="true" >
+						<l:fixContent width="50%">
+							<!--  <l:HorizontalLayout>
+								<l:content>
+									<VBox>
+										<Select
+											forceSelection="false"
+											selectedKey="{/filter/0/Key}"
+											items="{
+											path: '/filter',
+											sorter: { path: 'Name' }
+											}">
+											<core:Item key="{Key}" text="{Name}" />
+										</Select>
+									</VBox>
+ 								</l:content>
+ 							</l:HorizontalLayout>-->	
+ 						</l:fixContent>
+						<l:fixContent width="50%">
+							<acc:GaugeChartHeat id="GaugeChartHeat" width="400" height="200" responsive="true" chartType="Line" data="{/gaugeDatatemp}"/>
+						</l:fixContent>
+					</l:FixFlex>
+				</l:VerticalLayout>	
+			</IconTabFilter>
+			<IconTabFilter
+				text="Speed indicator" class="selector">
+				<l:VerticalLayout width="100%" >
+					<acc:LineChartSpeed id="LineChartSpeed" width="400" height="200" responsive="true" chartType="Line" data="{/speedData}"/>
+					<l:FixFlex class="fixFlexHorizontal" vertical="true" >
+						<l:fixContent width="50%">
+							<!--  <l:HorizontalLayout>
+								<l:content>
+									<VBox>
+										<Select
+											forceSelection="false"
+											selectedKey="{/filter/0/Key}"
+											items="{
+											path: '/filter',
+											sorter: { path: 'Name' }
+											}">
+											<core:Item key="{Key}" text="{Name}" />
+										</Select>
+									</VBox>
+ 								</l:content>
+ 							</l:HorizontalLayout>-->	
+ 						</l:fixContent>
+						<l:fixContent width="50%">
+							<acc:GaugeChartSpeed id="GaugeChartSpeed" width="400" height="200" responsive="true" chartType="Line" data="{/gaugeDataspeed}"/>
+						</l:fixContent>
+					</l:FixFlex>
+				</l:VerticalLayout>	
+			</IconTabFilter>
+		</items>
+	</IconTabBar>	
+	</Page>
+</core:View>

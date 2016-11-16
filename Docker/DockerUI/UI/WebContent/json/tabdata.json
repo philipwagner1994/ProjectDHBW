@@ -1,0 +1,36 @@
+{
+	"ProductCollection" : [
+		{
+			"title" : "Errors",
+			"number" : "",
+			"numberUnit" : "",
+			"info" : "",
+			"infoState" : ""
+		
+		},
+		{
+			"title" : "System-Crash",
+			"number" : "90",
+			"numberUnit" : "grad",
+			"info" : "Too Hot",
+			"infoState" : "Error"
+		
+		},
+		{
+			"title" : "Prodaction-alarm",
+			"number" : "",
+			"numberUnit" : "",
+			"info" : "DrilL",
+			"infoState" : "Warning"
+		
+		},
+		{
+			"title" : "Dayreport",
+			"number" : "1367",
+			"numberUnit" : "st",
+			"info" : "",
+			"infoState" : ""
+		
+		}
+	]
+}

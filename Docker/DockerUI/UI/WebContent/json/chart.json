@@ -1,0 +1,42 @@
+{
+  "Data": 
+  [	
+  {
+      "customerno": "123",
+      "orderno": "123",
+      "materialno": "123",
+      "speed": "12",
+      "temp": "10"
+  },
+  {
+      "customerno": "123",
+      "orderno": "123",
+      "materialno": "123",
+      "speed": "12",
+      "temp": "10"
+  }       
+  ],
+  "tempData": 
+  {
+      
+      "orderno": ["cc59e94ff-a512-4ef8-8471-fdcf32d57228","bc59ef4ff-a512-4ef8-8471-fdcfd2d57328","chf4e94ff-a51d-4ef8-7j71-fdcf3f157246","cdf4el9ff-a51y-4e88-7j71-fdcf3fd6n346","fffh2s8ff-ff1y-4e88-7j71-fdcg34d5n346","cl59e94ff-a512-4ef8-8471-fdcf32d57228","hd59ef4ff-a512-4ef8-8471-fdcfd2d57328","hbf4e94ff-a51d-4ef8-7j71-fdcf3f157246","unf4el9ff-a51y-4e88-7j71-fdcf3fd6n346","phfh2s8ff-ff1y-4e88-7j71-fdcg34d5n346"],
+      "temp": [112.90,221.34,184.94,199.12,230.43,175.87,165.34,200.56,212.00,155.00]
+      
+  },
+  
+  "gaugeDatatemp": {
+      "temp": 155.00
+  },
+  "speedData": 
+  {
+      
+      "orderno": ["cc59e94ff-a512-4ef8-8471-fdcf32d57228","bc59ef4ff-a512-4ef8-8471-fdcfd2d57328","chf4e94ff-a51d-4ef8-7j71-fdcf3f157246","cdf4el9ff-a51y-4e88-7j71-fdcf3fd6n346","fffh2s8ff-ff1y-4e88-7j71-fdcg34d5n346","cl59e94ff-a512-4ef8-8471-fdcf32d57228","hd59ef4ff-a512-4ef8-8471-fdcfd2d57328","hbf4e94ff-a51d-4ef8-7j71-fdcf3f157246","unf4el9ff-a51y-4e88-7j71-fdcf3fd6n346","phfh2s8ff-ff1y-4e88-7j71-fdcg34d5n346"],
+      "speed": [15000,12300,14570,17990,18000,16455,17852,19550,20000,21330]
+      
+  },
+  
+  "gaugeDataspeed": {
+      "temp": 21330
+  }
+  
+}
