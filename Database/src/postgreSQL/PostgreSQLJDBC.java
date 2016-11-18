@@ -25,7 +25,7 @@ public class PostgreSQLJDBC {
 	   boolean create = insert(array);
 	   System.out.println(create);*/
 	   String [][] array = select(1, "millinghistory", -1, -1);
-	   System.out.println(array[0][4]);
+	   System.out.println(array[0][0]);
 	   Connection c = null;
        Statement stmt = null;
        try {
@@ -352,7 +352,6 @@ public class PostgreSQLJDBC {
     			   resultarray[j][2] = rs.getString("materialnumber");
     			   resultarray[j][3] = rs.getString("timestamp");
     			   if(rs.getString("itemName").equals("MILLING_SPEED")){
-    				   System.out.println("test");
         			   resultarray[j][4] = rs.getString("value");
     			   }
     			   else if(rs.getString("itemName").equals("MILLING_HEAT")){
@@ -492,55 +491,55 @@ public class PostgreSQLJDBC {
     		   if (materialnumber == -1 && customernumber == -1){
 	    		   sqlselect= "SELECT"+
 	    				   		" COUNT(*) AS NumberOfErrors,"+
-	    				   		" to_char(to_timestamp(1195374767),'HH24:MI YYYY-MM-DD' )AS timestamp,"+ 
+	    				   		" to_char(to_timestamp(starttime),'HH24:MI YYYY-MM-DD' )AS timestamp"+ 
 	    				   	" FROM"+
 	    				   		" data"+
 	    				   	" WHERE "+
-	    				   		"(overallstatus='NOK')"+
+	    				   		"(overallstatus='FALSE')"+
 	    				   	" GROUP BY"+
-	    				   		"to_char(to_timestamp(starttime),'HH24:MI YYYY-MM-DD' )"+
+	    				   		" to_char(to_timestamp(starttime),'HH24:MI YYYY-MM-DD' )"+
 			   				" ORDER BY"+
 			   					" timestamp DESC;";
     		   }
     		   else if (materialnumber == -1 && customernumber != -1){
 	    		   sqlselect= "SELECT"+
    				   				" COUNT(*) AS NumberOfErrors,"+
-   				   				" to_char(to_timestamp(starttime),'HH24:MI YYYY-MM-DD' )AS timestamp,"+ 
+   				   				" to_char(to_timestamp(starttime),'HH24:MI YYYY-MM-DD' )AS timestamp"+ 
    				   			" FROM"+
    				   				" data"+
 	    				   	" WHERE"+
-	    				   		" (overallstatus='NOK') AND"+
+	    				   		" (overallstatus='FALSE') AND"+
 	    				   		" (customernumber = "+customernumber+")"+
 		    				" GROUP BY"+
-	    				   		"to_char(to_timestamp(starttime),'HH24:MI YYYY-MM-DD' )"+
+	    				   		" to_char(to_timestamp(starttime),'HH24:MI YYYY-MM-DD' )"+
 			   				" ORDER BY"+
 			   					" timestamp DESC;";
     		   }
     		   else if (materialnumber != -1 && customernumber == -1){
     			   sqlselect= "SELECT"+
 				   				" COUNT(*) AS NumberOfErrors,"+
-				   				" to_char(to_timestamp(1195374767),'HH24:MI YYYY-MM-DD' )AS timestamp,"+ 
+				   				" to_char(to_timestamp(starttime),'HH24:MI YYYY-MM-DD' )AS timestamp"+ 
 				   			" FROM"+
 				   				" data"+
 				   			" WHERE"+
-				   				" (overallstatus='NOK') AND"+
+				   				" (overallstatus='FALSE') AND"+
 				   				" (materialnumber = "+materialnumber+")"+
 				   			" GROUP BY"+
-				   				"to_char(to_timestamp(starttime),'HH24:MI YYYY-MM-DD' )"+
+				   				" to_char(to_timestamp(starttime),'HH24:MI YYYY-MM-DD' )"+
 				   			" ORDER BY"+
 		   						" timestamp DESC;";
     		   }
     		   else if (materialnumber != -1 && customernumber != -1){
     			   sqlselect= "SELECT"+
 			   				" COUNT(*) AS NumberOfErrors,"+
-			   				" to_char(to_timestamp(starttime),'HH24:MI YYYY-MM-DD' )AS timestamp,"+ 
+			   				" to_char(to_timestamp(starttime),'HH24:MI YYYY-MM-DD' )AS timestamp"+ 
 			   			" FROM"+
 			   				" data"+
 			   			" WHERE"+
-			   				" (overallstatus='NOK') AND"+
+			   				" (overallstatus='FALSE') AND"+
 			   				" ((materialnumber = "+materialnumber+") AND (customernumber = "+customernumber+"))"+
 			   			" GROUP BY"+
-			   				"to_char(to_timestamp(1195374767),'HH24:MI YYYY-MM-DD' )"+
+			   				" to_char(to_timestamp(starttime),'HH24:MI YYYY-MM-DD' )"+
 			   			" ORDER BY"+
 	   						" timestamp DESC;";
     		   }
@@ -820,6 +819,89 @@ public class PostgreSQLJDBC {
     	       c.close();
     	       return resultarray;
     	   }
+    	   else if (function == "liveupdate"){
+    		   resultarray= new String [3][];
+    		   resultarray[0]=new String[3];
+    		   resultarray[1]=new String[3];
+    		   resultarray[2]=new String[2];
+    		   String sqlselect= "SELECT"+
+  				   		" ordernumber,"+
+  				   		" itemName,"+
+  				   		" AVG(value) AS value"+
+	   				" FROM"+
+	   					" properties"+
+	   				" WHERE"+
+	   					" (itemName = 'MILLING_SPEED')"+
+	   				" GROUP BY"+
+				   		" data.ordernumber,"+
+
+	   				" ORDER BY"+
+		   				" timestamp DESC,"+
+	   				" limit1;";
+    		   ResultSet rs = stmt.executeQuery( sqlselect );
+    		   resultarray[0][0]=rs.getString("ordernumber");
+    		   resultarray[0][1]=rs.getString("value");
+    		   sqlselect= "SELECT"+
+ 				   		" ordernumber,"+
+ 				   		" itemName,"+
+ 				   		" AVG(value) AS value"+
+	   				" FROM"+
+	   					" properties"+
+	   				" WHERE"+
+	   					" (itemName = 'MILLING_HEAT')"+
+	   				" GROUP BY"+
+				   		" data.ordernumber,"+
+
+	   				" ORDER BY"+
+		   				" timestamp DESC,"+
+	   				" limit1;";
+   		   rs = stmt.executeQuery( sqlselect );
+   		   resultarray[0][2]=rs.getString("value");
+		   sqlselect= "SELECT"+
+				   		" ordernumber,"+
+				   		" itemName,"+
+				   		" AVG(value) AS value"+
+  				" FROM"+
+  					" properties"+
+  				" WHERE"+
+  					" (itemName = 'DRILLING_SPEED')"+
+  				" GROUP BY"+
+			   		" data.ordernumber,"+
+
+  				" ORDER BY"+
+	   				" timestamp DESC,"+
+  				" limit1;";
+		   rs = stmt.executeQuery( sqlselect );
+		   resultarray[1][0]=rs.getString("ordernumber");
+		   resultarray[1][1]=rs.getString("value");
+		   sqlselect= "SELECT"+
+			   		" ordernumber,"+
+			   		" itemName,"+
+			   		" AVG(value) AS value"+
+  				" FROM"+
+  					" properties"+
+  				" WHERE"+
+  					" (itemName = 'DRILLING_HEAT')"+
+  				" GROUP BY"+
+			   		" data.ordernumber,"+
+
+  				" ORDER BY"+
+	   				" timestamp DESC,"+
+  				" limit1;";
+		   rs = stmt.executeQuery( sqlselect );
+		   resultarray[1][2]=rs.getString("value");
+		   sqlselect= "SELECT"+
+			   		" ordernumber,"+
+			   		" starttime,"+
+			   		" endtime"+
+			   	" FROM"+
+			   		" data"+
+  				" ORDER BY"+
+	   				" timestamp DESC,"+
+  					" data.ordernumber;";
+		   resultarray[2][0]=rs.getString("ordernumber");
+		   resultarray[2][1]=Integer.toString(rs.getInt("endtime")-rs.getInt("starttime"));
+	   }
     	   String [][] test= new String [1][1];
     	   test[0][0]="sollte nie verwendet werden";
     	   return test;
