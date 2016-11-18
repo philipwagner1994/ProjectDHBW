@@ -20,6 +20,25 @@ sap.ui.define([
 	              //oModel.loadData("json/chart.json");
 			this.getView().setModel(oModel);
 			
+			
+			this.getRouter().attachRoutePatternMatched(this.onRouteMatched, this);
+		},
+		onRouteMatched: function() {
+			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();
+			this.getView().byId("Rows").setValue(oConfigModel.config.rows);
+			this.getView().byId("CustomerNumSearch").setValue(oConfigModel.config.CustomerNum);
+			this.getView().byId("MaterialNumSearch").setValue(oConfigModel.config.MaterialNum);
+			//oConfigModel.livedown = false;
+
+			var MaterialNum = oConfigModel.config.MaterialNum;
+			var CustomerNum = oConfigModel.config.CustomerNum;
+			if(MaterialNum == ""){
+				MaterialNum = "null";
+			}
+			if(CustomerNum == ""){
+				CustomerNum = "null";
+			}
+			
 			$.ajax({
 			    async : false,
 			    type : "GET",
@@ -28,13 +47,13 @@ sap.ui.define([
 			    data : {
 				'function' : "history_milling",
 				history: oConfigModel.config.rows,
-				materialno: oConfigModel.config.MaterialNum,
-				customerno: oConfigModel.config.CustomerNum
+				materialno: MaterialNum,
+				customerno: CustomerNum
 			    },
 			    success : function(response) {			    
 
 
-
+			    	var oModel = this.getView().getModel();
 			    	/*oModel.getProperty("/lineData/customerno").push("123");
 			    	 for(var i=0;i< oModel.oData.Data.length;i++){
 			    		 oModel.getProperty("/lineData/customerno").push("123");
@@ -46,6 +65,8 @@ sap.ui.define([
 			    	//var oController = this;
 			    	var jsonResponse = JSON.parse(response);
 			    	oModel.setProperty("/Data", jsonResponse);
+			    	oModel.setProperty("/gaugeDatatemp", jsonResponse[jsonResponse.length-1].temp);
+			    	oModel.setProperty("/gaugeDataspeed", jsonResponse[jsonResponse.length-1].speed);
 			    	oModel.refresh(true);
 
 			    	//}
@@ -56,54 +77,6 @@ sap.ui.define([
 			    	console.error("Error");
 			    }	
 			});
-			
-			this.getRouter().attachRoutePatternMatched(this.onRouteMatched, this);
-		},
-		onRouteMatched: function() {
-			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();
-			this.getView().byId("Rows").setValue(oConfigModel.config.rows);
-			this.getView().byId("CustomerNumSearch").setValue(oConfigModel.config.CustomerNum);
-			this.getView().byId("MaterialNumSearch").setValue(oConfigModel.config.MaterialNum);
-			oConfigModel.livedown = false;
-
-			/*$.ajax({
-			    async : false,
-			    type : "GET",
-			    url : "http://localhost:1234/Server/java",
-			    dataType : 'text',
-			    data : {
-				'function' : "history_milling",
-				history: oConfigModel.config.rows,
-				materialno: oConfigModel.config.MaterialNum,
-				customerno: oConfigModel.config.CustomerNum
-			    },
-			    success : function(response) {
-			    	*/
-			    	//var oModel = this.getView().getModel();
-			    	//oModel.loadData("json/chart.json");
-			    	//var temp new Array();
-			    	//temp.push("Test");
-			    	/*oModel.getProperty("/lineData/customerno").push("123");
-			    	 for(var i=0;i< oModel.oData.Data.length;i++){
-			    		 oModel.getProperty("/lineData/customerno").push("123");
-			    		 oModel.oData.orderno.push(oModel.oData.Data[i].orderno);
-			    		 oModel.oData.materialno.push(oModel.oData.Data[i].materialno);
-			    		 oModel.oData.speed.push(oModel.oData.Data[i].speed);
-			    		 oModel.oData.temp.push(oModel.oData.Data[i].temp);
-			    	     }*/
-			    	var oController = this;
-			    	//var jsonResponse = JSON.parse(response);
-			    	//oModel.setProperty("/Data", jsonResponse);
-			    	//oModel.refresh(true);
-			    	//console.log(oModel);
-			    	//}
-			    	//oController.getDataUpdate();
-			    	
-			   /* },
-			    error : function(message) {
-				console.error("Error");
-			    }	
-			});*/
 		},
 		getDataUpdate: function() {
 			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();
