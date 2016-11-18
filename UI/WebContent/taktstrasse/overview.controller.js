@@ -127,7 +127,7 @@ sap.ui.define([
 		ajax : function () {
 			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();	
 			if(oConfigModel.livedown == false){
-
+			var that = this;
 			$.ajax({
 			    async : true,
 			    type : "GET",
@@ -137,7 +137,7 @@ sap.ui.define([
 				command : "getWSData",
 			    },
 			    success : function(response) {
-			    	var oModel = this.getView().getModel();
+			    	var oModel = that.getView().getModel();
 					var oController = this;
 			    	var jsonResponse = JSON.parse(response);
 			    	var OrderNum;

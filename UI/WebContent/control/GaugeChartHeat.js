@@ -68,7 +68,8 @@ sap.ui.define([
                 		        }
                 		    },
                 		    size: {
-                		        height: 180
+                		        height: 180,
+                		        width: 600
                 		    }
                 		});
                  },
@@ -88,7 +89,7 @@ sap.ui.define([
                    oRm.writeClasses();
                    oRm.write('>');
 
-                   oRm.write('<div id="' + CHART_CANVAS_NAME_PREFIX + oControl.getId() + '"></div>');
+                   oRm.write('<div id="' + CHART_CANVAS_NAME_PREFIX + oControl.getId() + '" "></div>');
 
                    oRm.write('</div>');
                  },

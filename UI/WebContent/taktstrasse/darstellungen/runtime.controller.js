@@ -42,7 +42,7 @@ sap.ui.define([
 			    	//var jsonResponse = JSON.parse(response);
 			    	//oModel.setProperty("/lineData", jsonResponse);
 			    	//oModel.refresh(true);
-			    	oController.getDataUpdate();
+			    	//oController.getDataUpdate();
 			    	
 			    /*},
 			    error : function(message) {

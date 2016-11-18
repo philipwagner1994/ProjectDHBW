@@ -68,7 +68,8 @@ sap.ui.define([
                 		        }
                 		    },
                 		    size: {
-                		        height: 180
+                		        height: 180,
+                		        width: 600
                 		    }
                 		});
                  },
