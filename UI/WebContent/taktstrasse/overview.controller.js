@@ -138,7 +138,6 @@ sap.ui.define([
 			    },
 			    success : function(response) {
 			    	var oModel = that.getView().getModel();
-					var oController = this;
 			    	var jsonResponse = JSON.parse(response);
 			    	var OrderNum;
 			    	console.log(jsonResponse);
@@ -170,7 +169,7 @@ sap.ui.define([
 			    	oModel.refresh(true);
 			    	console.log(oModel.oData);
 
-			    	oController.ajax();
+			    	that.ajax();
 
 			    },
 			    error : function(message) {

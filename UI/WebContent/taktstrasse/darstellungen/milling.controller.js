@@ -10,9 +10,14 @@ sap.ui.define([
 	var PageController = Controller.extend("sap.checkmarx.selfservice.taktstrasse.darstellungen.milling", {
 		
 		onInit : function (evt) {
+			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();
+			this.getView().byId("Rows").setValue(oConfigModel.config.rows);
+			this.getView().byId("CustomerNumSearch").setValue(oConfigModel.config.CustomerNum);
+			this.getView().byId("MaterialNumSearch").setValue(oConfigModel.config.MaterialNum);
+			
 			 var oModel = new sap.ui.model.json.JSONModel();
 	           // Load JSON in model
-	              oModel.loadData("json/chart.json");
+	              //oModel.loadData("json/chart.json");
 			this.getView().setModel(oModel);
 			
 			$.ajax({
@@ -26,13 +31,10 @@ sap.ui.define([
 				materialno: oConfigModel.config.MaterialNum,
 				customerno: oConfigModel.config.CustomerNum
 			    },
-			    success : function(response) {
-			    	console.log(response);
-			    
-			    	//var oModel = this.getView().getModel();
-			    	//oModel.loadData("json/chart.json");
-			    	//var temp new Array();
-			    	//temp.push("Test");
+			    success : function(response) {			    
+
+
+
 			    	/*oModel.getProperty("/lineData/customerno").push("123");
 			    	 for(var i=0;i< oModel.oData.Data.length;i++){
 			    		 oModel.getProperty("/lineData/customerno").push("123");
@@ -42,16 +44,16 @@ sap.ui.define([
 			    		 oModel.oData.temp.push(oModel.oData.Data[i].temp);
 			    	     }*/
 			    	//var oController = this;
-			    	//var jsonResponse = JSON.parse(response);
-			    	//oModel.setProperty("/Data", jsonResponse);
-			    	//oModel.refresh(true);
-			    	//console.log(oModel);
+			    	var jsonResponse = JSON.parse(response);
+			    	oModel.setProperty("/Data", jsonResponse);
+			    	oModel.refresh(true);
+
 			    	//}
 
 			    	
 			    },
 			    error : function(message) {
-				console.error("Error");
+			    	console.error("Error");
 			    }	
 			});
 			
@@ -95,7 +97,7 @@ sap.ui.define([
 			    	//oModel.refresh(true);
 			    	//console.log(oModel);
 			    	//}
-			    	oController.getDataUpdate();
+			    	//oController.getDataUpdate();
 			    	
 			   /* },
 			    error : function(message) {
@@ -107,7 +109,9 @@ sap.ui.define([
 			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();
 			if(oConfigModel.livedown==false){
 			var that = this;
-			$.ajax({
+			console.log("Test");
+			that.getDataUpdate();
+			/*$.ajax({
 			    async : true,
 			    type : "GET",
 			    url : "http://localhost:9887/Server/java",
@@ -146,10 +150,10 @@ sap.ui.define([
 			    	oController.getDataUpdate();
 
 			    },
-			    error : function(message) {
+			    error : function(message) {			    	
 				console.error("Error");
 			    }	
-			});
+			});*/
 			}
 		},
 		getRouter : function () {
