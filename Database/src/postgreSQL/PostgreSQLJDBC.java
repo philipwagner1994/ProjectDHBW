@@ -192,6 +192,7 @@ public class PostgreSQLJDBC {
                  " value			DECIMAL					NOT NULL)";
          stmt.executeUpdate(sqlproperties);
          stmt.close();
+         c.commit();
          c.close();
          System.out.println("Table created successfully");  
          return true;
@@ -257,7 +258,7 @@ public class PostgreSQLJDBC {
 	    				   		" data.ordernumber AS ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
+	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
 	    				   		" itemName,"+
 	    				   		" AVG(value) AS value"+
 	    				   	" FROM"+
@@ -268,7 +269,7 @@ public class PostgreSQLJDBC {
 	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
+	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
 	    				   		" itemName"+
 			   				" ORDER BY"+
 				   				" timestamp DESC,"+
@@ -279,7 +280,7 @@ public class PostgreSQLJDBC {
 	    				   		" data.ordernumber AS ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
+	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
 	    				   		" itemName,"+
 	    				   		" AVG(value) AS value"+
 	    				   	" FROM"+
@@ -291,7 +292,7 @@ public class PostgreSQLJDBC {
 	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
+	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
 	    				   		" itemName"+
 			   				" ORDER BY"+
 				   				" timestamp DESC,"+
@@ -302,7 +303,7 @@ public class PostgreSQLJDBC {
 	    				   		" data.ordernumber AS ordernumber,"+
 	    				   		" customernumber,"+
 			   					" materialnumber,"+
-			   					" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
+			   					" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
 			   					" itemName,"+
 			   					" AVG(value) AS value"+
 			   				" FROM"+
@@ -314,7 +315,7 @@ public class PostgreSQLJDBC {
 	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
+	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
 	    				   		" itemName"+
 			   				" ORDER BY"+
 				   				" timestamp DESC,"+
@@ -325,7 +326,7 @@ public class PostgreSQLJDBC {
 			   					" data.ordernumber AS ordernumber,"+
 			   					" customernumber,"+
 			   					" materialnumber,"+
-			   					" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
+			   					" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
 			   					" itemName,"+
 			   					" AVG(value) AS value"+
 			   				" FROM"+
@@ -337,7 +338,7 @@ public class PostgreSQLJDBC {
 	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
+	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
 	    				   		" itemName"+
 			   				" ORDER BY"+
 				   				" timestamp DESC,"+
@@ -375,7 +376,7 @@ public class PostgreSQLJDBC {
 	    				   		" data.ordernumber AS ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
+	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
 	    				   		" itemName,"+
 	    				   		" AVG(value) AS value"+
 	    				   	" FROM"+
@@ -386,7 +387,7 @@ public class PostgreSQLJDBC {
 	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
+	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
 	    				   		" itemName"+
 			   				" ORDER BY"+
 				   				" timestamp DESC,"+
@@ -397,7 +398,7 @@ public class PostgreSQLJDBC {
 	    				   		" data.ordernumber AS ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
+	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
 	    				   		" itemName,"+
 	    				   		" AVG(value) AS value"+
 	    				   	" FROM"+
@@ -409,7 +410,7 @@ public class PostgreSQLJDBC {
 	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
+	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
 	    				   		" itemName"+
 			   				" ORDER BY"+
 			   					" timestamp DESC,"+
@@ -420,7 +421,7 @@ public class PostgreSQLJDBC {
 	    				   		" data.ordernumber AS ordernumber,"+
 	    				   		" customernumber,"+
 			   					" materialnumber,"+
-			   					" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
+			   					" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
 			   					" itemName,"+
 			   					" AVG(value) AS value"+
 			   				" FROM"+
@@ -432,7 +433,7 @@ public class PostgreSQLJDBC {
 	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
+	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
 	    				   		" itemName"+
 			   				" ORDER BY"+
 				   				" timestamp DESC,"+
@@ -443,7 +444,7 @@ public class PostgreSQLJDBC {
 			   					" data.ordernumber AS ordernumber,"+
 			   					" customernumber,"+
 			   					" materialnumber,"+
-			   					" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
+			   					" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
 			   					" itemName,"+
 			   					" AVG(value) AS value"+
 			   				" FROM"+
@@ -455,7 +456,7 @@ public class PostgreSQLJDBC {
 	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(properties.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
+	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
 	    				   		" itemName"+
 			   				" ORDER BY"+
 				   				" timestamp DESC,"+
