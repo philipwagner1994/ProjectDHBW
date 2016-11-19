@@ -646,7 +646,7 @@ public class PostgreSQLJDBC {
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
 	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
-	    				   		" overalltatus,"+
+	    				   		" overallstatus,"+
 	    				   		" em1,"+
 	    				   		" em2,"+
 	    				   		" a1,"+
@@ -681,7 +681,7 @@ public class PostgreSQLJDBC {
 		   				   		" customernumber,"+
 		   				   		" materialnumber,"+
 		   				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
-		   				   		" overalltatus,"+
+		   				   		" overallstatus,"+
 		   				   		" em1,"+
 		   				   		" em2,"+
 		   				   		" a1,"+
@@ -717,7 +717,7 @@ public class PostgreSQLJDBC {
 		   				   		" customernumber,"+
 		   				   		" materialnumber,"+
 		   				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
-		   				   		" overalltatus,"+
+		   				   		" overallstatus,"+
 		   				   		" em1,"+
 		   				   		" em2,"+
 		   				   		" a1,"+
@@ -753,7 +753,7 @@ public class PostgreSQLJDBC {
 		   				   		" customernumber,"+
 		   				   		" materialnumber,"+
 		   				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
-		   				   		" overalltatus,"+
+		   				   		" overallstatus,"+
 		   				   		" em1,"+
 		   				   		" em2,"+
 		   				   		" a1,"+
