@@ -70,7 +70,7 @@ sap.ui.define([
 
 			    	//}
 			    	}
-			    	
+			    	oController.getDataUpdate();
 			    },
 			    error : function(message) {
 			    	console.error("Error");
