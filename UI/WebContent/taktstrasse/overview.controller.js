@@ -25,7 +25,6 @@ sap.ui.define([
 		},
 		onRouteMatched: function() {
 			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();	
-			oConfigModel.livedown = false;
 			var that = this;
 
 			$.ajax({
@@ -83,7 +82,7 @@ sap.ui.define([
  
 		handleEditPress : function (evt) {
 			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();	
-			oConfigModel.livedown = true;
+			oConfigModel.overviewlivedown = true;
 			
 			var oModel = this.getView().getModel();
 			var selectedId = evt.getParameter("id");
@@ -92,6 +91,7 @@ sap.ui.define([
 			
 			switch(page) {
 		    case 0:
+		    	oConfigModel.millinglivedown = true;
 		    	sap.ui.core.UIComponent.getRouterFor(this).navTo("milling");
 		        break;
 		    case 1:
@@ -167,7 +167,6 @@ sap.ui.define([
 						       console.log("Fehler");
 					}
 			    	oModel.refresh(true);
-			    	console.log(oModel.oData);
 
 			    	that.ajax();
 

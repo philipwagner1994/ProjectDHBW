@@ -5,5 +5,10 @@
   		"Customer": "",
   		"MaterialNum": ""
   	},
-  	"livedown" : false
+  	"overviewlivedown" : false,
+  	"overviewmilling" : false,
+  	"overviewdrilling" : false,
+  	"overviewerrors" : false,
+  	"overviewdetailas" : false,
+  	"overviewruntime" : false
 }

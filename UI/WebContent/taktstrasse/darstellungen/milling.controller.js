@@ -38,7 +38,7 @@ sap.ui.define([
 			if(CustomerNum == ""){
 				CustomerNum = "null";
 			}
-			
+			var oModel = this.getView().getModel();
 			$.ajax({
 			    async : false,
 			    type : "GET",
@@ -53,7 +53,7 @@ sap.ui.define([
 			    success : function(response) {			    
 
 
-			    	var oModel = this.getView().getModel();
+			    	oConfigModel.millinglivedown==false
 			    	/*oModel.getProperty("/lineData/customerno").push("123");
 			    	 for(var i=0;i< oModel.oData.Data.length;i++){
 			    		 oModel.getProperty("/lineData/customerno").push("123");
@@ -80,7 +80,7 @@ sap.ui.define([
 		},
 		getDataUpdate: function() {
 			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();
-			if(oConfigModel.livedown==false){
+			if(oConfigModel.millinglivedown==false){
 			var that = this;
 			console.log("Test");
 			that.getDataUpdate();
@@ -137,7 +137,7 @@ sap.ui.define([
 			var value = this.getView().byId("Rows").getValue();
 			var oController = this;
 			
-			oConfigModel.livedown = true;
+			oConfigModel.millinglivedown = true;
 			if(value != undefined){
 				oConfigModel.config.rows = value;
 			}
@@ -149,7 +149,7 @@ sap.ui.define([
 			var value = this.getView().byId("CustomerNumSearch").getValue();
 			var oController = this;
 			
-			oConfigModel.livedown = true;
+			oConfigModel.millinglivedown = true;
 			if(value != undefined){
 				oConfigModel.config.CustomerNum = value;
 			}
@@ -161,7 +161,7 @@ sap.ui.define([
 			var value = this.getView().byId("MaterialNumSearch").getValue();
 			var oController = this;
 			
-			oConfigModel.livedown = true;
+			oConfigModel.millinglivedown = true;
 			if(value != undefined){
 				oConfigModel.config.MaterialNum = value;
 			}
@@ -170,7 +170,7 @@ sap.ui.define([
 		},
 		onNavBack: function () {
 			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();
-			oConfigModel.livedown = true;
+			oConfigModel.millinglivedown = true;
 			sap.ui.core.UIComponent.getRouterFor(this).navTo("overview");
 		}
 
