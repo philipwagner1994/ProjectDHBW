@@ -51,8 +51,7 @@ sap.ui.define([
 				customerno: CustomerNum
 			    },
 			    success : function(response) {			    
-
-
+			    	if(response != "null"){
 			    	oConfigModel.millinglivedown==false
 			    	/*oModel.getProperty("/lineData/customerno").push("123");
 			    	 for(var i=0;i< oModel.oData.Data.length;i++){
@@ -70,7 +69,7 @@ sap.ui.define([
 			    	oModel.refresh(true);
 
 			    	//}
-
+			    	}
 			    	
 			    },
 			    error : function(message) {
@@ -84,10 +83,10 @@ sap.ui.define([
 			var that = this;
 			console.log("Test");
 			that.getDataUpdate();
-			/*$.ajax({
+			$.ajax({
 			    async : true,
 			    type : "GET",
-			    url : "http://localhost:9887/Server/java",
+			    url : "http://localhost:1234/Server/java",
 			    dataType : 'text',
 			    data : {
 				'function' : "live_milling",
@@ -102,23 +101,27 @@ sap.ui.define([
 			    	
 			    	var jsonResponse = JSON.parse(response);
 			    	console.log(jsonResponse);
-			    	//if(oModel.oData.gaugeDatatemp.temp != jsonResponse[0].temp || oModel.oData.gaugeDataspeed.speed != jsonResponse[0].speed){
-			    	oModel.getProperty("/speedData/speed").push(jsonResponse[0].speed);
-			    	oModel.getProperty("/speedData/speed").shift();
-			    	oModel.getProperty("/tempData/temp").push(jsonResponse[0].temp);
-			    	oModel.getProperty("/tempData/temp").shift();
-			    	oModel.getProperty("/tempData/orderno").push(jsonResponse[0].orderno);
-			    	oModel.getProperty("/tempData/orderno").shift();
-			    	oModel.getProperty("/speedData/orderno").push(jsonResponse[0].orderno);
-			    	oModel.getProperty("/speedData/orderno").shift();
+			    	
+			    	oModel.getProperty("/Data").push(jsonResponse[0]);
+			    	oModel.getProperty("/Data").shift();
 			    	oModel.oData.gaugeDatatemp.temp = jsonResponse[0].temp;
 			    	oModel.oData.gaugeDataspeed.speed = jsonResponse[0].speed;
+			    	/*oModel.getProperty("/Data/speed").push(jsonResponse[0].speed);
+			    	oModel.getProperty("/Data/speed").shift();
+			    	oModel.getProperty("/Data/temp").push(jsonResponse[0].temp);
+			    	oModel.getProperty("/Data/temp").shift();
+			    	oModel.getProperty("/Data/orderno").push(jsonResponse[0].orderno);
+			    	oModel.getProperty("/Data/orderno").shift();
+			    	oModel.getProperty("/Data/orderno").push(jsonResponse[0].orderno);
+			    	oModel.getProperty("/Data/orderno").shift();
+			    	oModel.oData.gaugeDatatemp.temp = jsonResponse[0].temp;
+			    	oModel.oData.gaugeDataspeed.speed = jsonResponse[0].speed;*/
 			    	
 			    	oModel.refresh(true);
 			    	that.getView().byId("LineChartHeat").load();
 			    	that.getView().byId("LineChartSpeed").load();
 			    	that.getView().byId("GaugeChartHeat").load();
-			    	//}
+			    	that.getView().byId("GaugeChartSpeed").load();
 			    	}
 			    	oController.getDataUpdate();
 
@@ -126,7 +129,7 @@ sap.ui.define([
 			    error : function(message) {			    	
 				console.error("Error");
 			    }	
-			});*/
+			});
 			}
 		},
 		getRouter : function () {

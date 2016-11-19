@@ -36,6 +36,7 @@ sap.ui.define([
 				command : "getWSData",
 			    },
 			    success : function(response) {
+			    	if(response != "null"){
 			    	var oModel = that.getView().getModel();
 					
 			    	var jsonResponse = JSON.parse(response);
@@ -67,7 +68,7 @@ sap.ui.define([
 						       console.log("Fehler");
 					}
 			    	oModel.refresh(true);
-
+			    	}
 			    	that.ajax();
 
 			    },
@@ -137,6 +138,7 @@ sap.ui.define([
 				command : "getWSData",
 			    },
 			    success : function(response) {
+			    	if(response != "null"){
 			    	var oModel = that.getView().getModel();
 			    	var jsonResponse = JSON.parse(response);
 			    	var OrderNum;
@@ -167,7 +169,7 @@ sap.ui.define([
 						       console.log("Fehler");
 					}
 			    	oModel.refresh(true);
-
+			    	}
 			    	that.ajax();
 
 			    },
