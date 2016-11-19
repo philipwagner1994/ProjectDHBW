@@ -1,5 +1,7 @@
 package Data_collector.data_collector.StateMachine;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Vector;
 
 import org.apache.log4j.BasicConfigurator;
@@ -12,6 +14,7 @@ import com.github.oxo42.stateless4j.delegates.Action;
 
 import Data_collector.data_collector.DataCollector.KafkaMessage;
 import Data_collector.data_collector.DataCollector.SpectralAnalysis;
+import Data_collector.data_collector.Database.PostgreSQLJDBC;
 import Data_collector.data_collector.LiveData.HistoryServer;
 import Data_collector.data_collector.LiveData.LiveServer;
 //zu Thread machen
@@ -29,6 +32,7 @@ public class StateMachine_Kafka {
 	private String[] spectralData;
 	private 	JSONArray json = new JSONArray();
 	private Producer<String, String> producer;
+	//private PostgreSQLJDBC sql;
 	
 	public StateMachine_Kafka(LiveServer server, SpectralAnalysis spectral){
 		try{
@@ -42,13 +46,14 @@ public class StateMachine_Kafka {
 		}
 	}
 	
-	public StateMachine_Kafka(LiveServer server, SpectralAnalysis spectral, Producer<String,String>producer,HistoryServer history){
+	public StateMachine_Kafka(LiveServer server, SpectralAnalysis spectral, Producer<String,String>producer,HistoryServer history ){//PostgreSQLJDBC sql){
 		try{
 		this.producePart = producePartMachine();
 		this.server = server;
 		this.spectral = spectral;
 		this.producer = producer;
 		this.history = history;
+		//this.sql = sql;
 		System.out.println("added Server");
 		}catch(Exception e){
 			
@@ -133,8 +138,35 @@ public class StateMachine_Kafka {
     	jo.put("Messages",json2 );
 
     	json.add(jo);
+    	
+    	String[] databaseInsert = new String[13];
+		databaseInsert[0] = activemq[2];
+		/*String[] date = activemq[3].split("T");
+		Date temp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS")
+                .parse(date[0]+ date[1].split("+")[0]);
+		System.out.println(temp);*/
+		databaseInsert[1] = "111111111111";//activemq[3];
+		if(spectralData[6].equals("OK")){
+		databaseInsert[2] = "TRUE";
+		}else{
+			databaseInsert[2] = "FALSE";
+		}
+		//Double time1 = Integer.parseInt((spectralData[8]))/0.001;
+		//Double time2 = Integer.parseInt((spectralData[7]))/0.001;
+		databaseInsert[3] = "222222";//time1.toString();
+		databaseInsert[4] = "333333";//time2.toString();
+		databaseInsert[5] = activemq[0];
+		databaseInsert[6] = activemq[1];
+		databaseInsert[7] = spectralData[0];
+		databaseInsert[8] = spectralData[1];
+		databaseInsert[9] = spectralData[2];
+		databaseInsert[10] = spectralData[3];
+		databaseInsert[11] = spectralData[4];
+		databaseInsert[12] = spectralData[5];
+		System.out.println(PostgreSQLJDBC.insert(databaseInsert));
 		KeyedMessage<String, String> data = new KeyedMessage<String, String>("allData", json.toString());	 
 		producer.send(data);
+		
     	System.out.println("Done with all"+json);
     	}catch(Exception e){
     		System.out.println(e);
@@ -159,6 +191,30 @@ public class StateMachine_Kafka {
     
     public String handleMessage(KafkaMessage message) throws Exception{
     	String hilf = message.getItemName()+message.getValue();
+  
+		String[] databaseInsert = new String[5];
+		databaseInsert[0] = activemq[2];
+		databaseInsert[1] = message.getTimestamp();
+		if(message.getStatus().equals("GOOD")){
+			databaseInsert[2] = "true";
+		}else if(message.getStatus().equals("BAD")){
+			databaseInsert[2] = "false";
+		}else{
+			databaseInsert[2] = "false";//message.getValue();
+		}
+		//databaseInsert[2] = message.getStatus();
+		databaseInsert[3] = message.getItemName();
+		if(message.getValue().equals("true")){
+			databaseInsert[4] = "-1";
+		}else if(message.getValue().equals("false")){
+			databaseInsert[4] = "-2";
+		}else{
+			databaseInsert[4] = message.getValue();
+		}
+		
+
+		PostgreSQLJDBC.insert(databaseInsert);
+    	
     	switch(hilf){
     		case "L1true":
     			if(producePart.canFire(Trigger.L1true)){

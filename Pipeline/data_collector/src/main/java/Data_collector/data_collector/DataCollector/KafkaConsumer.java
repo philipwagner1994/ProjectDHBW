@@ -47,7 +47,8 @@ public class KafkaConsumer {
 	public static void main(String[] args){
 		BasicConfigurator.configure();
 		try{
-		KafkaConsumer consumer = new KafkaConsumer("192.168.99.100:1000","prod");
+			//192.168.99.100:9092
+		KafkaConsumer consumer = new KafkaConsumer("192.168.99.100:1000","prodData");
 		consumer.run();
 		}catch(Exception e){
 			log.info("Error "+e );
@@ -57,12 +58,13 @@ public class KafkaConsumer {
 	}
 	public KafkaConsumer(String server, String topicName) throws Exception {
 		Properties props = new Properties();
+		//192.168.99.100:2182
 		server ="192.168.99.100:1001";
 		//server ="127.0.0.1:9092";
 		topicName = "prodData";	
 		props.put("bootstrap.servers", server);
 		props.put("zookeeper.connect", server);
-		props.put("group.id", "bla123");
+		props.put("group.id", "bla999");
 		props.put("client.id", this.getClass().getSimpleName());
 		props.put("key.deserializer", StringDeserializer.class.getName());
 		props.put("value.deserializer", StringDeserializer.class.getName());
@@ -83,6 +85,7 @@ public class KafkaConsumer {
 		for ( final KafkaStream<byte[], byte[]> stream : streams) {
 			executor.submit(new Runnable() {
 				public void run(){
+					System.out.println("THIS IS A TEST");
 					ConsumerIterator<byte[], byte[]> iterator = stream.iterator();
 					while (iterator.hasNext()) {
 						MessageAndMetadata<byte[], byte[]> messageAndMetadata = iterator.next();

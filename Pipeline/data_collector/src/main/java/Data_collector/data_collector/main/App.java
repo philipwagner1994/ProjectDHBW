@@ -12,7 +12,7 @@ import org.I0Itec.zkclient.ZkClient;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import Data_collector.data_collector.DataCollector.*;
-import Data_collector.data_collector.Database.postgresql;
+import Data_collector.data_collector.Database.PostgreSQLJDBC;
 import Data_collector.data_collector.LiveData.*;
 import Data_collector.data_collector.StateMachine.StateMachine_Kafka;
 import kafka.admin.AdminUtils;
@@ -31,13 +31,15 @@ public class App
     	//create Kafka Producer to send collected Data
     	ProducerConfig config2;
 		Properties props = new Properties();
-		props.put("metadata.broker.list", "192.168.99.100:1000");
+		//192.168.99.100:1000
+		props.put("metadata.broker.list", "192.168.99.100:9092");
 		props.put("serializer.class", "kafka.serializer.StringEncoder");
 		props.put("partitioner.class", "Data_collector.data_collector.main.SimplePartitioner");
 		props.put("request.required.acks", "1");
 		 
 		config2 = new ProducerConfig(props);
 		try{
+			//192.168.99.100:2181
 			ZkClient zkClient = new ZkClient("192.168.99.100:1001", 10000, 10000, ZKStringSerializer$.MODULE$);
 	
 			AdminUtils.createTopic(zkClient, "allData", 10, 1, new Properties());
@@ -47,14 +49,21 @@ public class App
 		Producer<String, String> producer = new Producer<String, String>(config2);
 		
 		//For Database connection
-        postgresql sql = new postgresql();
+		try{
+			boolean success = PostgreSQLJDBC.create();
+			if(success == false){
+				System.out.println("Tables already exsisting");
+			}
+		}catch(Exception e){
+			
+		}
         
     	//start server for UI communication
-    	LiveServer server = new LiveServer(sql);
+    	LiveServer server = new LiveServer();
         server.start();
         
 
-        HistoryServer server2 = new HistoryServer(sql);
+        HistoryServer server2 = new HistoryServer();
         server2.start();
     	SpectralAnalysis spectral = new SpectralAnalysis();
     	
@@ -62,7 +71,8 @@ public class App
     	KafkaConsumer KafkaConsumer = new KafkaConsumer("","");
     	KafkaConsumer.run();
         // Create a ConnectionFactory
-        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://192.168.99.100:32768");
+    	//tcp://192.168.99.100:32768
+        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://192.168.99.100:32783");
 
         // Create a Connection
         Connection connection = connectionFactory.createConnection();
