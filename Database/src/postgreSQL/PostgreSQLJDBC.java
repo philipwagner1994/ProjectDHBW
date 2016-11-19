@@ -492,55 +492,55 @@ public class PostgreSQLJDBC {
     		   if (materialnumber == -1 && customernumber == -1){
 	    		   sqlselect= "SELECT"+
 	    				   		" COUNT(*) AS NumberOfErrors,"+
-	    				   		" to_char(to_timestamp(starttime),'HH24:MI YYYY-MM-DD' )AS timestamp"+ 
+	    				   		" to_char(to_timestamp(timestamp),'HH24 YYYY-MM-DD' )AS timestamp"+ 
 	    				   	" FROM"+
 	    				   		" data"+
 	    				   	" WHERE "+
 	    				   		"(overallstatus='FALSE')"+
 	    				   	" GROUP BY"+
-	    				   		" to_char(to_timestamp(starttime),'HH24:MI YYYY-MM-DD' )"+
+	    				   		" to_char(to_timestamp(timestamp),'HH24 YYYY-MM-DD' )"+
 			   				" ORDER BY"+
 			   					" timestamp DESC;";
     		   }
     		   else if (materialnumber == -1 && customernumber != -1){
 	    		   sqlselect= "SELECT"+
    				   				" COUNT(*) AS NumberOfErrors,"+
-   				   				" to_char(to_timestamp(starttime),'HH24:MI YYYY-MM-DD' )AS timestamp"+ 
+   				   				" to_char(to_timestamp(timestamp),'HH24 YYYY-MM-DD' )AS timestamp"+ 
    				   			" FROM"+
    				   				" data"+
 	    				   	" WHERE"+
 	    				   		" (overallstatus='FALSE') AND"+
 	    				   		" (customernumber = "+customernumber+")"+
 		    				" GROUP BY"+
-	    				   		" to_char(to_timestamp(starttime),'HH24:MI YYYY-MM-DD' )"+
+	    				   		" to_char(to_timestamp(timestamp),'HH24 YYYY-MM-DD' )"+
 			   				" ORDER BY"+
 			   					" timestamp DESC;";
     		   }
     		   else if (materialnumber != -1 && customernumber == -1){
     			   sqlselect= "SELECT"+
 				   				" COUNT(*) AS NumberOfErrors,"+
-				   				" to_char(to_timestamp(starttime),'HH24:MI YYYY-MM-DD' )AS timestamp"+ 
+				   				" to_char(to_timestamp(timestamp),'HH24 YYYY-MM-DD' )AS timestamp"+ 
 				   			" FROM"+
 				   				" data"+
 				   			" WHERE"+
 				   				" (overallstatus='FALSE') AND"+
 				   				" (materialnumber = "+materialnumber+")"+
 				   			" GROUP BY"+
-				   				" to_char(to_timestamp(starttime),'HH24:MI YYYY-MM-DD' )"+
+				   				" to_char(to_timestamp(timestamp),'HH24 YYYY-MM-DD' )"+
 				   			" ORDER BY"+
 		   						" timestamp DESC;";
     		   }
     		   else if (materialnumber != -1 && customernumber != -1){
     			   sqlselect= "SELECT"+
 			   				" COUNT(*) AS NumberOfErrors,"+
-			   				" to_char(to_timestamp(starttime),'HH24:MI YYYY-MM-DD' )AS timestamp"+ 
+			   				" to_char(to_timestamp(timestamp),'HH24 YYYY-MM-DD' )AS timestamp"+ 
 			   			" FROM"+
 			   				" data"+
 			   			" WHERE"+
 			   				" (overallstatus='FALSE') AND"+
 			   				" ((materialnumber = "+materialnumber+") AND (customernumber = "+customernumber+"))"+
 			   			" GROUP BY"+
-			   				" to_char(to_timestamp(starttime),'HH24:MI YYYY-MM-DD' )"+
+			   				" to_char(to_timestamp(timestamp),'HH24 YYYY-MM-DD' )"+
 			   			" ORDER BY"+
 	   						" timestamp DESC;";
     		   }
@@ -564,8 +564,8 @@ public class PostgreSQLJDBC {
 	    				   		" ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(starttime),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
-	    				   		" starttime,"+
+	    				   		" to_char(to_timestamp(timestamp),'HH24:MI:SS YYYY-MM-DD' )AS starttime,"+
+	    				   		" timestamp,"+
 	    				   		" endtime"+
 	    				   	" FROM"+
 	    				   		" data"+
@@ -578,8 +578,8 @@ public class PostgreSQLJDBC {
 	    				   		" ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(starttime),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
-	    				   		" starttime,"+
+	    				   		" to_char(to_timestamp(timestamp),'HH24:MI:SS YYYY-MM-DD' )AS starttime,"+
+	    				   		" timestamp,"+
 	    				   		" endtime"+
 	    				   	" FROM"+
 	    				   		" data"+
@@ -594,8 +594,8 @@ public class PostgreSQLJDBC {
 		   				   		" ordernumber,"+
 		   				   		" customernumber,"+
 		   				   		" materialnumber,"+
-		   				   		" to_char(to_timestamp(starttime),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
-		   				   		" starttime,"+
+		   				   		" to_char(to_timestamp(timestamp),'HH24:MI:SS YYYY-MM-DD' )AS starttime,"+
+		   				   		" timestamp,"+
 		   				   		" endtime"+
 			   				" FROM"+
 			   					" data"+
@@ -610,8 +610,8 @@ public class PostgreSQLJDBC {
 		   				   		" ordernumber,"+
 		   				   		" customernumber,"+
 		   				   		" materialnumber,"+
-		   				   		" to_char(to_timestamp(starttime),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
-		   				   		" starttime,"+
+		   				   		" to_char(to_timestamp(timestamp),'HH24:MI:SS YYYY-MM-DD' )AS starttime,"+
+		   				   		" timestamp,"+
 		   				   		" endtime"+
 			   				" FROM"+
 			   					" data"+
@@ -627,8 +627,8 @@ public class PostgreSQLJDBC {
     			   resultarray[i][0] = rs.getString("ordernumber");
     			   resultarray[i][1] = rs.getString("customernumber");
     			   resultarray[i][2] = rs.getString("materialnumber");
-    			   resultarray[i][3] = rs.getString("timestamp");
-    			   int runtime = rs.getInt("endtime") - rs.getInt("starttime");
+    			   resultarray[i][3] = rs.getString("starttime");
+    			   int runtime = rs.getInt("endtime") - rs.getInt("timestamp");
     			   resultarray[i][4] = Integer.toString(runtime);
     			   i++;
     		   }
@@ -893,7 +893,7 @@ public class PostgreSQLJDBC {
 		   resultarray[1][2]=rs.getString("value");
 		   sqlselect= "SELECT"+
 			   		" ordernumber,"+
-			   		" starttime,"+
+			   		" timestamp,"+
 			   		" endtime"+
 			   	" FROM"+
 			   		" data"+
@@ -901,7 +901,7 @@ public class PostgreSQLJDBC {
 	   				" timestamp DESC,"+
   					" data.ordernumber;";
 		   resultarray[2][0]=rs.getString("ordernumber");
-		   resultarray[2][1]=Integer.toString(rs.getInt("endtime")-rs.getInt("starttime"));
+		   resultarray[2][1]=Integer.toString(rs.getInt("endtime")-rs.getInt("timestamp"));
 	   }
     	   String [][] test= new String [1][1];
     	   test[0][0]="sollte nie verwendet werden";
