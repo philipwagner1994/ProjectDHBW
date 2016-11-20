@@ -14,7 +14,7 @@ sap.ui.define([
 		onInit : function (evt) {
 			 var oModel = new sap.ui.model.json.JSONModel();
 	           // Load JSON in model
-	              oModel.loadData("json/detail.json");
+	              //oModel.loadData("json/detail.json");
 			this.getView().setModel(oModel);
 			
 			this.getRouter().attachRoutePatternMatched(this.onRouteMatched, this);
@@ -26,34 +26,46 @@ sap.ui.define([
 			this.getView().byId("Rows").setValue(oConfigModel.config.rows);
 			this.getView().byId("CustomerNumSearch").setValue(oConfigModel.config.CustomerNum);
 			this.getView().byId("MaterialNumSearch").setValue(oConfigModel.config.MaterialNum);
-			oConfigModel.livedown = false;
 
-			/*$.ajax({
+			var MaterialNum = oConfigModel.config.MaterialNum;
+			var CustomerNum = oConfigModel.config.CustomerNum;
+			if(MaterialNum == ""){
+				MaterialNum = "null";
+			}
+			if(CustomerNum == ""){
+				CustomerNum = "null";
+			}
+			var oModel = this.getView().getModel();
+			var that = this;
+			
+			$.ajax({
 			    async : false,
 			    type : "GET",
-			    url : "http://localhost:1234/Server/java",
+			    url : "http://localhost:9887/Server/java",
 			    dataType : 'text',
 			    data : {
-				'function' : "history_detail",
+				'function' : "history_details",
 				history: oConfigModel.config.rows,
-				materialno: oConfigModel.config.MaterialNum,
-				customerno: oConfigModel.config.CustomerNum
+				materialno: MaterialNum,
+				customerno: CustomerNum
 			    },
-			    success : function(response) {			
-			    	var oModel = this.getView().getModel();
-			    	var oController = this;
+			    success : function(response) {			    
+			    	if(response != "null"){
+
 			    	var jsonResponse = JSON.parse(response);
-			    	oModel.setProperty("/Details", jsonResponse);
-			    	oModel.refresh(true);
-			    	oController.getDataUpdate();
 			    	
+			    	oModel.setProperty("/Data", jsonResponse);
+			    	
+			    	oModel.refresh(true);
+			    	}
+			    	//that.getDataUpdate();
 			    },
 			    error : function(message) {
-				console.error("Error");
+			    	console.error("Error");
 			    }	
-			});*/
+			});
 		},
-		getDataUpdate: function() {
+		/*getDataUpdate: function() {
 			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();
 			if(oConfigModel.livedown==false){
 			$.ajax({
@@ -83,13 +95,13 @@ sap.ui.define([
 			    }	
 			});
 			}
-		},
+		},*/
 		getRouter : function () {
 			return sap.ui.core.UIComponent.getRouterFor(this);
 		},
 		onNavBack: function () {
 			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();
-			oConfigModel.livedown = true;
+			oConfigModel.overviewlivedown = false;
 			sap.ui.core.UIComponent.getRouterFor(this).navTo("overview");
 		},
 		onRowPress: function () {
@@ -97,7 +109,6 @@ sap.ui.define([
 			var value = this.getView().byId("Rows").getValue();
 			var oController = this;
 			
-			oConfigModel.livedown = true;
 			if(value != undefined){
 				oConfigModel.config.rows = value;
 			}
@@ -109,7 +120,6 @@ sap.ui.define([
 			var value = this.getView().byId("CustomerNumSearch").getValue();
 			var oController = this;
 			
-			oConfigModel.livedown = true;
 			if(value != undefined){
 				oConfigModel.config.CustomerNum = value;
 			}
@@ -121,7 +131,6 @@ sap.ui.define([
 			var value = this.getView().byId("MaterialNumSearch").getValue();
 			var oController = this;
 			
-			oConfigModel.livedown = true;
 			if(value != undefined){
 				oConfigModel.config.MaterialNum = value;
 			}

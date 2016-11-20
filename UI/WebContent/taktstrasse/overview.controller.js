@@ -50,14 +50,14 @@ sap.ui.define([
 						       oModel.oData.TileCollection[0].OrderNum = OrderNum;
 						       break;
 						   case "MILLING_SPEED":
-						       oModel.oData.TileCollection[1].number2 = jsonResponse[0].Value3;
-						       OrderNum =  "OrderNum: " + jsonResponse[0].OrderNum;
-						       oModel.oData.TileCollection[1].OrderNum = OrderNum
-						       break;
-						   case "DRILLING_HEAT":
-						       oModel.oData.TileCollection[0].number = jsonResponse[0].Value3
+						       oModel.oData.TileCollection[0].number2 = jsonResponse[0].Value3;
 						       OrderNum =  "OrderNum: " + jsonResponse[0].OrderNum;
 						       oModel.oData.TileCollection[0].OrderNum = OrderNum
+						       break;
+						   case "DRILLING_HEAT":
+						       oModel.oData.TileCollection[1].number = jsonResponse[0].Value3
+						       OrderNum =  "OrderNum: " + jsonResponse[0].OrderNum;
+						       oModel.oData.TileCollection[1].OrderNum = OrderNum
 						       break;
 						   case "DRILLING_SPEED":
 						       oModel.oData.TileCollection[1].number2 = jsonResponse[0].Value3 
@@ -92,32 +92,27 @@ sap.ui.define([
 			
 			switch(page) {
 		    case 0:
-		    	oConfigModel.millinglivedown = true;
+		    	oConfigModel.millinglivedown = false;
 		    	sap.ui.core.UIComponent.getRouterFor(this).navTo("milling");
 		        break;
 		    case 1:
-		    	oModel.oData.flags[0].livedown = true;
-				oModel.refresh(true);
+		    	oConfigModel.drillinglivedown = false;
 		    	sap.ui.core.UIComponent.getRouterFor(this).navTo("drilling");
 		        break;
 		    case 2:
-		    	oModel.oData.flags[0].livedown = true;
-				oModel.refresh(true);
+		    	oConfigModel.productionlivedown = false;
 		    	sap.ui.core.UIComponent.getRouterFor(this).navTo("production");
 		        break;
 		    case 3:
-		    	oModel.oData.flags[0].livedown = true;
-				oModel.refresh(true);
+		    	oConfigModel.errorslivedown = false;
 		    	sap.ui.core.UIComponent.getRouterFor(this).navTo("errors");
 		        break;
 		    case 4:
-		    	oModel.oData.flags[0].livedown = true;
-				oModel.refresh(true);
+		    	oConfigModel.detailslivedown = false;
 		    	sap.ui.core.UIComponent.getRouterFor(this).navTo("details");
 		        break;
 		    case 5:
-		    	oModel.oData.flags[0].livedown = true;
-				oModel.refresh(true);
+		    	oConfigModel.runtimelivedown = false;
 		    	sap.ui.core.UIComponent.getRouterFor(this).navTo("runtime");
 		        break;
 		    default:
@@ -127,7 +122,7 @@ sap.ui.define([
 		},
 		ajax : function () {
 			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();	
-			if(oConfigModel.livedown == false){
+			if(oConfigModel.overviewlivedown == false){
 			var that = this;
 			$.ajax({
 			    async : true,

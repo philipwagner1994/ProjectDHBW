@@ -13,10 +13,11 @@ sap.ui.define([
 			
 			var oModel = new sap.ui.model.json.JSONModel();
 	           // Load JSON in model
-	              oModel.loadData("json/data.json");
+	              //oModel.loadData("json/production.json");
 			this.getView().setModel(oModel);
 			
 			var oView = this.getView();
+			var that = this;
 			var pic = oView.byId("pic");
 			
 			var img = new sap.ui.commons.Image({src: "img/Taktstrasse.JPG"});
@@ -30,22 +31,33 @@ sap.ui.define([
 				//icon.setSrc("sap-icon://lightbulb");
 				//icon.setHelpId(id);
 				icon.setIcon("sap-icon://lightbulb");
-
 				var onPress = function(){
-					icon.addStyleClass("lightbulb_aktiv");
+					//icon.addStyleClass("lightbulb_aktiv");
+					
+					
 					openAlert(id)
-					icon.detachPress(onPress);
 					
 				};
 				icon.attachPress(onPress);
 				//icon.addStyleClass("lightbulb_passiv");
 				pic.addContent(icon, oPosition);
-				console.log(icon);
 			};
 			function openAlert(id) {
-					sap.ui.commons.MessageBox.alert("Order Number : cc59e94ff-a512-4ef8-8471-fdcf32d57228 \n"+
-													"Heat: 112.90 grad \n"+
-													"Speed: 15000 m/s \n");
+				var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();
+				console.log(oConfigModel);
+					//var oModel = this.getView().getModel();
+				if(oConfigModel.Data[id].OrderNum == undefined){
+					sap.ui.commons.MessageBox.alert("No Data");
+				}
+				else{
+					//if(id == 4|| id == 5){
+					sap.ui.commons.MessageBox.alert("Order Number : "+ oConfigModel.Data[id].OrderNum + "\n"+
+													"Customer Number: "+ oConfigModel.Data[id].CustomerNum + "\n"+
+													"Material Number: "+ oConfigModel.Data[id].Value1 + "\n"+
+													"Current Status: "+ oConfigModel.Data[id].Value2 + "\n"+
+													"Timestamp: "+ oConfigModel.Data[id].timestamp);
+					//}
+				}
 				}
 
 			addIcons({left: "400px", top: "510px"}, 0);
@@ -58,41 +70,93 @@ sap.ui.define([
 			
 		},
 		onRouteMatched: function() {
+			var that = this;
 			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();		
-			oConfigModel.livedown = false;
-			if(oConfigModel.livedown==false){
-			/*$.ajax({
-			    async : false,
+	    	var oView = that.getView();
+	    	var pic = oView.byId("pic");
+	    	var elements = pic.getContent();
+			
+			if(oConfigModel.productionlivedown==false){
+			$.ajax({
+			    async : true,
 			    type : "GET",
 			    url : "http://localhost:1234/Server/java",
 			    dataType : 'text',
-			    data : {
-				'function' : "history_error",
-				history: oConfigModel.config.rows,
-				materialno: oConfigModel.config.MaterialNum,
-				customerno: oConfigModel.config.CustomerNum
+			     data : {
+				command : "getWSData",
 			    },
-			    success : function(response) {*/
-			    
-			    	var icon = this.getView().byId("__button5");
-			    	var oView = this.getView();
-			    	var pic = oView.byId("pic");
-			    	var elements = pic.getContent();
-			    	elements[4].addStyleClass("lightbulb_aktiv");
-			    	console.log("Test");
+			    success : function(response) {
+			    	if(response != "null"){
 			    	
-			    	/*var oModel = this.getView().getModel();
-			    	var oController = this;
-			    	var jsonResponse = JSON.parse(response);
-			    	oModel.setProperty("/lineData", jsonResponse);
-			    	oModel.refresh(true);
-			    	oController.getDataUpdate();
 			    	
+					var jsonResponse = JSON.parse(response);
+					console.log(jsonResponse);
+					switch(jsonResponse[0].Item)
+					{
+						   case "L1":
+						       if(jsonResponse[0].Value3 == "false"){
+						    	   elements[2].setStyle("Accept");
+						    	   oConfigModel.Data[0] = jsonResponse[0];
+						       }
+						       else elements[2].setStyle("Default");
+						       break;
+						   case "L2":
+							   if(jsonResponse[0].Value3 == "false"){
+						    	   elements[3].setStyle("Accept");
+						    	   oConfigModel.Data[1] = jsonResponse[0];
+						       }
+						       else elements[3].setStyle("Default");
+						       break; 
+						   case "L3":
+							   if(jsonResponse[0].Value3 == "false"){
+						    	   elements[4].setStyle("Accept");
+						    	   oConfigModel.Data[2] = jsonResponse[0];
+						       }
+						       else elements[4].setStyle("Default");
+						       break;
+						   case "MILLING_HEAT":
+					    	   elements[4].setStyle("Accept");
+					    	   oConfigModel.Data[2] = jsonResponse[0];
+					       break;
+						   case "MILLING_SPEED":
+					    	   elements[4].setStyle("Accept");
+					    	   oConfigModel.Data[2] = jsonResponse[0];
+					       break;
+						   case "L4":
+							   if(jsonResponse[0].Value3 == "false"){
+						    	   elements[5].setStyle("Accept");
+						    	   oConfigModel.Data[3] = jsonResponse[0];
+						       }
+						       else elements[5].setStyle("Default");
+						       break;
+						   case "DRILLING_HEAT":
+					    	   elements[5].setStyle("Accept");
+					    	   oConfigModel.Data[3] = jsonResponse[0];
+					       break;
+						   case "DRILLING_SPEED":
+					    	   elements[5].setStyle("Accept");
+					    	   oConfigModel.Data[3] = jsonResponse[0];
+					       break;
+						   case "L5":
+							   if(jsonResponse[0].Value3 == "false"){
+						    	   elements[6].setStyle("Accept");
+						    	   oConfigModel.Data[4] = jsonResponse[0];
+						       }
+						       else elements[6].setStyle("Default");
+						       break;
+						   default:
+							   //that.onRouteMatched();
+					}
+			    	
+			    	
+			    	
+			    	}
+			    	that.onRouteMatched();
 			    },
 			    error : function(message) {
 				console.error("Error");
 			    }	
-			});*/
+			});
 			}
 		},
 		getRouter : function () {

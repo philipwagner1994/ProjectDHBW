@@ -36,6 +36,6 @@
 				search="onMaterialNumSearch"/>
 	    	</l:HorizontalLayout>
 	    	
-			<acc:BarChartErrors id="BarChart" width="400" height="200" responsive="true" chartType="Line" data="{/errorData}"/>
+			<acc:BarChartErrors id="BarChart" width="400" height="200" responsive="true" chartType="Line" data="{/Data}"/>
 	</Page>
 </core:View>

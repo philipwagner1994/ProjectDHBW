@@ -115,7 +115,7 @@ sap.ui.define([
        	var data =  [];
         if(chartData != undefined ){
      	   for(var i=0;i<chartData.length;i++){
-     		   data[i+1] = chartData[i].speed;
+     		   data[i+1] = chartData[i].temp;
      	   }
         }
        	 this._newCustomChart.load({

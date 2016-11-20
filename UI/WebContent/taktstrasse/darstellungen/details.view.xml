@@ -3,7 +3,7 @@
 	<Page
 		title="Details"
 		showHeader="true"
-		enableScrolling="false"
+		enableScrolling="true"
 		showNavButton="true"
 		navButtonPress="onNavBack">
 			<customHeader>
@@ -38,7 +38,8 @@
 	    	
 		<Table
                     headerText="Current Details"
-                    items="{/Details}">
+                    items="{/Data}"
+                    >
                     <columns>
                         <Column>
                             <header>

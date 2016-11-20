@@ -21,6 +21,9 @@ sap.ui.define([
 			this.getView().setModel(oModel);
 			
 			
+			
+		},
+		onAfterRendering: function() {
 			this.getRouter().attachRoutePatternMatched(this.onRouteMatched, this);
 		},
 		onRouteMatched: function() {
@@ -28,7 +31,7 @@ sap.ui.define([
 			this.getView().byId("Rows").setValue(oConfigModel.config.rows);
 			this.getView().byId("CustomerNumSearch").setValue(oConfigModel.config.CustomerNum);
 			this.getView().byId("MaterialNumSearch").setValue(oConfigModel.config.MaterialNum);
-			//oConfigModel.livedown = false;
+
 
 			var MaterialNum = oConfigModel.config.MaterialNum;
 			var CustomerNum = oConfigModel.config.CustomerNum;
@@ -39,6 +42,8 @@ sap.ui.define([
 				CustomerNum = "null";
 			}
 			var oModel = this.getView().getModel();
+			var that = this;
+			
 			$.ajax({
 			    async : false,
 			    type : "GET",
@@ -53,85 +58,75 @@ sap.ui.define([
 			    success : function(response) {			    
 			    	if(response != "null"){
 			    	oConfigModel.millinglivedown==false
-			    	/*oModel.getProperty("/lineData/customerno").push("123");
-			    	 for(var i=0;i< oModel.oData.Data.length;i++){
-			    		 oModel.getProperty("/lineData/customerno").push("123");
-			    		 oModel.oData.orderno.push(oModel.oData.Data[i].orderno);
-			    		 oModel.oData.materialno.push(oModel.oData.Data[i].materialno);
-			    		 oModel.oData.speed.push(oModel.oData.Data[i].speed);
-			    		 oModel.oData.temp.push(oModel.oData.Data[i].temp);
-			    	     }*/
-			    	//var oController = this;
+
 			    	var jsonResponse = JSON.parse(response);
+			    	
 			    	oModel.setProperty("/Data", jsonResponse);
 			    	oModel.setProperty("/gaugeDatatemp", jsonResponse[jsonResponse.length-1].temp);
-			    	oModel.setProperty("/gaugeDataspeed", jsonResponse[jsonResponse.length-1].speed);
+			    	oModel.setProperty("/gaugeDataspeed",  jsonResponse[jsonResponse.length-1].speed);
 			    	oModel.refresh(true);
+			    	//that.getView().byId("LineChartHeat").load();
+			    	//that.getView().byId("LineChartSpeed").load();
 
-			    	//}
 			    	}
-			    	oController.getDataUpdate();
+			    	//that.getDataUpdate();
 			    },
 			    error : function(message) {
 			    	console.error("Error");
 			    }	
 			});
 		},
-		getDataUpdate: function() {
+		/*getDataUpdate: function() {
 			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();
 			if(oConfigModel.millinglivedown==false){
 			var that = this;
-			console.log("Test");
-			that.getDataUpdate();
+			
+			
+
 			$.ajax({
 			    async : true,
 			    type : "GET",
 			    url : "http://localhost:1234/Server/java",
 			    dataType : 'text',
 			    data : {
-				'function' : "live_milling",
-				//materialno: oConfigModel.config.MaterialNum,
-				//customerno: oConfigModel.config.CustomerNum
+				'function' : "getWSData",
 			    },
 			    success : function(response) {
 			    	if(response != "null"){
 			    	
 			    	var oModel = that.getView().getModel();
-			    	var oController = this;
 			    	
 			    	var jsonResponse = JSON.parse(response);
 			    	console.log(jsonResponse);
-			    	
-			    	oModel.getProperty("/Data").push(jsonResponse[0]);
-			    	oModel.getProperty("/Data").shift();
-			    	oModel.oData.gaugeDatatemp.temp = jsonResponse[0].temp;
-			    	oModel.oData.gaugeDataspeed.speed = jsonResponse[0].speed;
-			    	/*oModel.getProperty("/Data/speed").push(jsonResponse[0].speed);
-			    	oModel.getProperty("/Data/speed").shift();
-			    	oModel.getProperty("/Data/temp").push(jsonResponse[0].temp);
-			    	oModel.getProperty("/Data/temp").shift();
-			    	oModel.getProperty("/Data/orderno").push(jsonResponse[0].orderno);
-			    	oModel.getProperty("/Data/orderno").shift();
-			    	oModel.getProperty("/Data/orderno").push(jsonResponse[0].orderno);
-			    	oModel.getProperty("/Data/orderno").shift();
-			    	oModel.oData.gaugeDatatemp.temp = jsonResponse[0].temp;
-			    	oModel.oData.gaugeDataspeed.speed = jsonResponse[0].speed;*/
-			    	
-			    	oModel.refresh(true);
-			    	that.getView().byId("LineChartHeat").load();
-			    	that.getView().byId("LineChartSpeed").load();
-			    	that.getView().byId("GaugeChartHeat").load();
-			    	that.getView().byId("GaugeChartSpeed").load();
+			    	switch(jsonResponse[0].Item)
+					{
+						   case "MILLING_HEAT":
+						    	oModel.setProperty("/gaugeDatatemp/temp", parseInt(jsonResponse[jsonResponse.length-1].temp));
+						    	oModel.refresh(true);
+						    	that.getView().byId("GaugeChartHeat").load();
+						    	that.getDataUpdate();
+						    	
+						       break;
+						   case "MILLING_SPEED":
+							   oModel.setProperty("/gaugeDataspeed/speed",  parseInt(jsonResponse[jsonResponse.length-1].speed));
+							   oModel.refresh(true);
+							   that.getView().byId("GaugeChartSpeed").load();
+							   that.getDataUpdate();
+						       break;
+						   case "L1":
+							   that.onRouteMatched();
+						       break;
+						   default:
+							   that.getDataUpdate();
+					}
 			    	}
-			    	oController.getDataUpdate();
-
 			    },
 			    error : function(message) {			    	
 				console.error("Error");
 			    }	
 			});
 			}
-		},
+		},*/
 		getRouter : function () {
 			return sap.ui.core.UIComponent.getRouterFor(this);
 		},
@@ -140,7 +135,7 @@ sap.ui.define([
 			var value = this.getView().byId("Rows").getValue();
 			var oController = this;
 			
-			oConfigModel.millinglivedown = true;
+			//oConfigModel.millinglivedown = true;
 			if(value != undefined){
 				oConfigModel.config.rows = value;
 			}
@@ -152,7 +147,7 @@ sap.ui.define([
 			var value = this.getView().byId("CustomerNumSearch").getValue();
 			var oController = this;
 			
-			oConfigModel.millinglivedown = true;
+			//oConfigModel.millinglivedown = true;
 			if(value != undefined){
 				oConfigModel.config.CustomerNum = value;
 			}
@@ -164,7 +159,7 @@ sap.ui.define([
 			var value = this.getView().byId("MaterialNumSearch").getValue();
 			var oController = this;
 			
-			oConfigModel.millinglivedown = true;
+			//oConfigModel.millinglivedown = true;
 			if(value != undefined){
 				oConfigModel.config.MaterialNum = value;
 			}
@@ -174,6 +169,7 @@ sap.ui.define([
 		onNavBack: function () {
 			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();
 			oConfigModel.millinglivedown = true;
+			oConfigModel.overviewlivedown = false;
 			sap.ui.core.UIComponent.getRouterFor(this).navTo("overview");
 		}
 
