@@ -797,7 +797,7 @@ public class PostgreSQLJDBC {
 			   					" data.ordernumber;";
     		   }
     		   ResultSet rs = stmt.executeQuery( sqlselect );
-    		   int i=0;
+    		   int i=1;
     		   int j=0;
     		   while (rs.next() && j < entries){
     			   resultarray[j][0] = rs.getString("ordernumber");
