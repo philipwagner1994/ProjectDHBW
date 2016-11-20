@@ -12,10 +12,13 @@ RUN chmod u+x /opt/entrypoint.sh
 # add takstrasse
 COPY TaktstrasseOpcServer-0.0.1-SNAPSHOT.jar /
 
+# add consumer
+COPY data_collector-0.0.1-SNAPSHOT-jar-with-dependencies.jar /
+
 # create directory for spectral file
 RUN mkdir -p /temp
 
 #expose kafka port
-EXPOSE 2181
+EXPOSE 2182
 
 ENTRYPOINT ["/opt/entrypoint.sh"]
