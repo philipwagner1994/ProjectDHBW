@@ -12,8 +12,6 @@ sap.ui.define([
 		onInit : function (evt) {
 			
 			var oModel = new sap.ui.model.json.JSONModel();
-	           // Load JSON in model
-	              //oModel.loadData("json/production.json");
 			this.getView().setModel(oModel);
 			
 			var oView = this.getView();
@@ -28,36 +26,25 @@ sap.ui.define([
 
 			var addIcons = function(oPosition, id){
 				var icon = new sap.ui.commons.Button();
-				//icon.setSrc("sap-icon://lightbulb");
-				//icon.setHelpId(id);
 				icon.setIcon("sap-icon://lightbulb");
 				var onPress = function(){
-					//icon.addStyleClass("lightbulb_aktiv");
-					
-					
-					openAlert(id)
-					
+					openAlert(id);	
 				};
-				icon.attachPress(onPress);
-				//icon.addStyleClass("lightbulb_passiv");
+				icon.attachPress(onPress)
 				pic.addContent(icon, oPosition);
 			};
 			function openAlert(id) {
 				var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();
-				console.log(oConfigModel);
-					//var oModel = this.getView().getModel();
 				if(oConfigModel.Data[id].OrderNum == undefined){
 					sap.ui.commons.MessageBox.alert("No Data");
 				}
 				else{
-					//if(id == 4|| id == 5){
 					sap.ui.commons.MessageBox.alert("Order Number : "+ oConfigModel.Data[id].OrderNum + "\n"+
 													"Customer Number: "+ oConfigModel.Data[id].CustomerNum + "\n"+
 													"Material Number: "+ oConfigModel.Data[id].Value1 + "\n"+
 													"Current Status: "+ oConfigModel.Data[id].Value2 + "\n"+
 													"Timestamp: "+ oConfigModel.Data[id].timestamp);
-					//}
-				}
+					}
 				}
 
 			addIcons({left: "400px", top: "510px"}, 0);
@@ -80,7 +67,7 @@ sap.ui.define([
 			$.ajax({
 			    async : true,
 			    type : "GET",
-			    url : "http://localhost:1234/Server/java",
+			    url : "http://192.168.99.100:1234/Server/java",
 			    dataType : 'text',
 			     data : {
 				command : "getWSData",
@@ -90,7 +77,6 @@ sap.ui.define([
 			    	
 			    	
 					var jsonResponse = JSON.parse(response);
-					console.log(jsonResponse);
 					switch(jsonResponse[0].Item)
 					{
 						   case "L1":
@@ -145,16 +131,12 @@ sap.ui.define([
 						       else elements[6].setStyle("Default");
 						       break;
 						   default:
-							   //that.onRouteMatched();
 					}
-			    	
-			    	
-			    	
+   	
 			    	}
 			    	that.onRouteMatched();
 			    },
 			    error : function(message) {
-				console.error("Error");
 			    }	
 			});
 			}

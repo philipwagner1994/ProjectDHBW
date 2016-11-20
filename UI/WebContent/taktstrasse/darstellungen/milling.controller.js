@@ -15,9 +15,7 @@ sap.ui.define([
 			this.getView().byId("CustomerNumSearch").setValue(oConfigModel.config.CustomerNum);
 			this.getView().byId("MaterialNumSearch").setValue(oConfigModel.config.MaterialNum);
 			
-			 var oModel = new sap.ui.model.json.JSONModel();
-	           // Load JSON in model
-	              //oModel.loadData("json/chart.json");
+			var oModel = new sap.ui.model.json.JSONModel();
 			this.getView().setModel(oModel);
 			
 			
@@ -47,7 +45,7 @@ sap.ui.define([
 			$.ajax({
 			    async : false,
 			    type : "GET",
-			    url : "http://localhost:9887/Server/java",
+			    url : "http://192.168.99.100:9887/Server/java",
 			    dataType : 'text',
 			    data : {
 				'function' : "history_milling",
@@ -65,68 +63,12 @@ sap.ui.define([
 			    	oModel.setProperty("/gaugeDatatemp", jsonResponse[jsonResponse.length-1].temp);
 			    	oModel.setProperty("/gaugeDataspeed",  jsonResponse[jsonResponse.length-1].speed);
 			    	oModel.refresh(true);
-			    	//that.getView().byId("LineChartHeat").load();
-			    	//that.getView().byId("LineChartSpeed").load();
-
 			    	}
-			    	//that.getDataUpdate();
 			    },
 			    error : function(message) {
-			    	console.error("Error");
 			    }	
 			});
 		},
-		/*getDataUpdate: function() {
-			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();
-			if(oConfigModel.millinglivedown==false){
-			var that = this;
-			
-			
-
-			$.ajax({
-			    async : true,
-			    type : "GET",
-			    url : "http://localhost:1234/Server/java",
-			    dataType : 'text',
-			    data : {
-				'function' : "getWSData",
-			    },
-			    success : function(response) {
-			    	if(response != "null"){
-			    	
-			    	var oModel = that.getView().getModel();
-			    	
-			    	var jsonResponse = JSON.parse(response);
-			    	console.log(jsonResponse);
-			    	switch(jsonResponse[0].Item)
-					{
-						   case "MILLING_HEAT":
-						    	oModel.setProperty("/gaugeDatatemp/temp", parseInt(jsonResponse[jsonResponse.length-1].temp));
-						    	oModel.refresh(true);
-						    	that.getView().byId("GaugeChartHeat").load();
-						    	that.getDataUpdate();
-						    	
-						       break;
-						   case "MILLING_SPEED":
-							   oModel.setProperty("/gaugeDataspeed/speed",  parseInt(jsonResponse[jsonResponse.length-1].speed));
-							   oModel.refresh(true);
-							   that.getView().byId("GaugeChartSpeed").load();
-							   that.getDataUpdate();
-						       break;
-						   case "L1":
-							   that.onRouteMatched();
-						       break;
-						   default:
-							   that.getDataUpdate();
-					}
-			    	}
-			    },
-			    error : function(message) {			    	
-				console.error("Error");
-			    }	
-			});
-			}
-		},*/
 		getRouter : function () {
 			return sap.ui.core.UIComponent.getRouterFor(this);
 		},
@@ -135,7 +77,6 @@ sap.ui.define([
 			var value = this.getView().byId("Rows").getValue();
 			var oController = this;
 			
-			//oConfigModel.millinglivedown = true;
 			if(value != undefined){
 				oConfigModel.config.rows = value;
 			}
@@ -147,7 +88,6 @@ sap.ui.define([
 			var value = this.getView().byId("CustomerNumSearch").getValue();
 			var oController = this;
 			
-			//oConfigModel.millinglivedown = true;
 			if(value != undefined){
 				oConfigModel.config.CustomerNum = value;
 			}
@@ -159,7 +99,6 @@ sap.ui.define([
 			var value = this.getView().byId("MaterialNumSearch").getValue();
 			var oController = this;
 			
-			//oConfigModel.millinglivedown = true;
 			if(value != undefined){
 				oConfigModel.config.MaterialNum = value;
 			}

@@ -30,7 +30,7 @@ sap.ui.define([
 			$.ajax({
 			    async : true,
 			    type : "GET",
-			    url : "http://localhost:1234/Server/java",
+			    url : "http://192.168.99.100:1234/Server/java",
 			    dataType : 'text',
 			    data : {
 				command : "getWSData",
@@ -125,7 +125,7 @@ sap.ui.define([
 			$.ajax({
 			    async : true,
 			    type : "GET",
-			    url : "http://localhost:1234/Server/java",
+			    url : "http://192.168.99.100:1234/Server/java",
 			    dataType : 'text',
 			    data : {
 				command : "getWSData",

@@ -11,9 +11,7 @@ sap.ui.define([
 	var PageController = Controller.extend("sap.checkmarx.selfservice.taktstrasse.darstellungen.errors", {
 		
 		onInit : function (evt) {
-			 var oModel = new sap.ui.model.json.JSONModel();
-	           // Load JSON in model
-	              //oModel.loadData("json/errors.json");
+			var oModel = new sap.ui.model.json.JSONModel();
 			this.getView().setModel(oModel);
 			
 			this.getRouter().attachRoutePatternMatched(this.onRouteMatched, this);
@@ -39,7 +37,7 @@ sap.ui.define([
 			$.ajax({
 			    async : false,
 			    type : "GET",
-			    url : "http://localhost:9887/Server/java",
+			    url : "http://192.168.99.100:9887/Server/java",
 			    dataType : 'text',
 			    data : {
 				'function' : "history_errors",
@@ -58,51 +56,11 @@ sap.ui.define([
 			    	oModel.refresh(true);
 
 			    	}
-			    	//that.getDataUpdate();
 			    },
 			    error : function(message) {
-			    	console.error("Error");
 			    }	
 			});
 		},
-		/*getDataUpdate: function() {
-			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();
-			if(oConfigModel.livedown==false){
-			$.ajax({
-			    async : true,
-			    type : "GET",
-			    url : "http://localhost:1234/Server/java",
-			    dataType : 'text',
-			    data : {
-				'function' : "live_error",
-				materialno: oConfigModel.config.MaterialNum,
-				customerno: oConfigModel.config.CustomerNum
-			    },
-			    success : function(response) {
-			    	var oModel = this.getView().getModel();
-			    	var oController = this;
-			    	
-			    	var jsonResponse = JSON.parse(response);
-			    	oModel.getProperty("/lineData/Errors").push(jsonResponse[0].Errors);
-			    	oModel.getProperty("/lineData/Errors").shift();
-			    	oModel.getProperty("/lineData/timestamp").push(jsonResponse[0].timestamp);
-			    	oModel.getProperty("/lineData/timestamp").shift();
-			    	//oModel.getProperty("/lineData/customerno").push(jsonResponse[0].customerno);
-			    	//oModel.getProperty("/lineData/customerno").shift();
-			    	//oModel.getProperty("/lineData/materialno").push(jsonResponse[0].materialno);
-			    	//oModel.getProperty("/lineData/materialno").shift();
-			    	
-			    	oModel.refresh(true);
-			    	this.getView().byId("BarChart").load();
-			    	oController.getDataUpdate();
-			    	
-			    },
-			    error : function(message) {
-				console.error("Error");
-			    }	
-			});
-			}
-		},*/
 		getRouter : function () {
 			return sap.ui.core.UIComponent.getRouterFor(this);
 		},
@@ -117,7 +75,6 @@ sap.ui.define([
 			var value = this.getView().byId("Rows").getValue();
 			var oController = this;
 			
-			//oConfigModel.livedown = true;
 			if(value != undefined){
 				oConfigModel.config.rows = value;
 			}
@@ -129,7 +86,6 @@ sap.ui.define([
 			var value = this.getView().byId("CustomerNumSearch").getValue();
 			var oController = this;
 			
-			//oConfigModel.livedown = true;
 			if(value != undefined){
 				oConfigModel.config.CustomerNum = value;
 			}
@@ -141,18 +97,13 @@ sap.ui.define([
 			var value = this.getView().byId("MaterialNumSearch").getValue();
 			var oController = this;
 			
-			//oConfigModel.livedown = true;
 			if(value != undefined){
 				oConfigModel.config.MaterialNum = value;
 			}
 			else oConfigModel.config.MaterialNum = "";
 			oController.onRouteMatched();
 		}
- 
-		
- 
-	});
- 
+	}); 
 	return PageController;
 	
 

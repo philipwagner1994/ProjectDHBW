@@ -39,7 +39,7 @@ sap.ui.define([
 			$.ajax({
 			    async : false,
 			    type : "GET",
-			    url : "http://localhost:9887/Server/java",
+			    url : "http://192.168.99.100:9887/Server/java",
 			    dataType : 'text',
 			    data : {
 				'function' : "history_details",

@@ -10,9 +10,7 @@ sap.ui.define([
 	var PageController = Controller.extend("sap.checkmarx.selfservice.taktstrasse.darstellungen.runtime", {
 		
 		onInit : function (evt) {
-			 var oModel = new sap.ui.model.json.JSONModel();
-	           // Load JSON in model
-	              //oModel.loadData("json/chartdata.json");//test
+			var oModel = new sap.ui.model.json.JSONModel();
 			this.getView().setModel(oModel);
 			
 			this.getRouter().attachRoutePatternMatched(this.onRouteMatched, this);
@@ -22,7 +20,6 @@ sap.ui.define([
 			this.getView().byId("Rows").setValue(oConfigModel.config.rows);
 			this.getView().byId("CustomerNumSearch").setValue(oConfigModel.config.CustomerNum);
 			this.getView().byId("MaterialNumSearch").setValue(oConfigModel.config.MaterialNum);
-			//oConfigModel.livedown = false;
 
 			var MaterialNum = oConfigModel.config.MaterialNum;
 			var CustomerNum = oConfigModel.config.CustomerNum;
@@ -38,7 +35,7 @@ sap.ui.define([
 			$.ajax({
 			    async : false,
 			    type : "GET",
-			    url : "http://localhost:9887/Server/java",
+			    url : "http://192.168.99.100:9887/Server/java",
 			    dataType : 'text',
 			    data : {
 				'function' : "history_runtime",
@@ -56,7 +53,6 @@ sap.ui.define([
 			    	}
 			    },
 			    error : function(message) {
-			    	console.error("Error");
 			    }	
 			});
 		},
