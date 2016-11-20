@@ -201,7 +201,7 @@ public class StateMachine_Kafka {
     
     public String handleMessage(KafkaMessage message) throws Exception{
     	String hilf = message.getItemName()+message.getValue();
-  
+    	if(producePart.isInState(State.Done) == false){
 		String[] databaseInsert = new String[5];
 		databaseInsert[0] = activemq[2];
 		databaseInsert[1] = message.getTimestamp();
@@ -224,7 +224,7 @@ public class StateMachine_Kafka {
 		
 
 		PostgreSQLJDBC.insert(databaseInsert);
-    	
+    	}
     	switch(hilf){
     		case "L1true":
     			if(producePart.canFire(Trigger.L1true)){
@@ -238,7 +238,9 @@ public class StateMachine_Kafka {
     			data[3] = message.getItemName();
     			data[4] = message.getStatus();
     			data[5] = message.getValue();
-    			data[6] = message.getTimestamp();
+    			Long unixtime = Long.parseLong(message.getTimestamp());
+    			Date time = new Date(unixtime);
+    			data[6] = time.toString();
     			server.setData(data);history.setPseudoData(data);
     			return"L1true";
     			}
@@ -249,15 +251,17 @@ public class StateMachine_Kafka {
     			messages.add(message);
     			
     			System.out.println("TEST1");
-    			String[] data = new String[6];
+    			String[] data = new String[7];
     			data[0] = activemq[2];
     			data[1] = activemq[0];
     			data[2] = activemq[1];
     			data[3] = message.getItemName();
     			data[4] = message.getStatus();
     			data[5] = message.getValue();
-    			data[6] = message.getTimestamp();
-    			server.setData(data);history.setPseudoData(data);
+    			Long unixtime = Long.parseLong(message.getTimestamp());
+    			Date time = new Date(unixtime);
+    			data[6] = time.toString();
+    			server.setData(data);//history.setPseudoData(data);
     			return"L1false";
 		}
 		return "nothing";
@@ -266,14 +270,16 @@ public class StateMachine_Kafka {
     			producePart.fire(Trigger.L2true);
     			messages.add(message);
     			
-    			String[] data = new String[6];
+    			String[] data = new String[7];
     			data[0] = activemq[2];
     			data[1] = activemq[0];
     			data[2] = activemq[1];
     			data[3] = message.getItemName();
     			data[4] = message.getStatus();
     			data[5] = message.getValue();
-    			data[6] = message.getTimestamp();
+    			Long unixtime = Long.parseLong(message.getTimestamp());
+    			Date time = new Date(unixtime);
+    			data[6] = time.toString();
     			server.setData(data);history.setPseudoData(data);
     			return"L2true";
 	}
@@ -283,14 +289,16 @@ public class StateMachine_Kafka {
     			producePart.fire(Trigger.L2false);
     			messages.add(message);
     			
-    			String[] data = new String[6];
+    			String[] data = new String[7];
     			data[0] = activemq[2];
     			data[1] = activemq[0];
     			data[2] = activemq[1];
     			data[3] = message.getItemName();
     			data[4] = message.getStatus();
     			data[5] = message.getValue();
-    			data[6] = message.getTimestamp();
+    			Long unixtime = Long.parseLong(message.getTimestamp());
+    			Date time = new Date(unixtime);
+    			data[6] = time.toString();
     			server.setData(data);history.setPseudoData(data);
     			return"L2false";
 }
@@ -300,14 +308,16 @@ return "nothing";
     			producePart.fire(Trigger.L3true);
     			messages.add(message);
     			
-    			String[] data = new String[6];
+    			String[] data = new String[7];
     			data[0] = activemq[2];
     			data[1] = activemq[0];
     			data[2] = activemq[1];
     			data[3] = message.getItemName();
     			data[4] = message.getStatus();
     			data[5] = message.getValue();
-    			data[6] = message.getTimestamp();
+    			Long unixtime = Long.parseLong(message.getTimestamp());
+    			Date time = new Date(unixtime);
+    			data[6] = time.toString();
     			server.setData(data);history.setPseudoData(data);
     			return"L3true";
 			}
@@ -317,14 +327,16 @@ return "nothing";
     			producePart.fire(Trigger.L3false);
     			messages.add(message);
     			
-    			String[] data = new String[6];
+    			String[] data = new String[7];
     			data[0] = activemq[2];
     			data[1] = activemq[0];
     			data[2] = activemq[1];
     			data[3] = message.getItemName();
     			data[4] = message.getStatus();
     			data[5] = message.getValue();
-    			data[6] = message.getTimestamp();
+    			Long unixtime = Long.parseLong(message.getTimestamp());
+    			Date time = new Date(unixtime);
+    			data[6] = time.toString();
     			server.setData(data);history.setPseudoData(data);
     			return"L3false";
 			}
@@ -334,14 +346,16 @@ return "nothing";
     			producePart.fire(Trigger.L4true);
     			messages.add(message);
     			
-    			String[] data = new String[6];
+    			String[] data = new String[7];
     			data[0] = activemq[2];
     			data[1] = activemq[0];
     			data[2] = activemq[1];
     			data[3] = message.getItemName();
     			data[4] = message.getStatus();
     			data[5] = message.getValue();
-    			data[6] = message.getTimestamp();
+    			Long unixtime = Long.parseLong(message.getTimestamp());
+    			Date time = new Date(unixtime);
+    			data[6] = time.toString();
     			server.setData(data);history.setPseudoData(data);
     			return"L4true";
 			}
@@ -351,14 +365,16 @@ return "nothing";
     			producePart.fire(Trigger.L4false);
     			messages.add(message);
     			
-    			String[] data = new String[6];
+    			String[] data = new String[7];
     			data[0] = activemq[2];
     			data[1] = activemq[0];
     			data[2] = activemq[1];
     			data[3] = message.getItemName();
     			data[4] = message.getStatus();
     			data[5] = message.getValue();
-    			data[6] = message.getTimestamp();
+    			Long unixtime = Long.parseLong(message.getTimestamp());
+    			Date time = new Date(unixtime);
+    			data[6] = time.toString();
     			server.setData(data);history.setPseudoData(data);
     			return"L4false";
 			}
@@ -367,14 +383,16 @@ return "nothing";
     			if(producePart.canFire(Trigger.L5true)){
         			messages.add(message);
         			
-        			String[] data = new String[6];
+        			String[] data = new String[7];
         			data[0] = activemq[2];
         			data[1] = activemq[0];
         			data[2] = activemq[1];
         			data[3] = message.getItemName();
         			data[4] = message.getStatus();
         			data[5] = message.getValue();
-        			data[6] = message.getTimestamp();
+        			Long unixtime = Long.parseLong(message.getTimestamp());
+        			Date time = new Date(unixtime);
+        			data[6] = time.toString();
         			server.setData(data);history.setPseudoData(data);
         			producePart.fire(Trigger.L5true);
 
@@ -386,14 +404,16 @@ return "nothing";
     			producePart.fire(Trigger.L5false);
     			messages.add(message);
     			
-    			String[] data = new String[6];
+    			String[] data = new String[7];
     			data[0] = activemq[2];
     			data[1] = activemq[0];
     			data[2] = activemq[1];
     			data[3] = message.getItemName();
     			data[4] = message.getStatus();
     			data[5] = message.getValue();
-    			data[6] = message.getTimestamp();
+    			Long unixtime = Long.parseLong(message.getTimestamp());
+    			Date time = new Date(unixtime);
+    			data[6] = time.toString();
     			server.setData(data);history.setPseudoData(data);
     			return"L5false";
     			}
@@ -404,14 +424,16 @@ return "nothing";
     				if(message.getItemName().equals("MILLING_SPEED")|| message.getItemName().equals("MILLING")||message.getItemName().equals("MILLING_HEAT")){
     	    			messages.add(message);
     	    			
-    	    			String[] data = new String[6];
+    	    			String[] data = new String[7];
     	    			data[0] = activemq[2];
     	    			data[1] = activemq[0];
     	    			data[2] = activemq[1];
     	    			data[3] = message.getItemName();
     	    			data[4] = message.getStatus();
     	    			data[5] = message.getValue();
-    	    			data[6] = message.getTimestamp();
+    	    			Long unixtime = Long.parseLong(message.getTimestamp());
+    	    			Date time = new Date(unixtime);
+    	    			data[6] = time.toString();
     	    			server.setData(data);history.setPseudoData(data);
     					return "milling";
     				}
@@ -419,14 +441,16 @@ return "nothing";
       				if(message.getItemName().equals("DRILLING_SPEED")|| message.getItemName().equals("DRILLING")||message.getItemName().equals("DRILLING_HEAT")){
       	    			messages.add(message);
       	    			
-      	    			String[] data = new String[6];
+      	    			String[] data = new String[7];
       	    			data[0] = activemq[2];
       	    			data[1] = activemq[0];
       	    			data[2] = activemq[1];
       	    			data[3] = message.getItemName();
       	    			data[4] = message.getStatus();
       	    			data[5] = message.getValue();
-      	    			data[6] = message.getTimestamp();
+      	    			Long unixtime = Long.parseLong(message.getTimestamp());
+      	    			Date time = new Date(unixtime);
+      	    			data[6] = time.toString();
       	    			server.setData(data);history.setPseudoData(data);
       					return "drilling";
         			}

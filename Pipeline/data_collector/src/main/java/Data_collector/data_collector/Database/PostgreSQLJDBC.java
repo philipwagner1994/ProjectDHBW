@@ -608,6 +608,7 @@ System.out.println("Tetsaadgzs");*/
 			   					" data.ordernumber;";
     		   }
     		   else if (materialnumber != -1 && customernumber == -1){
+    			   System.out.println(materialnumber+"  "+ customernumber);
 	    		   sqlselect= "SELECT"+
 		   				   		" ordernumber,"+
 		   				   		" customernumber,"+
@@ -806,9 +807,12 @@ System.out.println("Tetsaadgzs");*/
 			   					" data.ordernumber;";
     		   }
     		   ResultSet rs = stmt.executeQuery( sqlselect );
-    		   int i=0;
+    		   int i=1;
     		   int j=0;
     		   while (rs.next() && j < entries){
+    			   System.out.println(rs.getString("itemName"));
+    			   System.out.println("i" +i);
+    			   System.out.println("j" +j);
     			   resultarray[j][0] = rs.getString("ordernumber");
     			   resultarray[j][1] = rs.getString("customernumber");
     			   resultarray[j][2] = rs.getString("materialnumber");
