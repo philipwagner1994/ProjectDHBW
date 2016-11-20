@@ -41,7 +41,6 @@ public class StateMachine_Kafka {
 		this.server = server;
 		this.spectral = spectral;
 		
-		System.out.println("added Server");
 		}catch(Exception e){
 			
 		}
@@ -54,8 +53,6 @@ public class StateMachine_Kafka {
 		this.spectral = spectral;
 		this.producer = producer;
 		this.history = history;
-		//this.sql = sql;
-		System.out.println("added Server");
 		}catch(Exception e){
 			
 		}
@@ -108,7 +105,7 @@ public class StateMachine_Kafka {
     }
     private void startDone() {
     	try{
-    		System.out.println("Starting spectral");
+    	System.out.println("Starting spectral");
     	JSONArray json2 = new JSONArray();
     	JSONObject jo = new JSONObject();
     	
@@ -143,7 +140,6 @@ public class StateMachine_Kafka {
     	String[] databaseInsert = new String[13];
 		databaseInsert[0] = activemq[2];
 		//2016-11-19T16:10:16.078+01:00
-		System.out.println(activemq[3]);
 		String[] dates = activemq[3].split("T");
 		String times = dates[1].substring(0,8);
 		 //String dateString = "Fri, 09 Nov 2012 23:40:18 GMT";
@@ -151,7 +147,6 @@ public class StateMachine_Kafka {
 		    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		    Date date = dateFormat.parse(dateString );
 		    long unixTime = (long) date.getTime()/1000;
-		    System.out.println(unixTime );
 
 		databaseInsert[1] = String.valueOf(unixTime);//activemq[3];
 		if(spectralData[6].equals("OK")){
@@ -173,11 +168,10 @@ public class StateMachine_Kafka {
 		databaseInsert[10] = spectralData[3];
 		databaseInsert[11] = spectralData[4];
 		databaseInsert[12] = spectralData[5];
-		System.out.println(PostgreSQLJDBC.insert(databaseInsert));
+		PostgreSQLJDBC.insert(databaseInsert);
 		KeyedMessage<String, String> data = new KeyedMessage<String, String>("allData", json.toString());	 
 		producer.send(data);
 		
-    	System.out.println("Done with all"+json);
     	}catch(Exception e){
     		System.out.println(e);
     	}
@@ -250,7 +244,6 @@ public class StateMachine_Kafka {
     			producePart.fire(Trigger.L1false);
     			messages.add(message);
     			
-    			System.out.println("TEST1");
     			String[] data = new String[7];
     			data[0] = activemq[2];
     			data[1] = activemq[0];
@@ -465,7 +458,6 @@ return "nothing";
 		return activemq;
 	}
 	public void setActivemq(String[] activemq) {
-		System.out.println("ACTIVE");
 		this.activemq = activemq;
 	}
 

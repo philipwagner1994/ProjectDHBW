@@ -31,7 +31,6 @@ public class LiveServer extends Thread{
     }
     
     public void run(){
-    	System.out.println("Server");
     	try{
             ServerSocket s = new ServerSocket(1234);
             System.out.println("Server started");
@@ -46,10 +45,9 @@ public class LiveServer extends Thread{
                 BufferedReader in = new BufferedReader(new InputStreamReader(t.getInputStream()));
                 try{
                     
-                	serverResponse = in.readLine();
-                	System.out.println("Server-Antwort: " + serverResponse);    
+                	serverResponse = in.readLine(); 
                 }catch(Exception e){
-                	System.out.println("Timeout? "+e);
+                	System.out.println(e);
                 }
                 PrintWriter out = new PrintWriter(t.getOutputStream(), true);
                 if(serverResponse != null){
@@ -58,12 +56,11 @@ public class LiveServer extends Thread{
                 		while(hilf == null){
                 			hilf = getData();
                 		}
-                		System.out.println(hilf);
                 		
                 	output = hilf;
                 
                 	}catch(Exception e){
-                		System.out.println(e + "while getting Data");
+                		System.out.println(e);
                 		output = "null";
                 	}
 
@@ -82,9 +79,8 @@ public class LiveServer extends Thread{
                 in.close();
                 out.close();
                 t.close();
-                System.out.println("Runde:" + test);
             }catch(Exception e){
-            	System.out.println("Keep going: "+ e);
+            	System.out.println( e);
             	
             }
             }
@@ -97,11 +93,9 @@ public class LiveServer extends Thread{
         
         public void setData(String[] data) throws Exception{        
         	if(getData == true){    
-        		System.out.println("Add Data Skipped");
         		return;
         	}
         	setData = true;
-        	System.out.println("ADD DATA");
         	jo.put("OrderNum", data[0]);
         	jo.put("CustomerNum", data[1]);
         	jo.put("Value1", data[2]);
@@ -116,7 +110,6 @@ public class LiveServer extends Thread{
         	json.clear();
         	json.add(jo);
         	setData = false;
-        	System.out.println(json.toString());
         }
         
         public String getData(){

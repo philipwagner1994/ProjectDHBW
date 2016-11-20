@@ -23,7 +23,7 @@ public class SpectralAnalysis {
 				}
 			}
 		}
-		System.out.println(found);
+		//System.out.println(found);
 		String [] erparray = new String [9];
 		
 			FileReader fr = new FileReader(found);
@@ -39,7 +39,7 @@ public class SpectralAnalysis {
 		    erparray [7] =zeile.substring(zeile.indexOf("\"ts_start\":")+11,zeile.indexOf(",\"ts_stop\""));; //ts_start
 		    erparray [8] =zeile.substring(zeile.indexOf("\"ts_stop\":")+10,zeile.indexOf("}"));; //ts_stop
 		    for(int j=0; j<erparray.length; j++){
-		    	System.out.println(erparray[j]);
+		    	//System.out.println(erparray[j]);
 		    }
 		    br.close();
 		    fr.close();

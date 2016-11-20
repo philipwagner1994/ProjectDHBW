@@ -72,7 +72,7 @@ public class App
     	KafkaConsumer.run();
         // Create a ConnectionFactory
     	//tcp://192.168.99.100:32768
-        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("acivemq:61616");
+        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://activemq:61616");
 
         // Create a Connection
         Connection connection = connectionFactory.createConnection();

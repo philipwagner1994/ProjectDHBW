@@ -85,11 +85,9 @@ public class KafkaConsumer {
 		for ( final KafkaStream<byte[], byte[]> stream : streams) {
 			executor.submit(new Runnable() {
 				public void run(){
-					System.out.println("THIS IS A TEST");
 					ConsumerIterator<byte[], byte[]> iterator = stream.iterator();
 					while (iterator.hasNext()) {
 						MessageAndMetadata<byte[], byte[]> messageAndMetadata = iterator.next();
-						System.out.println("TEST");
 						log.info("Received: {}", new String(messageAndMetadata.message()));
 						String m = new String(messageAndMetadata.message());
 						KafkaMessage message = gson.fromJson(m,KafkaMessage.class);
@@ -116,7 +114,7 @@ public class KafkaConsumer {
 		return stateMachines;
 	}
 	public void setStateMachines(StateMachine_Kafka stateMachine) {
-		System.out.println("ADD Statemachine");
+		System.out.println("Adding Statemachine");
 		this.stateMachines.add(stateMachine);
 	}
 }

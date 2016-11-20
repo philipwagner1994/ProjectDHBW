@@ -31,7 +31,7 @@ public class PostgreSQLJDBC {
        try {
          Class.forName("org.postgresql.Driver");
          c = DriverManager
-            .getConnection("jdbc:postgresql://192.168.99.100:32782/pgdb", "pguser", "pguser");
+            .getConnection("jdbc:postgresql://postgresql:5432/pgdb", "pguser", "pguser");
          c.setAutoCommit(false);
          System.out.println("Opened database successfully");
          stmt = c.createStatement();
@@ -169,7 +169,7 @@ System.out.println("Tetsaadgzs");*/
        try {
          Class.forName("org.postgresql.Driver");
          c = DriverManager
-            .getConnection("jdbc:postgresql://192.168.99.100:32782/pgdb", "pguser", "pguser");
+            .getConnection("jdbc:postgresql://postgresql:5432/pgdb", "pguser", "pguser");
          c.setAutoCommit(false);
          System.out.println("Opened database successfully");
 
@@ -225,7 +225,7 @@ System.out.println("Tetsaadgzs");*/
          Class.forName("org.postgresql.Driver");
          String sqlinsert="";
          c = DriverManager
-            .getConnection("jdbc:postgresql://192.168.99.100:32782/pgdb", "pguser", "pguser");
+            .getConnection("jdbc:postgresql://postgresql:5432/pgdb", "pguser", "pguser");
          c.setAutoCommit(false);
          System.out.println("Opened database successfully");
          stmt = c.createStatement();
@@ -257,7 +257,7 @@ System.out.println("Tetsaadgzs");*/
        String [][] resultarray;
        try {
     	   Class.forName("org.postgresql.Driver");
-    	   c = DriverManager.getConnection("jdbc:postgresql://192.168.99.100:32782/pgdb", "pguser", "pguser");
+    	   c = DriverManager.getConnection("jdbc:postgresql://postgresql:5432/pgdb", "pguser", "pguser");
     	   System.out.println("Opened database successfully");
     	   stmt = c.createStatement();         
     	   if (function == "millinghistory"){

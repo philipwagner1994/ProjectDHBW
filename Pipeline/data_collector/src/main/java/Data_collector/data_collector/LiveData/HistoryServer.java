@@ -46,8 +46,10 @@ public class HistoryServer extends Thread{
             System.out.println("HistoryServer started");
             int test=0;
             while (true) {
+            	try{
             	test++;
                 Socket t = s.accept();// wait for client to connect
+                t.setSoTimeout(6000);
                 System.out.println("server connected");
                 BufferedReader in = new BufferedReader(new InputStreamReader(t.getInputStream()));
                 String serverResponse = in.readLine();
@@ -70,7 +72,9 @@ public class HistoryServer extends Thread{
                 in.close();
                 out.close();
                 t.close();
-                System.out.println("Runde:" + test);
+            	}catch(Exception e){
+            		
+            	}
             }
     	}
     	catch(Exception e){
@@ -152,19 +156,16 @@ public class HistoryServer extends Thread{
         		if(hilf3[3].split("=")[1].equals("null")== false){
         		customerNo1 =  Integer.parseInt(hilf3[3].split("=")[1]);
         		}
-        		System.out.println(Integer.parseInt(entries1)+ "millinghistory"+materialNo1 +customerNo1 );
         		result = PostgreSQLJDBC.select(Integer.parseInt(entries1), "millinghistory",materialNo1 ,customerNo1 );
     			
     			try{
     			for(int i = 0; i<Integer.parseInt(entries1) ;i++){
     			JSONObject AnswerJSON = new JSONObject();
-    			System.out.println(result[i][0]);
     			if(result[i][0]!= null){
         		 AnswerJSON.put("orderno",result[i][0]);
         		 AnswerJSON.put("customerno", result[i][1]); 
         		 AnswerJSON.put("materialno", result[i][2]);
         		 AnswerJSON.put("timestamp", result[i][3]);
-        		 System.out.println(result[i][4]);
      
         		 if(result[i][4]== null){
         			 AnswerJSON.put("speed", "0"); 
@@ -181,7 +182,6 @@ public class HistoryServer extends Thread{
         		 }else{
         			 AnswerJSON.put("temp",  result[i][5]);
         		 }
-          		System.out.println(AnswerJSON.toString());
        			json.add(AnswerJSON);
     			}
         		}
@@ -203,7 +203,6 @@ public class HistoryServer extends Thread{
         		if(hilf3[3].split("=")[1].equals("null")== false){
         		customerNo2 =  Integer.parseInt(hilf3[3].split("=")[1]);
         		}
-        		System.out.println(Integer.parseInt(entries2)+ "detailhistory"+materialNo2 +customerNo2 );
         		result = PostgreSQLJDBC.select(Integer.parseInt(entries2), "detailhistory",materialNo2 ,customerNo2 );
     			
     			try{
@@ -229,7 +228,7 @@ public class HistoryServer extends Thread{
         		 AnswerJSON.put("drillingtemp", result[i][12].substring(0,6));
         		 AnswerJSON.put("millingspeed", result[i][13].substring(0,8));
         		 AnswerJSON.put("millingtemp", result[i][14].substring(0,6));
-          		System.out.println(AnswerJSON.toString());
+
        			json.add(AnswerJSON);
     			}
         		}
@@ -252,14 +251,13 @@ public class HistoryServer extends Thread{
         		if(hilf3[3].split("=")[1].equals("null")== false){
         		customerNo3 =  Integer.parseInt(hilf3[3].split("=")[1]);
         		}
-        		System.out.println(Integer.parseInt(entries3)+ "runtimeistory"+materialNo3 +customerNo3 );
+
         		result = PostgreSQLJDBC.select(Integer.parseInt(entries3), "runtimehistory",materialNo3 ,customerNo3 );
     			
     			try{
     			for(int i = 0; i<Integer.parseInt(entries3) ;i++){
     			JSONObject AnswerJSON = new JSONObject();
     			if(result[i][0]!= null){
-    				System.out.println(result[i][0]);
     				AnswerJSON.put("orderno",result[i][0]);
     				AnswerJSON.put("customerno", result[i][1]); 
     				AnswerJSON.put("materialno", result[i][2]);
@@ -267,7 +265,6 @@ public class HistoryServer extends Thread{
     				AnswerJSON.put("runtime", result[i][4]);
     				//AnswerJSON.put("starttime", result[i][4]); 
     				//AnswerJSON.put("endtime",  result[i][5]);
-    				System.out.println(AnswerJSON.toString());
     				json.add(AnswerJSON);
     			}
         		}
@@ -290,17 +287,14 @@ public class HistoryServer extends Thread{
         		if(hilf3[3].split("=")[1].equals("null")== false){
         		customerNo4 =  Integer.parseInt(hilf3[3].split("=")[1]);
         		}
-        		System.out.println(Integer.parseInt(entries4)+ "errorhistory"+materialNo4 +customerNo4 );
         		result = PostgreSQLJDBC.select(Integer.parseInt(entries4), "errorhistory",materialNo4 ,customerNo4 );
     			
     			try{
     			for(int i = 0; i<Integer.parseInt(entries4) ;i++){
     				if(result[i][0]!= null){
     					JSONObject AnswerJSON = new JSONObject();
-    					System.out.println(result[i][0]);
     					AnswerJSON.put("Errors",result[i][0]);
     					AnswerJSON.put("timestamp", result[i][1]); 
-    					System.out.println(AnswerJSON.toString());
     					json.add(AnswerJSON);
     				}
         		}
@@ -358,7 +352,6 @@ public class HistoryServer extends Thread{
         		return answer;
         		//return sql.readMessages(hilf);
         	case "history_milling":
-        		System.out.println("READ HISTORY MILLING");
         		boolean helpSpeed= true;
         		int helpInt =0;
         		if(serverMH.size()>10){
@@ -390,7 +383,6 @@ public class HistoryServer extends Thread{
         		}
         		String answerMilling = json.toString();
         		json.clear();
-        		System.out.println(answerMilling);
         		return answerMilling;
         		//return sql.readMessages(hilf);
         	case "live_drilling":
