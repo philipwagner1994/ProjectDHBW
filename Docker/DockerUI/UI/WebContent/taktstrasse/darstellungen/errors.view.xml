@@ -1,0 +1,41 @@
+<core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:acc="sap.checkmarx.selfservice.control" xmlns:l="sap.ui.layout"
+		controllerName="sap.checkmarx.selfservice.taktstrasse.darstellungen.errors" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page
+		title="Errors"
+		showHeader="true"
+		enableScrolling="false"
+		showNavButton="true"
+		navButtonPress="onNavBack">
+			<customHeader>
+				<Bar class="header" >
+					<contentLeft>
+						<Button icon="sap-icon://nav-back" press="onNavBack" class="sapMBarChild sapBtn sapBtnBase navBack"/>  						
+					</contentLeft>
+					<contentMiddle>
+						<Text text = "Errors" class="headertitle"></Text>
+					</contentMiddle>
+				</Bar>	 
+	    	</customHeader>
+	    	
+	    	<l:HorizontalLayout>
+	    		<Input
+				id="Rows"
+				width="427px"
+				type="Text"
+				placeholder="Selected Items"
+				submit="onRowPress"/>
+	    		<SearchField
+				id="CustomerNumSearch"
+				width="427px"
+				placeholder="CustomerNum"
+				search="onCustomerNumSearch"/>
+				<SearchField
+				id="MaterialNumSearch"
+				width="427px"
+				placeholder="MaterialNum"
+				search="onMaterialNumSearch"/>
+	    	</l:HorizontalLayout>
+	    	
+			<acc:BarChartErrors id="BarChart" width="400" height="200" responsive="true" chartType="Line" data="{/Data}"/>
+	</Page>
+</core:View>

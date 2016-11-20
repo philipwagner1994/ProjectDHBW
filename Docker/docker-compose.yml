@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+    kafka:
+        build: ./Dockerkafka
+        ports:
+            - "2181:2181"
+            - "9092:9092"
+    taktstrasse:
+        build: ./Dockerjava
+        links:
+            - kafka
+            - activemq
+        ports:
+            - "1234:1234"
+            - "9887:9887"
+    postgresql: 
+        build: ./Dockerpostgres
+        ports:
+            - "5432:5432"
+    activemq:
+        build: ./Dockeractivemq
+        ports: 
+            - "8161:8161"
+            - "61616:61616"
+    spark:
+        build: ./Dockerspark
+        ports: 
+            - "7077:7077"
+    ui:
+        build: ./Dockerui
+        ports:
+             - "8080:8080"

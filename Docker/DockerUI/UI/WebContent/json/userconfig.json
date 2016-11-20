@@ -1,0 +1,33 @@
+{
+  "config":
+  	{
+  		"rows": 10,
+  		"CustomerNum": "",
+  		"MaterialNum": ""
+  	},
+  	"overviewlivedown" : false,
+  	"millinglivedown" : false,
+  	"drillinglivedown" : false,
+  	"errorslivedown" : false,
+  	"detailaslivedown" : false,
+  	"runtimelivedown" : false,
+  	"productionlivedown" : false,
+  	
+  	"Data": [
+		{
+			
+		},
+		{
+			
+		},
+		{
+			
+		},
+		{
+			
+		},
+		{
+	
+		}
+		]
+}

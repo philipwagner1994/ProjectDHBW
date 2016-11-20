@@ -1,0 +1,43 @@
+<core:View  xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:acc="sap.checkmarx.selfservice.control" xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified" 
+		controllerName="sap.checkmarx.selfservice.taktstrasse.darstellungen.drilling" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page
+		title="Drilling"
+		showHeader="true"
+		enableScrolling="true"
+		showNavButton="true"
+		navButtonPress="onNavBack"
+		class="page">
+			<customHeader>
+				<Bar class="header" >
+					<contentLeft>
+						<Button icon="sap-icon://nav-back" press="onNavBack" class="sapMBarChild sapBtn sapBtnBase navBack"/>  						
+					</contentLeft>
+					<contentMiddle>
+						<Text text = "Drilling" class="headertitle"></Text>
+					</contentMiddle>
+				</Bar>	 
+	    	</customHeader>
+	    	<l:HorizontalLayout>
+	    		<Input
+				id="Rows"
+				width="427px"
+				type="Text"
+				placeholder="Selected Items"
+				submit="onRowPress"/>
+	    		<SearchField
+				id="CustomerNumSearch"
+				width="427px"
+				placeholder="CustomerNum"
+				search="onCustomerNumSearch"/>
+				<SearchField
+				id="MaterialNumSearch"
+				width="427px"
+				placeholder="MaterialNum"
+				search="onMaterialNumSearch"/>
+	    	</l:HorizontalLayout>		
+			<l:VerticalLayout width="100%">
+					<acc:LineChartHeat id="LineChartHeat" width="400" height="200" responsive="true" chartType="Line" data="{/Data}"/>
+					<acc:LineChartSpeed id="LineChartSpeed" width="400" height="200" responsive="true" chartType="Line" data="{/Data}"/>
+			</l:VerticalLayout>	
+	</Page>
+</core:View>
