@@ -23,5 +23,8 @@ services:
     spark:
         build: ./Dockerspark
         ports: 
-            - "8080:8080"
             - "7077:7077"
+    ui:
+        build: ./Dockerui
+        ports:
+             - "8080:8080"
