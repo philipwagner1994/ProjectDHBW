@@ -183,6 +183,7 @@ public class PostgreSQLJDBC {
                       " b1				DECIMAL				NOT NULL," +
                       " b2				DECIMAL				NOT NULL)";
          stmt.executeUpdate(sqldata);
+         c.commit();
          String sqlproperties = "CREATE TABLE Properties " +
                  "(id				SERIAL PRIMARY KEY 	NOT NULL," +
                  " ordernumber		TEXT					NOT NULL," +
