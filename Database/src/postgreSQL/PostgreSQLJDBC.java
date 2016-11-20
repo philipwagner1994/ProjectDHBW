@@ -258,18 +258,19 @@ public class PostgreSQLJDBC {
 	    				   		" data.ordernumber AS ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
+	    				   		" to_char(to_timestamp(data.timestamp),'YYYY-MM-DD HH24:MI:SS') AS timestamp,"+
 	    				   		" itemName,"+
 	    				   		" AVG(value) AS value"+
 	    				   	" FROM"+
 	    				   		" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber)"+
 	    				   	" WHERE"+
-	    				   		"(itemName = 'MILLING_SPEED' OR itemName = 'MILLING_HEAT')"+
+	    				   		" (itemName = 'MILLING_SPEED' OR itemName = 'MILLING_HEAT') AND"+
+	    				   		" (value != 0)"+
 	    				   	" GROUP BY"+
 	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
+	    				   		" to_char(to_timestamp(data.timestamp),'YYYY-MM-DD HH24:MI:SS'),"+
 	    				   		" itemName"+
 			   				" ORDER BY"+
 				   				" timestamp DESC,"+
@@ -280,19 +281,20 @@ public class PostgreSQLJDBC {
 	    				   		" data.ordernumber AS ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
+	    				   		" to_char(to_timestamp(data.timestamp),'YYYY-MM-DD HH24:MI:SS') AS timestamp,"+
 	    				   		" itemName,"+
 	    				   		" AVG(value) AS value"+
 	    				   	" FROM"+
 	    				   		" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber)"+
 	    				   	" WHERE"+
 	    				   		" (itemName = 'MILLING_SPEED' OR itemName = 'MILLING_HEAT') AND"+
-	    				   		" (customernumber = "+customernumber+")"+
+	    				   		" (customernumber = "+customernumber+") AND"+
+	    				   		" (value != 0)"+
 		    				" GROUP BY"+
 	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
+	    				   		" to_char(to_timestamp(data.timestamp),'YYYY-MM-DD HH24:MI:SS'),"+
 	    				   		" itemName"+
 			   				" ORDER BY"+
 				   				" timestamp DESC,"+
@@ -303,19 +305,20 @@ public class PostgreSQLJDBC {
 	    				   		" data.ordernumber AS ordernumber,"+
 	    				   		" customernumber,"+
 			   					" materialnumber,"+
-			   					" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
+			   					" to_char(to_timestamp(data.timestamp),'YYYY-MM-DD HH24:MI:SS') AS timestamp,"+
 			   					" itemName,"+
 			   					" AVG(value) AS value"+
 			   				" FROM"+
 			   					" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber)"+
 			   				" WHERE"+
 			   					" (itemName = 'MILLING_SPEED' OR itemName = 'MILLING_HEAT') AND"+
-			   					" (materialnumber = "+materialnumber+")"+
+			   					" (materialnumber = "+materialnumber+") AND"+
+	    				   		" (value != 0)"+
 			   				" GROUP BY"+
 	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
+	    				   		" to_char(to_timestamp(data.timestamp),'YYYY-MM-DD HH24:MI:SS'),"+
 	    				   		" itemName"+
 			   				" ORDER BY"+
 				   				" timestamp DESC,"+
@@ -326,19 +329,20 @@ public class PostgreSQLJDBC {
 			   					" data.ordernumber AS ordernumber,"+
 			   					" customernumber,"+
 			   					" materialnumber,"+
-			   					" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
+			   					" to_char(to_timestamp(data.timestamp),'YYYY-MM-DD HH24:MI:SS') AS timestamp,"+
 			   					" itemName,"+
 			   					" AVG(value) AS value"+
 			   				" FROM"+
 			   					" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber)"+
 			   				" WHERE"+
 			   					" (itemName = 'MILLING_SPEED' OR itemNAme = 'MILLING_HEAT') AND"+
-			   					" ((materialnumber = "+materialnumber+") AND (customernumber = "+customernumber+"))"+
+			   					" ((materialnumber = "+materialnumber+") AND (customernumber = "+customernumber+")) AND"+
+	    				   		" (value != 0)"+
 			   				" GROUP BY"+
 	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
+	    				   		" to_char(to_timestamp(data.timestamp),'YYYY-MM-DD HH24:MI:SS'),"+
 	    				   		" itemName"+
 			   				" ORDER BY"+
 				   				" timestamp DESC,"+
@@ -376,18 +380,19 @@ public class PostgreSQLJDBC {
 	    				   		" data.ordernumber AS ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
+	    				   		" to_char(to_timestamp(data.timestamp),'YYYY-MM-DD HH24:MI:SSD') AS timestamp,"+
 	    				   		" itemName,"+
 	    				   		" AVG(value) AS value"+
 	    				   	" FROM"+
 	    				   		" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber)"+
 	    				   	" WHERE"+
-	    				   		"(itemName = 'DRILLING_SPEED' OR itemName = 'DRILLING_HEAT')"+
+	    				   		" (itemName = 'DRILLING_SPEED' OR itemName = 'DRILLING_HEAT') AND"+
+	    				   		" (value != 0)"+
 		    				" GROUP BY"+
 	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
+	    				   		" to_char(to_timestamp(data.timestamp),'YYYY-MM-DD HH24:MI:SSD'),"+
 	    				   		" itemName"+
 			   				" ORDER BY"+
 				   				" timestamp DESC,"+
@@ -398,19 +403,20 @@ public class PostgreSQLJDBC {
 	    				   		" data.ordernumber AS ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
+	    				   		" to_char(to_timestamp(data.timestamp),'YYYY-MM-DD HH24:MI:SSD') AS timestamp,"+
 	    				   		" itemName,"+
 	    				   		" AVG(value) AS value"+
 	    				   	" FROM"+
 	    				   		" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber)"+
 	    				   	" WHERE"+
 	    				   		" (itemName = 'DRILLING_SPEED' OR itemName = 'DRILLING_HEAT') AND"+
-	    				   		" (customernumber = "+customernumber+")"+
+	    				   		" (customernumber = "+customernumber+")AND"+
+	    				   		" (value != 0)"+
 		    				" GROUP BY"+
 	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
+	    				   		" to_char(to_timestamp(data.timestamp),'YYYY-MM-DD HH24:MI:SS'),"+
 	    				   		" itemName"+
 			   				" ORDER BY"+
 			   					" timestamp DESC,"+
@@ -421,19 +427,20 @@ public class PostgreSQLJDBC {
 	    				   		" data.ordernumber AS ordernumber,"+
 	    				   		" customernumber,"+
 			   					" materialnumber,"+
-			   					" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
+			   					" to_char(to_timestamp(data.timestamp),'YYYY-MM-DD HH24:MI:SS') AS timestamp,"+
 			   					" itemName,"+
 			   					" AVG(value) AS value"+
 			   				" FROM"+
 			   					" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber)"+
 			   				" WHERE"+
 			   					" (itemName = 'DRILLING_SPEED' OR itemName = 'DRILLING_HEAT') AND"+
-			   					" (materialnumber = "+materialnumber+")"+
+			   					" (materialnumber = "+materialnumber+")AND"+
+	    				   		" (value != 0)"+
 		    				" GROUP BY"+
 	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
+	    				   		" to_char(to_timestamp(data.timestamp),'YYYY-MM-DD HH24:MI:SS'),"+
 	    				   		" itemName"+
 			   				" ORDER BY"+
 				   				" timestamp DESC,"+
@@ -444,19 +451,20 @@ public class PostgreSQLJDBC {
 			   					" data.ordernumber AS ordernumber,"+
 			   					" customernumber,"+
 			   					" materialnumber,"+
-			   					" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD') AS timestamp,"+
+			   					" to_char(to_timestamp(data.timestamp),'YYYY-MM-DD HH24:MI:SS') AS timestamp,"+
 			   					" itemName,"+
 			   					" AVG(value) AS value"+
 			   				" FROM"+
 			   					" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber)"+
 			   				" WHERE"+
 			   					" (itemName = 'DRILLING_SPEED' OR itemNAme = 'DRILLING_HEAT') AND"+
-			   					" ((materialnumber = "+materialnumber+") AND (customernumber = "+customernumber+"))"+
+			   					" ((materialnumber = "+materialnumber+") AND (customernumber = "+customernumber+"))AND"+
+	    				   		" (value != 0 )"+
 		    				" GROUP BY"+
 	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD'),"+
+	    				   		" to_char(to_timestamp(data.timestamp),'YYYY-MM-DD HH24:MI:SS'),"+
 	    				   		" itemName"+
 			   				" ORDER BY"+
 				   				" timestamp DESC,"+
@@ -492,55 +500,55 @@ public class PostgreSQLJDBC {
     		   if (materialnumber == -1 && customernumber == -1){
 	    		   sqlselect= "SELECT"+
 	    				   		" COUNT(*) AS NumberOfErrors,"+
-	    				   		" to_char(to_timestamp(timestamp),'HH24 YYYY-MM-DD' )AS timestamp"+ 
+	    				   		" to_char(to_timestamp(timestamp),'YYYY-MM-DD HH24' )AS timestamp"+ 
 	    				   	" FROM"+
 	    				   		" data"+
 	    				   	" WHERE "+
 	    				   		"(overallstatus='FALSE')"+
 	    				   	" GROUP BY"+
-	    				   		" to_char(to_timestamp(timestamp),'HH24 YYYY-MM-DD' )"+
+	    				   		" to_char(to_timestamp(timestamp),'YYYY-MM-DD HH24' )"+
 			   				" ORDER BY"+
 			   					" timestamp DESC;";
     		   }
     		   else if (materialnumber == -1 && customernumber != -1){
 	    		   sqlselect= "SELECT"+
    				   				" COUNT(*) AS NumberOfErrors,"+
-   				   				" to_char(to_timestamp(timestamp),'HH24 YYYY-MM-DD' )AS timestamp"+ 
+   				   				" to_char(to_timestamp(timestamp),'YYYY-MM-DD HH24' )AS timestamp"+ 
    				   			" FROM"+
    				   				" data"+
 	    				   	" WHERE"+
 	    				   		" (overallstatus='FALSE') AND"+
 	    				   		" (customernumber = "+customernumber+")"+
 		    				" GROUP BY"+
-	    				   		" to_char(to_timestamp(timestamp),'HH24 YYYY-MM-DD' )"+
+	    				   		" to_char(to_timestamp(timestamp),'YYYY-MM-DD HH24' )"+
 			   				" ORDER BY"+
 			   					" timestamp DESC;";
     		   }
     		   else if (materialnumber != -1 && customernumber == -1){
     			   sqlselect= "SELECT"+
 				   				" COUNT(*) AS NumberOfErrors,"+
-				   				" to_char(to_timestamp(timestamp),'HH24 YYYY-MM-DD' )AS timestamp"+ 
+				   				" to_char(to_timestamp(timestamp),'YYYY-MM-DD HH24' )AS timestamp"+ 
 				   			" FROM"+
 				   				" data"+
 				   			" WHERE"+
 				   				" (overallstatus='FALSE') AND"+
 				   				" (materialnumber = "+materialnumber+")"+
 				   			" GROUP BY"+
-				   				" to_char(to_timestamp(timestamp),'HH24 YYYY-MM-DD' )"+
+				   				" to_char(to_timestamp(timestamp),'YYYY-MM-DD HH24' )"+
 				   			" ORDER BY"+
 		   						" timestamp DESC;";
     		   }
     		   else if (materialnumber != -1 && customernumber != -1){
     			   sqlselect= "SELECT"+
 			   				" COUNT(*) AS NumberOfErrors,"+
-			   				" to_char(to_timestamp(timestamp),'HH24 YYYY-MM-DD' )AS timestamp"+ 
+			   				" to_char(to_timestamp(timestamp),'YYYY-MM-DD HH24' )AS timestamp"+ 
 			   			" FROM"+
 			   				" data"+
 			   			" WHERE"+
 			   				" (overallstatus='FALSE') AND"+
 			   				" ((materialnumber = "+materialnumber+") AND (customernumber = "+customernumber+"))"+
 			   			" GROUP BY"+
-			   				" to_char(to_timestamp(timestamp),'HH24 YYYY-MM-DD' )"+
+			   				" to_char(to_timestamp(timestamp),'YYYY-MM-DD HH24' )"+
 			   			" ORDER BY"+
 	   						" timestamp DESC;";
     		   }
@@ -564,7 +572,7 @@ public class PostgreSQLJDBC {
 	    				   		" ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(timestamp),'HH24:MI:SS YYYY-MM-DD' )AS starttime,"+
+	    				   		" to_char(to_timestamp(timestamp),'YYYY-MM-DD HH24:MI:SS' )AS starttime,"+
 	    				   		" timestamp,"+
 	    				   		" endtime"+
 	    				   	" FROM"+
@@ -578,7 +586,7 @@ public class PostgreSQLJDBC {
 	    				   		" ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(timestamp),'HH24:MI:SS YYYY-MM-DD' )AS starttime,"+
+	    				   		" to_char(to_timestamp(timestamp),'YYYY-MM-DD HH24:MI:SS' )AS starttime,"+
 	    				   		" timestamp,"+
 	    				   		" endtime"+
 	    				   	" FROM"+
@@ -594,7 +602,7 @@ public class PostgreSQLJDBC {
 		   				   		" ordernumber,"+
 		   				   		" customernumber,"+
 		   				   		" materialnumber,"+
-		   				   		" to_char(to_timestamp(timestamp),'HH24:MI:SS YYYY-MM-DD' )AS starttime,"+
+		   				   		" to_char(to_timestamp(timestamp),'YYYY-MM-DD HH24:MI:SS' )AS starttime,"+
 		   				   		" timestamp,"+
 		   				   		" endtime"+
 			   				" FROM"+
@@ -610,7 +618,7 @@ public class PostgreSQLJDBC {
 		   				   		" ordernumber,"+
 		   				   		" customernumber,"+
 		   				   		" materialnumber,"+
-		   				   		" to_char(to_timestamp(timestamp),'HH24:MI:SS YYYY-MM-DD' )AS starttime,"+
+		   				   		" to_char(to_timestamp(timestamp),'YYYY-MM-DD HH24:MI:SS' )AS starttime,"+
 		   				   		" timestamp,"+
 		   				   		" endtime"+
 			   				" FROM"+
@@ -645,7 +653,7 @@ public class PostgreSQLJDBC {
 	    				   		" data.ordernumber AS ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
+	    				   		" to_char(to_timestamp(data.timestamp),'YYYY-MM-DD HH24:MI:SS' )AS timestamp,"+
 	    				   		" overallstatus,"+
 	    				   		" em1,"+
 	    				   		" em2,"+
@@ -658,12 +666,13 @@ public class PostgreSQLJDBC {
 	    				   	" FROM"+
 	    				   		" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber)"+
 	    				   	" WHERE"+
-	    				   		"(itemName = 'MILLING_SPEED' OR itemName = 'MILLING_HEAT' OR itemName = 'DRILLING_SPEED' OR itemName = 'DRILLING_HEAT' )"+
+	    				   		" (itemName = 'MILLING_SPEED' OR itemName = 'MILLING_HEAT' OR itemName = 'DRILLING_SPEED' OR itemName = 'DRILLING_HEAT') AND"+ 
+	    				   		" (value != 0)"+
 		    				" GROUP BY"+
 	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' ),"+
+	    				   		" to_char(to_timestamp(data.timestamp),'YYYY-MM-DD HH24:MI:SS' ),"+
 	    				   		" itemName,"+
 	    				   		" em1,"+
 	    				   		" em2,"+
@@ -680,7 +689,7 @@ public class PostgreSQLJDBC {
 		   				   		" data.ordernumber AS ordernumber,"+
 		   				   		" customernumber,"+
 		   				   		" materialnumber,"+
-		   				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
+		   				   		" to_char(to_timestamp(data.timestamp),'YYYY-MM-DD HH24:MI:SS' )AS timestamp,"+
 		   				   		" overallstatus,"+
 		   				   		" em1,"+
 		   				   		" em2,"+
@@ -693,13 +702,14 @@ public class PostgreSQLJDBC {
 	    				   	" FROM"+
 	    				   		" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber)"+
 	    				   	" WHERE"+
-	    				   		" (itemName = 'MILLING_SPEED' OR itemName = 'MILLING_HEAT' OR itemName = 'DRILLING_SPEED' OR itemName = 'DRILLING_HEAT' ) AND"+
-	    				   		" (customernumber = "+customernumber+")"+
+	    				   		" (itemName = 'MILLING_SPEED' OR itemName = 'MILLING_HEAT' OR itemName = 'DRILLING_SPEED' OR itemName = 'DRILLING_HEAT' and value != 0) AND"+
+	    				   		" (customernumber = "+customernumber+") AND"+
+	    				   		" (value != 0 )"+
 	    				   	" GROUP BY"+
 	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' ),"+
+	    				   		" to_char(to_timestamp(data.timestamp),'YYYY-MM-DD HH24:MI:SS' ),"+
 	    				   		" itemName,"+
 	    				   		" em1,"+
 	    				   		" em2,"+
@@ -716,7 +726,7 @@ public class PostgreSQLJDBC {
 		   				   		" data.ordernumber AS ordernumber,"+
 		   				   		" customernumber,"+
 		   				   		" materialnumber,"+
-		   				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
+		   				   		" to_char(to_timestamp(data.timestamp),'YYYY-MM-DD HH24:MI:SS' )AS timestamp,"+
 		   				   		" overallstatus,"+
 		   				   		" em1,"+
 		   				   		" em2,"+
@@ -729,13 +739,14 @@ public class PostgreSQLJDBC {
 			   				" FROM"+
 			   					" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber)"+
 			   				" WHERE"+
-			   					" (itemName = 'MILLING_SPEED' OR itemName = 'MILLING_HEAT' OR itemName = 'DRILLING_SPEED' OR itemName = 'DRILLING_HEAT' ) AND"+
-			   					" (materialnumber = "+materialnumber+")"+
+			   					" (itemName = 'MILLING_SPEED' OR itemName = 'MILLING_HEAT' OR itemName = 'DRILLING_SPEED' OR itemName = 'DRILLING_HEAT' and value != 0) AND"+
+			   					" (materialnumber = "+materialnumber+") AND"+
+	    				   		" (value != 0 )"+
 			   				" GROUP BY"+
 	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' ),"+
+	    				   		" to_char(to_timestamp(data.timestamp),'YYYY-MM-DD HH24:MI:SS' ),"+
 	    				   		" itemName,"+
 	    				   		" em1,"+
 	    				   		" em2,"+
@@ -752,7 +763,7 @@ public class PostgreSQLJDBC {
 		   				   		" data.ordernumber AS ordernumber,"+
 		   				   		" customernumber,"+
 		   				   		" materialnumber,"+
-		   				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' )AS timestamp,"+
+		   				   		" to_char(to_timestamp(data.timestamp),'YYYY-MM-DD HH24:MI:SS' )AS timestamp,"+
 		   				   		" overallstatus,"+
 		   				   		" em1,"+
 		   				   		" em2,"+
@@ -765,13 +776,14 @@ public class PostgreSQLJDBC {
 			   				" FROM"+
 			   					" data INNER JOIN properties ON (data.ordernumber = properties.ordernumber)"+
 			   				" WHERE"+
-			   					" (itemName = 'MILLING_SPEED' OR itemName = 'MILLING_HEAT' OR itemName = 'DRILLING_SPEED' OR itemName = 'DRILLING_HEAT' ) AND"+
-			   					" ((materialnumber = "+materialnumber+") AND (customernumber = "+customernumber+"))"+
+			   					" (itemName = 'MILLING_SPEED' OR itemName = 'MILLING_HEAT' OR itemName = 'DRILLING_SPEED' OR itemName = 'DRILLING_HEAT' and value != 0 ) AND"+
+			   					" ((materialnumber = "+materialnumber+") AND (customernumber = "+customernumber+")) AND"+
+	    				   		" (value != 0 )"+
 			   				" GROUP BY"+
 	    				   		" data.ordernumber,"+
 	    				   		" customernumber,"+
 	    				   		" materialnumber,"+
-	    				   		" to_char(to_timestamp(data.timestamp),'HH24:MI:SS YYYY-MM-DD' ),"+
+	    				   		" to_char(to_timestamp(data.timestamp),'YYYY-MM-DD HH24:MI:SS' ),"+
 	    				   		" itemName,"+
 	    				   		" em1,"+
 	    				   		" em2,"+
@@ -786,7 +798,7 @@ public class PostgreSQLJDBC {
     		   ResultSet rs = stmt.executeQuery( sqlselect );
     		   int i=0;
     		   int j=0;
-    		   while (rs.next() && i < entries){
+    		   while (rs.next() && j < entries){
     			   resultarray[j][0] = rs.getString("ordernumber");
     			   resultarray[j][1] = rs.getString("customernumber");
     			   resultarray[j][2] = rs.getString("materialnumber");
