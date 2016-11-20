@@ -19,13 +19,9 @@ import Data_collector.data_collector.Database.PostgreSQLJDBC;
 public class LiveServer extends Thread{
 	private JSONArray json = new JSONArray();
 	private JSONObject jo = new JSONObject();
-	private String sdata, output;
-	private boolean newMilling = false;
-	private boolean newDrilling = false;
-	private JSONArray newMillingJSON = new JSONArray();
-	private JSONArray newDrillingJSON = new JSONArray();
-	//private static final Vector<String>server  = new Vector<String>();
-	
+	private String output;
+	private boolean setData = false;
+	private boolean getData = false;
 	public LiveServer(){
 	}
 	
@@ -44,43 +40,33 @@ public class LiveServer extends Thread{
             	try{
             	test++;
                 Socket t = s.accept();// wait for client to connect
+                t.setSoTimeout(6000);
                 System.out.println("server connected");
+                String serverResponse = null;
                 BufferedReader in = new BufferedReader(new InputStreamReader(t.getInputStream()));
-                String serverResponse = in.readLine();
-                
-                //System.out.println(in.readLine());
-                System.out.println("Server-Antwort: " + serverResponse);
-                
+                try{
+                    
+                	serverResponse = in.readLine();
+                	System.out.println("Server-Antwort: " + serverResponse);    
+                }catch(Exception e){
+                	System.out.println("Timeout? "+e);
+                }
                 PrintWriter out = new PrintWriter(t.getOutputStream(), true);
                 if(serverResponse != null){
-                	String[] requestArray = serverResponse.split(" ");
-                	String[] hilf2 = requestArray[1].split("\\?");
-                	String[] hilf3 = hilf2[1].split("\\&");
-                	String[] hilf4 = hilf3[0].split("=");
-                
-                	if(hilf4[1].equals("live_milling")){
-                		while(newMilling == false){
-            			
-            		}
-                	output = newMillingJSON.toString();
-            		newMillingJSON.clear();
-            		newMilling = false;
-
-                	}else if(hilf4[1].equals("live_drilling")){
-                		while(newDrilling == false){
-            			
-            		}
-            		output = newDrillingJSON.toString();
-            		newDrillingJSON.clear();
-            		newDrilling = false;
-                	}else{
-                		String hilf = null;;
+                try{	
+            		String hilf = null;
                 		while(hilf == null){
                 			hilf = getData();
                 		}
                 		System.out.println(hilf);
-                		output = hilf;
+                		
+                	output = hilf;
+                
+                	}catch(Exception e){
+                		System.out.println(e + "while getting Data");
+                		output = "null";
                 	}
+
                 }else{
                 	output = "null";
                 }
@@ -99,6 +85,7 @@ public class LiveServer extends Thread{
                 System.out.println("Runde:" + test);
             }catch(Exception e){
             	System.out.println("Keep going: "+ e);
+            	
             }
             }
     	}
@@ -109,10 +96,11 @@ public class LiveServer extends Thread{
     
         
         public void setData(String[] data) throws Exception{        
-        //	if(server.size() >0){
-        //		server.removeElement(0);
-        //	}
-        	json.clear();
+        	if(getData == true){    
+        		System.out.println("Add Data Skipped");
+        		return;
+        	}
+        	setData = true;
         	System.out.println("ADD DATA");
         	jo.put("OrderNum", data[0]);
         	jo.put("CustomerNum", data[1]);
@@ -124,32 +112,30 @@ public class LiveServer extends Thread{
         	}else{
         	jo.put("Value3", data[5]);
         	}
+        	jo.put("timestamp", data[6]);
+        	json.clear();
         	json.add(jo);
-        	if(data[3].equals("MILLING_HEAT")|| data[3].equals("MILLING_SPEED")){
-        		newMillingJSON = json;
-        		newMilling = true;
-        	}else if(data[3].equals("DRILLING_HEAT")|| data[3].equals("DRILLING_SPEED")){
-        		newDrillingJSON = json;
-        		newDrilling = true;
-        	}
+        	setData = false;
         	System.out.println(json.toString());
-        	//sdata = json.toString();
-        	//server.add(sdata);
-        	//json.clear();
         }
         
         public String getData(){
-        	//System.out.println(json.toString());
-        	//if(server.size() == 0){
-        	//	return null;
-        	//}
-        	if(json.isEmpty()){
+        	if(setData == true ){   
         		return null;
         	}
+        	
+        	String blubb = json.toString();
+        	if(json.isEmpty()){
+        		getData=false;
+        		return null;
+        	}
+        	getData = true;
         	String nextdata = json.toString();
         	json.clear();
+        	getData = false;
         	return nextdata;
         	
         }
-        }
+
+  }
 

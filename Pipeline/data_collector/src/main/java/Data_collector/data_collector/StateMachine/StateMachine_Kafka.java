@@ -1,5 +1,6 @@
 package Data_collector.data_collector.StateMachine;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
@@ -141,20 +142,29 @@ public class StateMachine_Kafka {
     	
     	String[] databaseInsert = new String[13];
 		databaseInsert[0] = activemq[2];
-		/*String[] date = activemq[3].split("T");
-		Date temp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS")
-                .parse(date[0]+ date[1].split("+")[0]);
-		System.out.println(temp);*/
-		databaseInsert[1] = "111111111111";//activemq[3];
+		//2016-11-19T16:10:16.078+01:00
+		System.out.println(activemq[3]);
+		String[] dates = activemq[3].split("T");
+		String times = dates[1].substring(0,8);
+		 //String dateString = "Fri, 09 Nov 2012 23:40:18 GMT";
+		String dateString = dates[0]+" "+times;
+		    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		    Date date = dateFormat.parse(dateString );
+		    long unixTime = (long) date.getTime()/1000;
+		    System.out.println(unixTime );
+
+		databaseInsert[1] = String.valueOf(unixTime);//activemq[3];
 		if(spectralData[6].equals("OK")){
 		databaseInsert[2] = "TRUE";
 		}else{
 			databaseInsert[2] = "FALSE";
 		}
-		//Double time1 = Integer.parseInt((spectralData[8]))/0.001;
-		//Double time2 = Integer.parseInt((spectralData[7]))/0.001;
-		databaseInsert[3] = "222222";//time1.toString();
-		databaseInsert[4] = "333333";//time2.toString();
+		Long t1 = Long.parseLong((spectralData[8]));
+		Long t2 = Long.parseLong((spectralData[7]));
+		Double time1 = (double)t1/1000;
+		Double time2 = (double) t2/1000;
+		databaseInsert[3] = time1.toString();
+		databaseInsert[4] = time2.toString();
 		databaseInsert[5] = activemq[0];
 		databaseInsert[6] = activemq[1];
 		databaseInsert[7] = spectralData[0];
@@ -221,13 +231,14 @@ public class StateMachine_Kafka {
     			producePart.fire(Trigger.L1true);
     			messages.add(message);
     			
-    			String[] data = new String[6];
+    			String[] data = new String[7];
     			data[0] = activemq[2];
     			data[1] = activemq[0];
     			data[2] = activemq[1];
     			data[3] = message.getItemName();
     			data[4] = message.getStatus();
     			data[5] = message.getValue();
+    			data[6] = message.getTimestamp();
     			server.setData(data);history.setPseudoData(data);
     			return"L1true";
     			}
@@ -245,7 +256,7 @@ public class StateMachine_Kafka {
     			data[3] = message.getItemName();
     			data[4] = message.getStatus();
     			data[5] = message.getValue();
-    			System.out.println("TEST2");
+    			data[6] = message.getTimestamp();
     			server.setData(data);history.setPseudoData(data);
     			return"L1false";
 		}
@@ -262,6 +273,7 @@ public class StateMachine_Kafka {
     			data[3] = message.getItemName();
     			data[4] = message.getStatus();
     			data[5] = message.getValue();
+    			data[6] = message.getTimestamp();
     			server.setData(data);history.setPseudoData(data);
     			return"L2true";
 	}
@@ -278,6 +290,7 @@ public class StateMachine_Kafka {
     			data[3] = message.getItemName();
     			data[4] = message.getStatus();
     			data[5] = message.getValue();
+    			data[6] = message.getTimestamp();
     			server.setData(data);history.setPseudoData(data);
     			return"L2false";
 }
@@ -294,6 +307,7 @@ return "nothing";
     			data[3] = message.getItemName();
     			data[4] = message.getStatus();
     			data[5] = message.getValue();
+    			data[6] = message.getTimestamp();
     			server.setData(data);history.setPseudoData(data);
     			return"L3true";
 			}
@@ -310,6 +324,7 @@ return "nothing";
     			data[3] = message.getItemName();
     			data[4] = message.getStatus();
     			data[5] = message.getValue();
+    			data[6] = message.getTimestamp();
     			server.setData(data);history.setPseudoData(data);
     			return"L3false";
 			}
@@ -326,6 +341,7 @@ return "nothing";
     			data[3] = message.getItemName();
     			data[4] = message.getStatus();
     			data[5] = message.getValue();
+    			data[6] = message.getTimestamp();
     			server.setData(data);history.setPseudoData(data);
     			return"L4true";
 			}
@@ -342,6 +358,7 @@ return "nothing";
     			data[3] = message.getItemName();
     			data[4] = message.getStatus();
     			data[5] = message.getValue();
+    			data[6] = message.getTimestamp();
     			server.setData(data);history.setPseudoData(data);
     			return"L4false";
 			}
@@ -357,6 +374,7 @@ return "nothing";
         			data[3] = message.getItemName();
         			data[4] = message.getStatus();
         			data[5] = message.getValue();
+        			data[6] = message.getTimestamp();
         			server.setData(data);history.setPseudoData(data);
         			producePart.fire(Trigger.L5true);
 
@@ -375,6 +393,7 @@ return "nothing";
     			data[3] = message.getItemName();
     			data[4] = message.getStatus();
     			data[5] = message.getValue();
+    			data[6] = message.getTimestamp();
     			server.setData(data);history.setPseudoData(data);
     			return"L5false";
     			}
@@ -392,6 +411,7 @@ return "nothing";
     	    			data[3] = message.getItemName();
     	    			data[4] = message.getStatus();
     	    			data[5] = message.getValue();
+    	    			data[6] = message.getTimestamp();
     	    			server.setData(data);history.setPseudoData(data);
     					return "milling";
     				}
@@ -406,6 +426,7 @@ return "nothing";
       	    			data[3] = message.getItemName();
       	    			data[4] = message.getStatus();
       	    			data[5] = message.getValue();
+      	    			data[6] = message.getTimestamp();
       	    			server.setData(data);history.setPseudoData(data);
       					return "drilling";
         			}

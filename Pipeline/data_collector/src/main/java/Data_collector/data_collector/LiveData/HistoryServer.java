@@ -107,9 +107,21 @@ public class HistoryServer extends Thread{
         		 AnswerJSON.put("customerno", result[i][1]); 
         		 AnswerJSON.put("materialno", result[i][2]);
         		 AnswerJSON.put("timestamp", result[i][3]);
-        		 AnswerJSON.put("speed", result[i][4]);
-        		 AnswerJSON.put("temp",  result[i][5]);
-
+        		 if(result[i][4]== null){
+        			 AnswerJSON.put("speed", "0"); 
+        		 } else if(result[i][4].length()>7){
+        		 AnswerJSON.put("speed", result[i][4].substring(0,7));
+        		 }else{
+        			 AnswerJSON.put("speed", result[i][4]); 
+        		 }
+        		 if(result[i][5]== null){
+        			 AnswerJSON.put("temp",  "0");
+        		 }else if( result[i][5].length()>7){
+        			 
+        		 AnswerJSON.put("temp",  result[i][5].substring(0,7));
+        		 }else{
+        			 AnswerJSON.put("temp",  result[i][5]);
+        		 }
        			json.add(AnswerJSON);
         		}
         		String answer = json.toString();
@@ -170,7 +182,7 @@ public class HistoryServer extends Thread{
     				System.out.println(e);
     				return "null";
     			}
-        	case "detail":
+        	case "history_details":
         		String entries2 = hilf3[1].split("=")[1];
         		int materialNo2 = -1;
         		if(hilf3[2].split("=")[1].equals("null") == false){
@@ -191,13 +203,21 @@ public class HistoryServer extends Thread{
         		 AnswerJSON.put("customerno", result[i][1]); 
         		 AnswerJSON.put("materialno", result[i][2]);
         		 AnswerJSON.put("timestamp", result[i][3]);
-        		 AnswerJSON.put("overallstatus", result[i][4]);
+        		 if(result[i][4].equals("t")){
+        			 AnswerJSON.put("overallstatus", "OK");
+        		 }else{
+        			 AnswerJSON.put("overallstatus", "NOT OK");
+        		 }
         		 AnswerJSON.put("em1", result[i][5]);
         		 AnswerJSON.put("em2", result[i][6]);
         		 AnswerJSON.put("a1", result[i][7]);
         		 AnswerJSON.put("a2", result[i][8]);
         		 AnswerJSON.put("b1", result[i][9]);
         		 AnswerJSON.put("b2", result[i][10]);
+        		 AnswerJSON.put("drillingspeed", result[i][11]);//.substring(0,8));
+        		 AnswerJSON.put("drillingtemp", result[i][12]);//.substring(0,6));
+        		 AnswerJSON.put("millingspeed", result[i][13]);//.substring(0,7));
+        		 AnswerJSON.put("millingtemp", result[i][14]);//.substring(0,6));
           		System.out.println(AnswerJSON.toString());
        			json.add(AnswerJSON);
         		}
@@ -210,7 +230,7 @@ public class HistoryServer extends Thread{
     				return "null";
     			}
     			
-        	case "runtime":
+        	case "history_runtime":
         		String entries3 = hilf3[1].split("=")[1];
         		int materialNo3 = -1;
         		if(hilf3[2].split("=")[1].equals("null") == false){
@@ -246,7 +266,7 @@ public class HistoryServer extends Thread{
     				return "null";
     			}
     			
-        	case "error":
+        	case "history_errors":
         		String entries4 = hilf3[1].split("=")[1];
         		int materialNo4 = -1;
         		if(hilf3[2].split("=")[1].equals("null") == false){
@@ -257,35 +277,18 @@ public class HistoryServer extends Thread{
         		customerNo4 =  Integer.parseInt(hilf3[4].split("=")[1]);
         		}
         		System.out.println(Integer.parseInt(entries4)+ "errorhistory"+materialNo4 +customerNo4 );
-        		result = PostgreSQLJDBC.select(Integer.parseInt(entries4), "millinghistory",materialNo4 ,customerNo4 );
+        		result = PostgreSQLJDBC.select(Integer.parseInt(entries4), "errorhistory",materialNo4 ,customerNo4 );
     			
     			try{
     			for(int i = 0; i<Integer.parseInt(entries4) ;i++){
-    			JSONObject AnswerJSON = new JSONObject();
-    			System.out.println(result[i][0]);
-        		 AnswerJSON.put("orderno",result[i][0]);
-        		 AnswerJSON.put("customerno", result[i][1]); 
-        		 AnswerJSON.put("materialno", result[i][2]);
-        		 AnswerJSON.put("timestamp", result[i][3]);
-        		 System.out.println(result[i][4]);
-     
-        		 if(result[i][4]== null){
-        			 AnswerJSON.put("speed", "0"); 
-        		 } else if(result[i][4].length()>7){
-        		 AnswerJSON.put("speed", result[i][4].substring(0,7));
-        		 }else{
-        			 AnswerJSON.put("speed", result[i][4]); 
-        		 }
-        		 if(result[i][5]== null){
-        			 AnswerJSON.put("temp",  "0");
-        		 }else if( result[i][5].length()>7){
-        			 
-        		 AnswerJSON.put("temp",  result[i][5].substring(0,7));
-        		 }else{
-        			 AnswerJSON.put("temp",  result[i][5]);
-        		 }
-          		System.out.println(AnswerJSON.toString());
-       			json.add(AnswerJSON);
+    				if(result[i][0]!= null){
+    					JSONObject AnswerJSON = new JSONObject();
+    					System.out.println(result[i][0]);
+    					AnswerJSON.put("Errors",result[i][0]);
+    					AnswerJSON.put("timestamp", result[i][1]); 
+    					System.out.println(AnswerJSON.toString());
+    					json.add(AnswerJSON);
+    				}
         		}
         		String answer = json.toString();
         		json.clear();
@@ -296,31 +299,6 @@ public class HistoryServer extends Thread{
     				return "null";
     			}
     			
-        		
-        	/*case "live_drilling":
-        		String entries2 = hilf3[1].split("=")[1];
-        		int materialNo2 = -1;
-        		if(hilf3[2].split("=")[1].equals("null") == false){
-        		materialNo2  = Integer.parseInt(hilf3[2].split("=")[1]);
-        		}
-        		int customerNo2 = -1;
-        		if(hilf3[2].split("=")[1].equals("null")== false){
-        		customerNo2 =  Integer.parseInt(hilf3[4].split("=")[1]);
-        		}
-        		result = PostgreSQLJDBC.select(1, "drillinghistory",materialNo2 ,customerNo2 );
-        		//return sql.readMessages(hilf);
-        	case "live_milling":
-        		String entries3 = hilf3[1].split("=")[1];
-        		int materialNo3 = -1;
-        		if(hilf3[2].split("=")[1].equals("null") == false){
-        		materialNo3  = Integer.parseInt(hilf3[2].split("=")[1]);
-        		}
-        		int customerNo3 = -1;
-        		if(hilf3[2].split("=")[1].equals("null")== false){
-        		customerNo3 =  Integer.parseInt(hilf3[4].split("=")[1]);
-        		}
-        		result = PostgreSQLJDBC.select(1, "millinghistory",materialNo3 ,customerNo3 );
-        		//return sql.readMessages(hilf);*/
         		default:
         			return "Nothing found";
         	}

@@ -32,7 +32,7 @@ public class App
     	ProducerConfig config2;
 		Properties props = new Properties();
 		//192.168.99.100:1000
-		props.put("metadata.broker.list", "192.168.99.100:9092");
+		props.put("metadata.broker.list", "192.168.99.100:1000");
 		props.put("serializer.class", "kafka.serializer.StringEncoder");
 		props.put("partitioner.class", "Data_collector.data_collector.main.SimplePartitioner");
 		props.put("request.required.acks", "1");
