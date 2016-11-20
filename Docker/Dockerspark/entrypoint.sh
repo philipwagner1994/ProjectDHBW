@@ -9,13 +9,7 @@ sleep 5
  echo "spark.driver.memory5g" >> /spark/conf/spark-defaults.conf
 sleep 10
 
-
-./spark/bin/spark-submit
-#submit to cluster
-#./spark/bin/spark-submit \
- # --class App.java \ 
-  #--master spark://spark:7077 \
-  --jars /jar/jarWithDependencies.jar  
+./spark/bin/spark-submit --class spark_streaming.spark_streaming.App --master local[1] /jar/jarWithDependencies.jar  
 
 # endless loop
 /usr/bin/tail -f /dev/null
