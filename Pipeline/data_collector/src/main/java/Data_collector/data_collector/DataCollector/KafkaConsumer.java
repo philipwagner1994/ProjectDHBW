@@ -48,7 +48,7 @@ public class KafkaConsumer {
 		BasicConfigurator.configure();
 		try{
 			//192.168.99.100:9092
-		KafkaConsumer consumer = new KafkaConsumer("192.168.99.100:1000","prodData");
+		KafkaConsumer consumer = new KafkaConsumer("kafka:9092","prodData");
 		consumer.run();
 		}catch(Exception e){
 			log.info("Error "+e );
@@ -59,7 +59,7 @@ public class KafkaConsumer {
 	public KafkaConsumer(String server, String topicName) throws Exception {
 		Properties props = new Properties();
 		//192.168.99.100:2182
-		server ="192.168.99.100:1001";
+		server ="kafka:2181";
 		//server ="127.0.0.1:9092";
 		topicName = "prodData";	
 		props.put("bootstrap.servers", server);

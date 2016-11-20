@@ -9,7 +9,7 @@ public class SpectralAnalysis {
 	}
 	
 	public String[] getSpectralAnalysis() throws Exception{
-	    File dir = new File("C:/Users/Lars/Documents/DHBW/5.Semester/Projekt/erp/"); 
+	    File dir = new File("/temp"); 
 		//long mod=0;
 		File found=null;
 		

@@ -32,7 +32,7 @@ public class App
     	ProducerConfig config2;
 		Properties props = new Properties();
 		//192.168.99.100:1000
-		props.put("metadata.broker.list", "192.168.99.100:1000");
+		props.put("metadata.broker.list", "kafka:9092");
 		props.put("serializer.class", "kafka.serializer.StringEncoder");
 		props.put("partitioner.class", "Data_collector.data_collector.main.SimplePartitioner");
 		props.put("request.required.acks", "1");
@@ -40,7 +40,7 @@ public class App
 		config2 = new ProducerConfig(props);
 		try{
 			//192.168.99.100:2181
-			ZkClient zkClient = new ZkClient("192.168.99.100:1001", 10000, 10000, ZKStringSerializer$.MODULE$);
+			ZkClient zkClient = new ZkClient("kafka:2181", 10000, 10000, ZKStringSerializer$.MODULE$);
 	
 			AdminUtils.createTopic(zkClient, "allData", 10, 1, new Properties());
 		}catch(Exception e){
@@ -72,7 +72,7 @@ public class App
     	KafkaConsumer.run();
         // Create a ConnectionFactory
     	//tcp://192.168.99.100:32768
-        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://192.168.99.100:32783");
+        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("acivemq:61616");
 
         // Create a Connection
         Connection connection = connectionFactory.createConnection();
