@@ -11,6 +11,9 @@ services:
         links:
             - kafka
             - activemq
+        ports:
+            - "1234:1234"
+            - "9887:9887"
     postgresql: 
         build: ./Dockerpostgres
         ports:

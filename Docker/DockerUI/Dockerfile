@@ -1,15 +1,18 @@
 FROM ubuntu:16.04
 MAINTAINER Mireille Puschmann
 
+#install nodejs, npm, wget und unzip
 RUN apt-get update && apt-get install -y nodejs && apt-get install -y npm && apt-get install -y wget && apt-get install -y unzip
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 
+#download openui5 sdk
 RUN wget https://openui5.hana.ondemand.com/downloads/openui5-sdk-1.40.10.zip -P /var/www/html
 RUN unzip -o /var/www/html/openui5-sdk-1.40.10.zip -d /var/www/html/
 RUN rm /var/www/html/openui5-sdk-1.40.10.zip
 
 RUN npm install -g http-server
 
+#copy UI Content
 COPY UI/WebContent/index.html /opt/UI/WebContent/index.html
 COPY UI /opt/UI
 COPY UI/WebContent /opt/UI/WebContent
@@ -32,4 +35,5 @@ WORKDIR /opt/UI/WebContent/
 
 EXPOSE 8080
 
+#start webserver
 CMD ["http-server", "-s"]
