@@ -51,9 +51,7 @@ sap.ui.define([
              		    	      text: "No Data"
              		    	    }
              		    	  },
-             		    	//x: 'orderno',
              		    	columns:[data],
-             		    	//json: data,
              		          type: 'spline',
 	             		      colors: {
 	           		              data: '#0414A6'
@@ -91,8 +89,6 @@ sap.ui.define([
                  },
 
                  renderer: function(oRm, oControl) {
-                   //var oBundle = oControl.getModel('i18n').getResourceBundle();
-
                    //Create the control
                    oRm.write('<div');
                    oRm.writeControlData(oControl);

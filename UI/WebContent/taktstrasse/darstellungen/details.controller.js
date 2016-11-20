@@ -12,9 +12,7 @@ sap.ui.define([
 	var PageController = Controller.extend("sap.checkmarx.selfservice.taktstrasse.darstellungen.details", {
 		
 		onInit : function (evt) {
-			 var oModel = new sap.ui.model.json.JSONModel();
-	           // Load JSON in model
-	              //oModel.loadData("json/detail.json");
+			var oModel = new sap.ui.model.json.JSONModel();
 			this.getView().setModel(oModel);
 			
 			this.getRouter().attachRoutePatternMatched(this.onRouteMatched, this);
@@ -58,44 +56,11 @@ sap.ui.define([
 			    	
 			    	oModel.refresh(true);
 			    	}
-			    	//that.getDataUpdate();
 			    },
 			    error : function(message) {
-			    	console.error("Error");
 			    }	
 			});
 		},
-		/*getDataUpdate: function() {
-			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();
-			if(oConfigModel.livedown==false){
-			$.ajax({
-			    async : true,
-			    type : "GET",
-			    url : "http://localhost:1234/Server/java",
-			    dataType : 'text',
-			    data : {
-				'function' : "live_detail",
-				materialno: oConfigModel.config.MaterialNum,
-				customerno: oConfigModel.config.CustomerNum
-			    },
-			    success : function(response) {
-			    	var oModel = this.getView().getModel();
-			    	var oController = this;
-			    	
-			    	var jsonResponse = JSON.parse(response);
-			    	oModel.getProperty("/Details").push(jsonResponse);
-			    	oModel.getProperty("/Details").shift();
-			    	
-			    	oModel.refresh(true);
-			    	oController.getDataUpdate();
-			    	
-			    },
-			    error : function(message) {
-				console.error("Error");
-			    }	
-			});
-			}
-		},*/
 		getRouter : function () {
 			return sap.ui.core.UIComponent.getRouterFor(this);
 		},
@@ -136,11 +101,8 @@ sap.ui.define([
 			}
 			else oConfigModel.config.MaterialNum = "";
 			oController.onRouteMatched();
-		}
-		
- 
-	});
- 
+		}		
+	}); 
 	return PageController;
 	
 

@@ -41,7 +41,6 @@ sap.ui.define([
 					
 			    	var jsonResponse = JSON.parse(response);
 			    	var OrderNum;
-			    	console.log(jsonResponse);
 			    	switch(jsonResponse[0].Item)
 					{
 						   case "MILLING_HEAT":
@@ -65,7 +64,6 @@ sap.ui.define([
 						       oModel.oData.TileCollection[1].OrderNum = OrderNum
 						       break;
 						   default:
-						       console.log("Fehler");
 					}
 			    	oModel.refresh(true);
 			    	}
@@ -137,7 +135,6 @@ sap.ui.define([
 			    	var oModel = that.getView().getModel();
 			    	var jsonResponse = JSON.parse(response);
 			    	var OrderNum;
-			    	console.log(jsonResponse);
 			    	switch(jsonResponse[0].Item)
 					{
 						   case "MILLING_HEAT":
@@ -161,7 +158,6 @@ sap.ui.define([
 						       oModel.oData.TileCollection[1].OrderNum = OrderNum
 						       break;
 						   default:
-						       console.log("Fehler");
 					}
 			    	oModel.refresh(true);
 			    	}

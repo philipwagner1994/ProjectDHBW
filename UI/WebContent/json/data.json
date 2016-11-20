@@ -11,7 +11,6 @@
 			"OrderNum" : "",
 			"info" : "",
 			"infoState" : ""
-		
 		},{
 			"icon" : "drill-down",
 			"title" : "Drilling",
@@ -22,32 +21,24 @@
 			"OrderNum" : "",
 			"info" : "",
 			"infoState" : ""
-		
 		},
-		
 		{
 			"icon" : "factory",
 			"title" : "Production",
 			"number" : "",
 			"numberUnit" : ""
-		
 		},
 		{
 			"icon" : "message-error",
 			"title" : "Errors"
-		
 		},
 		{
 			"icon" : "product",
-			"title" : "Details"
-		
+			"title" : "Details"	
 		},
 		{
 			"icon" : "performance",
-			"title" : "Runtime"
-		
+			"title" : "Runtime"		
 		}
-	],
-	"flags" : [{"livedown" : false}]
-	
+	]	
 }

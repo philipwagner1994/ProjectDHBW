@@ -61,10 +61,8 @@ sap.ui.define([
 		        
 		        bar: {
 		            width: {
-		                ratio: 0.5 // this makes bar width 50% of length between ticks
+		                ratio: 0.5 
 		            }
-		            // or
-		            //width: 100 // this makes bar width 100px
 		        },
 		        axis: {
 			          y: {
@@ -98,8 +96,6 @@ sap.ui.define([
     },
 
     renderer: function(oRm, oControl) {
-      //var oBundle = oControl.getModel('i18n').getResourceBundle();
-
       //Create the control
       oRm.write('<div');
       oRm.writeControlData(oControl);

@@ -15,9 +15,7 @@ sap.ui.define([
 			this.getView().byId("CustomerNumSearch").setValue(oConfigModel.config.CustomerNum);
 			this.getView().byId("MaterialNumSearch").setValue(oConfigModel.config.MaterialNum);
 			
-			 var oModel = new sap.ui.model.json.JSONModel();
-	           // Load JSON in model
-	              //oModel.loadData("json/chart.json");
+			var oModel = new sap.ui.model.json.JSONModel();
 			this.getView().setModel(oModel);
 			
 			
@@ -65,68 +63,12 @@ sap.ui.define([
 			    	oModel.setProperty("/gaugeDatatemp", parseInt(jsonResponse[jsonResponse.length-1].temp));
 			    	oModel.setProperty("/gaugeDataspeed",  parseInt(jsonResponse[jsonResponse.length-1].speed));
 			    	oModel.refresh(true);
-			    	//that.getView().byId("LineChartHeat").load();
-			    	//that.getView().byId("LineChartSpeed").load();
-
 			    	}
-			    	//that.getDataUpdate();
 			    },
 			    error : function(message) {
-			    	console.error("Error");
 			    }	
 			});
 		},
-		/*getDataUpdate: function() {
-			var oConfigModel = sap.ui.getCore().getModel("ConfigModel").getData();
-			if(oConfigModel.drillinglivedown==false){
-			var that = this;
-			
-			
-
-			$.ajax({
-			    async : true,
-			    type : "GET",
-			    url : "http://localhost:1234/Server/java",
-			    dataType : 'text',
-			    data : {
-				'function' : "getWSData",
-			    },
-			    success : function(response) {
-			    	if(response != "null"){
-			    	
-			    	var oModel = that.getView().getModel();
-			    	
-			    	var jsonResponse = JSON.parse(response);
-			    	console.log(jsonResponse);
-			    	switch(jsonResponse[0].Item)
-					{
-						   case "DRILLING_HEAT":
-						    	oModel.setProperty("/gaugeDatatemp/temp", parseInt(jsonResponse[jsonResponse.length-1].temp));
-						    	oModel.refresh(true);
-						    	that.getView().byId("GaugeChartHeat").load();
-						    	that.getDataUpdate();
-						    	
-						       break;
-						   case "DRILLING_SPEED":
-							   oModel.setProperty("/gaugeDataspeed/speed",  parseInt(jsonResponse[jsonResponse.length-1].speed));
-							   oModel.refresh(true);
-							   that.getView().byId("GaugeChartSpeed").load();
-							   that.getDataUpdate();
-						       break;
-						   case "L1":
-							   that.onRouteMatched();
-						       break;
-						   default:
-							   that.getDataUpdate();
-					}
-			    	}
-			    },
-			    error : function(message) {			    	
-				console.error("Error");
-			    }	
-			});
-			}
-		},*/
 		getRouter : function () {
 			return sap.ui.core.UIComponent.getRouterFor(this);
 		},
@@ -172,9 +114,7 @@ sap.ui.define([
 			oConfigModel.overviewlivedown = false;
 			sap.ui.core.UIComponent.getRouterFor(this).navTo("overview");
 		}
-
 	});
- 
 	return PageController;
 	
 

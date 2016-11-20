@@ -90,8 +90,6 @@ sap.ui.define([
     },
 
     renderer: function(oRm, oControl) {
-      //var oBundle = oControl.getModel('i18n').getResourceBundle();
-
       //Create the control
       oRm.write('<div');
       oRm.writeControlData(oControl);
